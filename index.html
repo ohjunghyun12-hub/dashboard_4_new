@@ -1,1 +1,4001 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>4부문 주요실적</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css">
+<style>
+  :root {
+    color-scheme: light;
+    --bg: #f4f4f1;
+    --surface: #fcfcfb;
+    --surface-2: #f0efec;
+    --border: #e2e1dc;
+    --grid: #ecebe6;
+    --text-1: #0b0b0b;
+    --text-2: #52514e;
+    --text-3: #85847e;
+    --accent: #2a78d6;
+    --bar-py: #c3c2b9;
+    --bar-plan: #9ec5f4;
+    --bar-act: #2a78d6;
+    --good: #0ca30c;
+    --warning: #e09b00;
+    --critical: #d03b3b;
+    --pos-rgb: 42,120,214;
+    --neg-rgb: 208,59,59;
+    --shadow: 0 1px 2px rgba(0,0,0,.04);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --bg: #121211; --surface: #1a1a19; --surface-2: #242422; --border: #2f2f2c; --grid: #2a2a27;
+      --text-1: #ffffff; --text-2: #c3c2b7; --text-3: #8d8c84; --accent: #3987e5;
+      --bar-py: #5a5954; --bar-plan: #1c5cab; --bar-act: #5598e7;
+      --good: #2fbf2f; --warning: #fab219; --critical: #e66767;
+      --pos-rgb: 57,135,229; --neg-rgb: 230,103,103; --shadow: none;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --bg: #121211; --surface: #1a1a19; --surface-2: #242422; --border: #2f2f2c; --grid: #2a2a27;
+    --text-1: #ffffff; --text-2: #c3c2b7; --text-3: #8d8c84; --accent: #3987e5;
+    --bar-py: #5a5954; --bar-plan: #1c5cab; --bar-act: #5598e7;
+    --good: #2fbf2f; --warning: #fab219; --critical: #e66767;
+    --pos-rgb: 57,135,229; --neg-rgb: 230,103,103; --shadow: none;
+  }
 
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text-1);
+    font-family: "Pretendard Variable", Pretendard, -apple-system, "Malgun Gothic", sans-serif;
+    font-size: 14px; line-height: 1.45; -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1280px; margin: 0 auto; padding: 24px 16px 48px; }
+  .num { font-variant-numeric: tabular-nums; }
+
+  /* Header */
+  header { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap; margin-bottom: 20px; }
+  h1 { font-size: 22px; margin: 0 0 4px; letter-spacing: -0.02em; }
+  .sub { color: var(--text-2); font-size: 13px; }
+  .sub b { color: var(--text-1); font-weight: 600; }
+  .icon-btn { border: 1px solid var(--border); background: var(--surface); color: var(--text-2); border-radius: 8px; padding: 6px 10px; cursor: pointer; font: inherit; font-size: 12px; }
+
+  /* Tabs */
+  .tabs { display: flex; gap: 4px; background: var(--surface-2); padding: 4px; border-radius: 10px; overflow-x: auto; margin-bottom: 16px; width: fit-content; max-width: 100%; }
+  .tab { border: 0; background: transparent; color: var(--text-2); padding: 8px 16px; border-radius: 7px; font: inherit; font-weight: 500; cursor: pointer; white-space: nowrap; }
+  .tab[aria-selected="true"] { background: var(--surface); color: var(--text-1); font-weight: 700; box-shadow: 0 1px 3px rgba(0,0,0,.08); }
+
+  /* Summary strip */
+  .summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 16px; }
+  .sum-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; box-shadow: var(--shadow); }
+  .sum-label { color: var(--text-2); font-size: 12px; }
+  .sum-value { font-size: 24px; font-weight: 700; margin-top: 2px; letter-spacing: -0.02em; }
+  .sum-value small { font-size: 14px; color: var(--text-3); font-weight: 500; }
+
+  /* Section */
+  section { margin-top: 28px; }
+  .sec-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 12px; }
+  h2 { font-size: 16px; margin: 0; }
+  .hint { color: var(--text-3); font-size: 12px; }
+
+  /* KPI cards */
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px; box-shadow: var(--shadow); display: flex; flex-direction: column; gap: 12px; cursor: pointer; transition: border-color .15s; }
+  .card:hover { border-color: var(--accent); }
+  .card-top { display: flex; justify-content: space-between; align-items: baseline; }
+  .card-name { font-weight: 700; font-size: 15px; }
+  .card-unit { color: var(--text-3); font-size: 12px; }
+  .card-value { font-size: 28px; font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; }
+  .card-value small { font-size: 13px; color: var(--text-3); font-weight: 500; margin-left: 2px; }
+  .metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .metric { background: var(--surface-2); border-radius: 8px; padding: 8px 10px; }
+  .metric-label { font-size: 11px; color: var(--text-2); }
+  .metric-val { font-size: 16px; font-weight: 700; }
+  .metric-sub { font-size: 11px; color: var(--text-3); }
+  .status { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 600; color: var(--text-2); }
+  .dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+  .s-good .dot { background: var(--good); } .s-warning .dot { background: var(--warning); } .s-critical .dot { background: var(--critical); }
+  .up { color: var(--accent); } .down { color: var(--critical); }
+
+  .bars { display: flex; flex-direction: column; gap: 6px; }
+  .bar-row { display: grid; grid-template-columns: 56px 1fr 64px; align-items: center; gap: 8px; font-size: 12px; }
+  .bar-row .lbl { color: var(--text-2); }
+  .bar-row .val { text-align: right; color: var(--text-1); }
+  .track { height: 8px; background: var(--grid); border-radius: 4px; overflow: hidden; }
+  .fill { height: 100%; border-radius: 0 4px 4px 0; }
+  .card-note { font-size: 11px; color: var(--text-3); margin-top: -8px; }
+  .metric.muted .metric-val { color: var(--text-3); }
+  .s-none .dot { background: var(--text-3); }
+  .card.nodata { cursor: default; border-style: dashed; }
+  .card.nodata:hover { border-color: var(--border); }
+  .empty { flex: 1; min-height: 160px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; color: var(--text-3); font-weight: 600; }
+  .empty small { font-weight: 400; font-size: 11px; }
+  .sum-label small { color: var(--text-3); }
+  .card-foot { flex-wrap: wrap; gap: 4px 12px; font-size: 11px; color: var(--text-3); border-top: 1px dashed var(--border); padding-top: 8px; display: flex; justify-content: space-between; }
+
+  /* Tables */
+  .panel { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; box-shadow: var(--shadow); overflow: hidden; }
+  .scroll { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; min-width: 860px; }
+  th, td { padding: 10px 12px; text-align: right; border-bottom: 1px solid var(--grid); white-space: nowrap; }
+  th { font-size: 12px; color: var(--text-2); font-weight: 600; background: var(--surface-2); }
+  thead tr:first-child th { border-bottom: 1px solid var(--border); }
+  th.grp { text-align: center; }
+  td:first-child, thead tr:first-child th:first-child { text-align: left; position: sticky; left: 0; background: inherit; z-index: 1; }
+  thead tr:first-child th:first-child { background: var(--surface-2); }
+  tbody tr { background: var(--surface); }
+  tbody tr:last-child td { border-bottom: 0; }
+  td.name { font-weight: 600; }
+  td.period { text-align: center; color: var(--text-2); font-size: 12px; }
+  td.name span { color: var(--text-3); font-weight: 400; font-size: 11px; margin-left: 4px; }
+  .sep { border-left: 1px solid var(--border); }
+
+  /* Matrix */
+  .seg { display: inline-flex; background: var(--surface-2); padding: 3px; border-radius: 8px; }
+  .seg button { border: 0; background: transparent; color: var(--text-2); padding: 5px 12px; border-radius: 6px; font: inherit; font-size: 12px; cursor: pointer; }
+  .seg button[aria-pressed="true"] { background: var(--surface); color: var(--text-1); font-weight: 700; }
+  .matrix table { min-width: 680px; }
+  .matrix td.cell { text-align: center; font-weight: 600; cursor: pointer; }
+  .matrix td.cell .s { display: block; font-size: 11px; font-weight: 400; color: var(--text-2); }
+  .matrix tr.selected td.name { color: var(--accent); }
+  .matrix tbody tr:hover td.name { color: var(--accent); }
+  .legend { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; font-size: 12px; color: var(--text-2); }
+  .legend i { display: inline-block; width: 12px; height: 12px; border-radius: 3px; margin-right: 5px; vertical-align: -2px; }
+  .scale { display: inline-flex; align-items: center; gap: 6px; }
+  .scale .ramp { width: 120px; height: 10px; border-radius: 3px; background: linear-gradient(90deg, rgba(var(--neg-rgb),.55), var(--surface-2) 50%, rgba(var(--pos-rgb),.55)); }
+
+  /* Chart */
+  .chart-panel { padding: 16px; }
+  .chart-title { font-weight: 700; margin-bottom: 2px; }
+  svg text { fill: var(--text-2); font-size: 11px; font-family: inherit; }
+  svg .axis { stroke: var(--border); }
+  svg .gridline { stroke: var(--grid); }
+  svg .val-lbl { fill: var(--text-1); font-weight: 600; }
+
+  #tip { position: fixed; pointer-events: none; background: var(--surface); color: var(--text-1); border: 1px solid var(--border); border-radius: 8px; padding: 8px 10px; font-size: 12px; box-shadow: 0 4px 16px rgba(0,0,0,.12); opacity: 0; transition: opacity .1s; z-index: 10; min-width: 140px; }
+  #tip .t { font-weight: 700; margin-bottom: 4px; }
+  #tip .r { display: flex; justify-content: space-between; gap: 12px; color: var(--text-2); }
+  #tip .r b { color: var(--text-1); }
+
+  footer { margin-top: 32px; color: var(--text-3); font-size: 12px; }
+  @media (max-width: 560px) {
+    .card-value { font-size: 24px; }
+    h1 { font-size: 19px; }
+  }
+
+  /* Toolbar & month picker */
+  .toolbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
+  .toolbar .tabs { margin-bottom: 0; }
+  .picker { display: inline-flex; align-items: center; gap: 8px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 6px 8px 6px 12px; }
+  .picker label { font-size: 12px; color: var(--text-2); font-weight: 600; }
+  .picker select { font: inherit; font-weight: 700; color: var(--text-1); background: var(--surface-2); border: 0; border-radius: 6px; padding: 5px 8px; cursor: pointer; }
+  .picker .range { font-size: 12px; color: var(--text-3); }
+  .card .more { font-size: 11px; color: var(--accent); font-weight: 600; }
+
+  /* Modal */
+  .modal { position: fixed; inset: 0; background: rgba(0,0,0,.45); display: flex; align-items: flex-start; justify-content: center; padding: 32px 16px; overflow-y: auto; z-index: 20; }
+  .modal[hidden] { display: none; }
+  .modal-box { position: relative; background: var(--bg); border-radius: 16px; width: 100%; max-width: 1080px; padding: 20px; box-shadow: 0 20px 60px rgba(0,0,0,.25); }
+  .modal-head { padding-right: 44px; display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; flex-wrap: wrap; margin-bottom: 14px; }
+  .modal-title { font-size: 18px; font-weight: 700; }
+  .modal-close { position: absolute; top: 16px; right: 16px; border: 0; background: var(--surface-2); color: var(--text-2); width: 32px; height: 32px; border-radius: 8px; font-size: 18px; cursor: pointer; }
+  .modal .seg { flex-wrap: wrap; }
+  .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 8px; margin-bottom: 12px; }
+  .kpi { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 10px 12px; }
+  .kpi .l { font-size: 11px; color: var(--text-2); }
+  .kpi .v { font-size: 18px; font-weight: 700; }
+  .monthly table { min-width: 640px; }
+  .monthly tr.in td { background: rgba(var(--pos-rgb), .06); }
+  .monthly tr.out td { color: var(--text-3); }
+  .monthly tfoot td { font-weight: 700; background: var(--surface-2); border-top: 1px solid var(--border); }
+  @media (max-width: 560px) { .modal { padding: 12px 8px; } .modal-box { padding: 14px; } .chart-panel { padding: 12px; } }
+  svg .range-bg { fill: rgba(var(--pos-rgb), .07); }
+  svg .pt-lbl { font-size: 10px; fill: var(--text-3); font-variant-numeric: tabular-nums; }
+  svg .pt-lbl.cyPlan { fill: var(--text-2); }
+  svg .pt-lbl.cyAct { fill: var(--text-1); font-weight: 700; }
+  svg .line { fill: none; stroke-width: 2; }
+
+  /* ===== Hero header ===== */
+  header.hero {
+    position: relative; overflow: hidden; align-items: center;
+    background: linear-gradient(120deg, #0a2350 0%, #16408f 55%, #2a78d6 100%);
+    color: #fff; border-radius: 16px; padding: 26px 28px; margin-bottom: 18px;
+    box-shadow: 0 6px 24px rgba(16, 52, 120, .18);
+  }
+  header.hero::after {           /* 장식용 원 */
+    content: ""; position: absolute; right: -60px; top: -80px; width: 280px; height: 280px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,255,255,.16), rgba(255,255,255,0) 70%); pointer-events: none;
+  }
+  .hero-text { position: relative; z-index: 1; }
+  .eyebrow { font-size: 12px; font-weight: 600; letter-spacing: .04em; color: rgba(255,255,255,.72); margin-bottom: 6px; }
+  header.hero h1 { color: #fff; font-size: 26px; font-weight: 800; letter-spacing: -0.03em; margin: 0 0 12px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip { font-size: 12px; color: rgba(255,255,255,.8); background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.18); border-radius: 999px; padding: 4px 10px; }
+  .chip b { color: #fff; font-weight: 700; margin-left: 2px; }
+  header.hero .icon-btn { position: relative; z-index: 1; background: rgba(255,255,255,.12); border-color: rgba(255,255,255,.3); color: #fff; }
+  header.hero .icon-btn:hover { background: rgba(255,255,255,.22); }
+  :root[data-theme="dark"] header.hero { background: linear-gradient(120deg, #0a1a38 0%, #12346f 60%, #1c5cab 100%); box-shadow: none; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) header.hero { background: linear-gradient(120deg, #0a1a38 0%, #12346f 60%, #1c5cab 100%); box-shadow: none; } }
+
+  /* ===== 조직 탭 / 월 선택 강조 ===== */
+  .tabs { background: var(--surface); border: 1px solid var(--border); padding: 5px; gap: 4px; box-shadow: var(--shadow); }
+  .tab { padding: 9px 18px; font-size: 14px; color: var(--text-2); }
+  .tab:hover { background: var(--surface-2); color: var(--text-1); }
+  .tab[aria-selected="true"] { background: var(--accent); color: #fff; font-weight: 700; box-shadow: 0 2px 8px rgba(var(--pos-rgb), .35); }
+  .picker { border-color: rgba(var(--pos-rgb), .45); box-shadow: var(--shadow); }
+  .picker label { color: var(--accent); }
+  .picker select { background: rgba(var(--pos-rgb), .1); color: var(--accent); }
+  @media (max-width: 560px) {
+    header.hero { padding: 20px 18px; }
+    header.hero h1 { font-size: 21px; }
+    .tab { padding: 8px 12px; font-size: 13px; }
+  }
+
+  /* ===== App layout (사이드 목차) ===== */
+  .app { display: grid; grid-template-columns: 228px minmax(0, 1fr); min-height: 100vh; }
+  .side { position: sticky; top: 0; height: 100vh; background: var(--surface); border-right: 1px solid var(--border);
+          padding: 18px 12px; display: flex; flex-direction: column; gap: 18px; }
+  .brand { display: flex; gap: 10px; align-items: center; padding: 0 6px; }
+  .brand-mark { width: 36px; height: 36px; flex: none; border-radius: 10px; background: linear-gradient(135deg, #0a2350, #2a78d6);
+                color: #fff; font-weight: 800; display: grid; place-items: center; font-size: 14px; }
+  .brand-t { font-weight: 800; font-size: 14px; } .brand-s { font-size: 11px; color: var(--text-3); }
+  .nav { display: flex; flex-direction: column; gap: 3px; }
+  .nav button { display: flex; align-items: center; gap: 10px; border: 0; background: transparent; color: var(--text-2);
+                padding: 10px 10px; border-radius: 10px; font: inherit; font-weight: 600; text-align: left; cursor: pointer; white-space: nowrap; }
+  .nav button:hover { background: var(--surface-2); color: var(--text-1); }
+  .nav button[aria-current="page"] { background: rgba(var(--pos-rgb), .12); color: var(--accent); }
+  .nav .n { width: 22px; height: 22px; flex: none; border-radius: 6px; background: var(--surface-2); font-size: 11px; display: grid; place-items: center; color: var(--text-3); }
+  .nav button[aria-current="page"] .n { background: var(--accent); color: #fff; }
+  .side-foot { margin-top: auto; font-size: 11px; color: var(--text-3); padding: 0 6px; line-height: 1.6; }
+  .main { min-width: 0; padding: 14px 20px 20px; }
+  .page[hidden], .view[hidden] { display: none; }
+
+  /* 컴팩트 조정 */
+  header.hero { padding: 16px 22px; margin-bottom: 14px; gap: 12px; }
+  header.hero h1 { font-size: 21px; margin: 0 0 8px; }
+  .eyebrow { margin-bottom: 4px; }
+  .hero-ctrl { position: relative; z-index: 1; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  section, .view { margin-top: 0; }
+  .sec-head { margin-bottom: 10px; }
+  .summary { margin-bottom: 12px; gap: 10px; }
+  .sum-card { padding: 10px 14px; } .sum-value { font-size: 20px; }
+  .card { padding: 14px; gap: 10px; } .card-value { font-size: 24px; }
+  th, td { padding: 8px 10px; }
+  .toolbar { margin-bottom: 12px; }
+  footer { margin-top: 14px; }
+
+  /* 초기 화면 요약표 */
+  table.home { min-width: 860px; table-layout: fixed; }
+  table.home col.c-item { width: 128px; }
+  table.home th { text-align: center; font-size: 13px; }
+  table.home th.lead { color: var(--accent); }
+  table.home td.hc { text-align: left; vertical-align: middle; padding: 8px 12px; cursor: pointer; border-left: 1px solid var(--grid); }
+  table.home td.hc:hover { outline: 2px solid var(--accent); outline-offset: -2px; }
+  table.home td.lead, table.home th.lead { border-right: 2px solid var(--border); }
+  .hv { font-size: 17px; font-weight: 700; line-height: 1.25; }
+  .hv small { font-size: 11px; color: var(--text-3); font-weight: 500; margin-left: 2px; }
+  .hm { font-size: 12px; color: var(--text-2); display: flex; gap: 6px; align-items: center; line-height: 1.5; }
+  .hm .k { color: var(--text-3); width: 24px; flex: none; }
+  .hm b { font-weight: 700; color: var(--text-1); } .hm b.up { color: var(--accent); } .hm b.down { color: var(--critical); }
+  td.iname b { display: block; font-size: 14px; }
+  td.iname span { color: var(--text-3); font-size: 11px; }
+  table.home tfoot td { background: var(--surface-2); font-size: 12px; color: var(--text-2); text-align: center; border-top: 1px solid var(--border); }
+  table.home tfoot td b { color: var(--text-1); font-size: 14px; }
+  table.home tfoot td:first-child { text-align: left; }
+  td.na { color: var(--text-3); text-align: center !important; font-size: 12px; }
+
+  /* 영업·개발 지표 */
+  .split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px; align-items: start; }
+  .split-c { grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); }
+  .split-c table { min-width: 560px; }
+  .panel-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 12px 14px; flex-wrap: wrap; }
+  table.gtable { min-width: 0; font-size: 13px; }
+  table.gtable th, table.gtable td { padding: 9px 8px; }
+  table.gtable tbody tr { cursor: pointer; }
+  table.gtable tbody tr:hover td { background: var(--surface-2); }
+  table.gtable tbody tr.sel td { background: rgba(var(--pos-rgb), .1); }
+  table.gtable tbody tr.sel td:first-child { box-shadow: inset 3px 0 0 var(--accent); }
+  .item-seg button { font-size: 13px; padding: 7px 14px; }
+  .link-btn { border: 0; background: none; color: var(--accent); font: inherit; font-size: 12px; font-weight: 600; cursor: pointer; }
+  .placeholder { padding: 56px 24px; text-align: center; }
+  .ph-title { font-size: 16px; font-weight: 700; margin-bottom: 6px; }
+  .empty-panel { padding: 48px 16px; text-align: center; color: var(--text-3); }
+
+  @media (max-width: 1100px) { .split, .split-c { grid-template-columns: 1fr; } }
+  @media (max-width: 860px) {
+    .app { grid-template-columns: 1fr; }
+    .side { position: sticky; top: 0; z-index: 5; height: auto; flex-direction: row; align-items: center; padding: 8px 10px; border-right: 0; border-bottom: 1px solid var(--border); overflow-x: auto; gap: 10px; }
+    .brand-t, .brand-s, .side-foot { display: none; }
+    .brand-mark { width: 30px; height: 30px; font-size: 12px; }
+    .nav { flex-direction: row; }
+    .nav button { padding: 8px 10px; font-size: 13px; }
+    .main { padding: 12px 12px 20px; }
+  }
+
+  /* ===== 조직 및 사무소 현황 ===== */
+  :root { --r1: #2a78d6; --r2: #eb6834; --r3: #1baf7a; --r4: #eda100; --rFCS: #4a3aa7; }
+  :root[data-theme="dark"] { --r1: #3987e5; --r2: #d95926; --r3: #199e70; --r4: #c98500; --rFCS: #9085e9; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --r1: #3987e5; --r2: #d95926; --r3: #199e70; --r4: #c98500; --rFCS: #9085e9; } }
+  .org-grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 12px; align-items: start; }
+  .map-panel { padding-bottom: 10px; }
+  #orgMap svg { display: block; width: 100%; height: auto; max-height: calc(100vh - 420px); min-height: 320px; }
+  #orgMap path.dist { stroke: var(--surface); stroke-width: .8; cursor: pointer; transition: opacity .15s; }
+  #orgMap path.dist:hover { stroke: var(--text-1); stroke-width: 1.6; }
+  #orgMap path.dist.dim { opacity: .18; }
+  #orgMap text.rlbl { font-size: 15px; font-weight: 800; fill: #fff; paint-order: stroke; stroke: rgba(0,0,0,.45); stroke-width: 3px; pointer-events: none; }
+  #orgMap text.rsub { font-size: 11px; font-weight: 600; fill: #fff; paint-order: stroke; stroke: rgba(0,0,0,.45); stroke-width: 3px; pointer-events: none; }
+  #orgMap text.dlbl { font-size: 9px; fill: var(--text-1); paint-order: stroke; stroke: var(--surface); stroke-width: 2.5px; pointer-events: none; }
+  .org-legend { display: flex; flex-wrap: wrap; gap: 6px; padding: 4px 14px 2px; }
+  .org-legend button { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--border); background: var(--surface); color: var(--text-2);
+                       border-radius: 999px; padding: 4px 10px; font: inherit; font-size: 12px; cursor: pointer; }
+  .org-legend button[aria-pressed="true"] { border-color: var(--text-1); color: var(--text-1); font-weight: 700; }
+  .org-legend i { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
+  .org-right { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+  .org-right .kpis { margin: 0; grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  @media (max-width: 700px) { .org-right .kpis { grid-template-columns: repeat(2, 1fr); } }
+  #orgTabs { align-self: flex-start; flex-wrap: wrap; }
+  .rcards { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .rcard { background: var(--surface); border: 1px solid var(--border); border-left: 5px solid var(--rc); border-radius: 12px; padding: 12px 14px; cursor: pointer; }
+  .rcard:hover { box-shadow: 0 2px 10px rgba(0,0,0,.08); }
+  .rcard .t { font-weight: 800; font-size: 15px; display: flex; justify-content: space-between; align-items: baseline; }
+  .rcard .t small { font-weight: 500; color: var(--text-3); font-size: 11px; }
+  .rcard .a { color: var(--text-2); font-size: 12px; margin: 2px 0 8px; }
+  .rcard .nums { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+  .rcard .nums div { background: var(--surface-2); border-radius: 8px; padding: 6px 8px; }
+  .rcard .nums span { display: block; font-size: 11px; color: var(--text-3); }
+  .rcard .nums b { font-size: 15px; }
+  .rhead { display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-bottom: 1px solid var(--grid); flex-wrap: wrap; }
+  .rhead .sw { width: 14px; height: 14px; border-radius: 4px; }
+  .rhead b { font-size: 15px; }
+  table.teams { min-width: 0; font-size: 13px; }
+  table.teams td.area { text-align: left; white-space: normal; color: var(--text-2); }
+  table.teams th.l { text-align: left; }
+  table.teams tbody tr:hover td { background: var(--surface-2); }
+  @media (max-width: 1100px) { .org-grid { grid-template-columns: 1fr; } #orgMap svg { max-height: 520px; } }
+  @media (max-width: 560px) { .rcards { grid-template-columns: 1fr; } }
+
+  /* 인원 현황 */
+  .org-view-seg { margin-bottom: 12px; }
+  .org-view-seg button { font-size: 13px; padding: 7px 16px; }
+  .org-view[hidden] { display: none; }
+  .staff { display: grid; grid-template-columns: auto 1.6fr 1fr; gap: 0; margin-bottom: 12px; }
+  .staff > div { padding: 10px 16px; }
+  .staff > div + div { border-left: 1px solid var(--grid); }
+  .staff .lbl { font-size: 12px; color: var(--text-2); font-weight: 600; }
+  .staff .big { font-size: 26px; font-weight: 800; letter-spacing: -0.02em; line-height: 1.2; }
+  .staff .big small { font-size: 13px; color: var(--text-3); font-weight: 500; margin-left: 2px; }
+  .staff .grp-h { display: flex; align-items: baseline; gap: 8px; margin-bottom: 6px; }
+  .staff .grp-h b { font-size: 18px; }
+  .staff .grp-h .pct { font-size: 11px; color: var(--text-3); }
+  .staff .chips2 { display: flex; flex-wrap: wrap; gap: 6px; }
+  .staff .chip2 { background: var(--surface-2); border-radius: 8px; padding: 4px 9px; font-size: 12px; color: var(--text-2); }
+  .staff .chip2 b { color: var(--text-1); margin-left: 4px; }
+  .staff .ratio { height: 6px; border-radius: 3px; background: var(--grid); overflow: hidden; display: flex; margin-top: 8px; width: 160px; }
+  .staff .ratio i { display: block; height: 100%; }
+  @media (max-width: 900px) { .staff { grid-template-columns: 1fr; } .staff > div + div { border-left: 0; border-top: 1px solid var(--grid); } }
+
+  .rcard .t .lm { margin: 0 auto 0 12px; font-size: 12px; font-weight: 500; color: var(--text-2); }
+  .rcard .t .lm b { font-size: 14px; font-weight: 800; color: var(--text-1); }
+  .pchips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+  .pchips .chip2 { background: var(--surface-2); border-radius: 8px; padding: 3px 9px; font-size: 12px; color: var(--text-2); }
+  .pchips .chip2 b { color: var(--text-1); margin-left: 4px; }
+  .rcard.nolink { cursor: default; } .rcard.nolink:hover { box-shadow: none; }
+
+  /* ===== 사무소 현황 ===== */
+  .off-grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 12px; align-items: start; }
+  .off-main { display: flex; flex-direction: column; gap: 12px; }
+  .hq { position: relative; overflow: hidden; border-radius: 16px; padding: 20px 22px; color: #fff;
+        background: linear-gradient(135deg, #0a2350, #1c5cab); box-shadow: 0 6px 20px rgba(16,52,120,.16); }
+  .hq.gj { background: linear-gradient(135deg, #3d2a00, #b07400); }
+  .hq .tag { display: inline-block; font-size: 11px; font-weight: 700; background: rgba(255,255,255,.18); border-radius: 999px; padding: 3px 10px; }
+  .hq h3 { margin: 10px 0 2px; font-size: 26px; font-weight: 800; letter-spacing: -0.02em; }
+  .hq .scope { font-size: 14px; font-weight: 600; color: rgba(255,255,255,.85); }
+  .hq .addr { margin-top: 12px; font-size: 13px; color: rgba(255,255,255,.9); line-height: 1.5; }
+  .hq .regs { display: flex; gap: 6px; margin-top: 12px; flex-wrap: wrap; }
+  .hq .regs span { font-size: 12px; font-weight: 700; background: #fff; color: #0b0b0b; border-radius: 8px; padding: 4px 10px; display: inline-flex; gap: 6px; align-items: center; }
+  .hq .regs i { width: 9px; height: 9px; border-radius: 3px; display: inline-block; }
+  .hq .num-big { position: absolute; right: 20px; top: 16px; text-align: right; font-size: 12px; color: rgba(255,255,255,.8); }
+  .hq .num-big b { display: block; font-size: 28px; color: #fff; }
+  .off-side { columns: 2; column-gap: 12px; }
+  .off-side .off-reg { break-inside: avoid; margin-bottom: 12px; }
+  .off-reg { background: var(--surface); border: 1px solid var(--border); border-top: 4px solid var(--rc); border-radius: 12px; overflow: hidden; }
+  .off-reg .h { display: flex; justify-content: space-between; align-items: baseline; padding: 10px 14px 6px; }
+  .off-reg .h b { font-size: 15px; } .off-reg .h span { font-size: 12px; color: var(--text-3); }
+  .office { padding: 8px 14px; border-top: 1px solid var(--grid); }
+  .office .n { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+  .office .n b { font-size: 14px; }
+  .office .sc { font-size: 11px; color: var(--text-2); background: var(--surface-2); border-radius: 6px; padding: 1px 7px; }
+  .office .st { font-size: 12px; font-weight: 700; color: var(--accent); margin-left: auto; }
+  .office .st.room { color: var(--text-2); }
+  .office .ad { font-size: 11px; color: var(--text-3); margin-top: 1px; }
+  .office.via { background: var(--surface-2); }
+  @media (max-width: 1100px) { .off-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 640px) { .off-side { columns: 1; } }
+</style>
+</head>
+<body>
+<div class="app">
+  <!-- ===== 왼쪽 목차 ===== -->
+  <aside class="side">
+    <div class="brand">
+      <div class="brand-mark">25</div>
+      <div><div class="brand-t">GS25 4부문</div><div class="brand-s">관리자용 대시보드</div></div>
+    </div>
+    <nav class="nav" id="nav">
+      <button type="button" data-page="home"><span class="n">1</span>초기 화면</button>
+      <button type="button" data-page="org"><span class="n">2</span>조직 및 사무소 현황</button>
+      <button type="button" data-page="sales"><span class="n">3</span>영업지표</button>
+      <button type="button" data-page="dev"><span class="n">4</span>개발지표</button>
+      <button type="button" data-page="total"><span class="n">5</span>종합 지표 확인</button>
+    </nav>
+    <div class="side-foot" id="sideFoot"></div>
+  </aside>
+
+  <main class="main">
+    <header class="hero">
+      <div class="hero-text">
+        <div class="eyebrow" id="pageEyebrow">GS25 · 4부문 부문지원팀</div>
+        <h1 id="title">주요실적 대시보드</h1>
+        <div class="chips" id="subtitle"></div>
+      </div>
+      <div class="hero-ctrl">
+        <div class="picker">
+          <label for="monthSel">누계 기준월</label>
+          <select id="monthSel"></select>
+          <span class="range" id="rangeLbl"></span>
+        </div>
+        <button class="icon-btn" id="themeBtn" type="button">다크 모드</button>
+      </div>
+    </header>
+
+    <!-- 1. 초기 화면 -->
+    <section class="page" id="p-home">
+      <div class="sec-head">
+        <h2 id="homeTitle">부문·지역 실적 요약</h2>
+        <div class="legend">
+          <span class="status s-good"><span class="dot"></span>달성 ≥ <span class="thGood"></span>%</span>
+          <span class="status s-warning"><span class="dot"></span>근접 ≥ <span class="thWarn"></span>%</span>
+          <span class="status s-critical"><span class="dot"></span>미달</span>
+          <span class="hint">폐점은 점포수 차이 · 칸을 누르면 월별 상세</span>
+        </div>
+      </div>
+      <div class="panel scroll"><table class="home" id="homeTable"></table></div>
+    </section>
+
+    <!-- 2. 조직 및 사무소 현황 -->
+    <section class="page" id="p-org">
+      <div class="seg org-view-seg" id="orgViewTabs">
+        <button type="button" data-v="people" aria-pressed="true">조직 및 인원 현황</button>
+        <button type="button" data-v="office" aria-pressed="false">사무소 현황</button>
+      </div>
+      <div class="org-view" data-v="people">
+      <div class="panel staff" id="staffPanel"></div>
+      <div class="org-grid">
+        <div class="panel map-panel">
+          <div class="panel-head"><b>4부문 조직 지도</b><span class="hint" id="orgAsOf"></span></div>
+          <div id="orgMap"></div>
+          <div class="org-legend" id="orgLegend"></div>
+        </div>
+        <div class="org-right">
+          <div class="kpis" id="orgKpis"></div>
+          <div class="seg" id="orgTabs"></div>
+          <div id="orgDetail"></div>
+        </div>
+      </div>
+      </div>
+      <div class="org-view" data-v="office" hidden>
+        <div class="kpis" id="offKpis" style="margin-bottom:12px"></div>
+        <div class="off-grid">
+          <div class="off-main" id="offMain"></div>
+          <div class="off-side" id="offSide"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3·4. 영업지표 / 개발지표 -->
+    <section class="page" id="p-group">
+      <div class="sec-head">
+        <div class="seg item-seg" id="gItems"></div>
+        <div class="legend">
+          <span><i style="background:var(--bar-py)"></i><span class="pyLbl">전년</span> 실적</span>
+          <span><i style="background:var(--bar-plan)"></i><span class="cyLbl">올해</span> 계획</span>
+          <span><i style="background:var(--bar-act)"></i><span class="cyLbl">올해</span> 실적</span>
+        </div>
+      </div>
+      <div class="split">
+        <div class="panel">
+          <div class="panel-head"><b id="gTableTitle"></b><span class="hint">행을 누르면 오른쪽 월별 추이가 바뀝니다</span></div>
+          <div class="scroll"><table class="gtable" id="gTable"></table></div>
+        </div>
+        <div class="panel chart-panel">
+          <div class="panel-head" style="padding:0 0 4px"><b id="gChartTitle"></b><button class="link-btn" id="gMore" type="button">월별 표 보기 ›</button></div>
+          <div id="gChart"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. 종합 지표 확인 (기존 대시보드) -->
+    <section class="page" id="p-total">
+      <div class="toolbar">
+        <div class="tabs" role="tablist" id="tabs"></div>
+        <div class="seg" id="totalView">
+          <button type="button" data-view="cards" aria-pressed="true">항목 카드</button>
+          <button type="button" data-view="detail" aria-pressed="false">누계 실적표</button>
+          <button type="button" data-view="compare" aria-pressed="false">조직별 비교</button>
+        </div>
+      </div>
+      <div class="summary" id="summary"></div>
+
+      <div class="view" data-view="cards">
+        <div class="sec-head">
+          <h2>항목별 실적 <span class="hint" style="font-weight:400">· 카드를 누르면 월별 추이를 볼 수 있습니다</span></h2>
+          <div class="legend">
+            <span><i style="background:var(--bar-py)"></i><span class="pyLbl">전년</span> 실적</span>
+            <span><i style="background:var(--bar-plan)"></i><span class="cyLbl">올해</span> 계획</span>
+            <span><i style="background:var(--bar-act)"></i><span class="cyLbl">올해</span> 실적</span>
+          </div>
+        </div>
+        <div class="grid" id="cards"></div>
+      </div>
+
+      <div class="view" data-view="detail" hidden>
+        <div class="sec-head">
+          <h2 id="detailTitle">누계 실적표</h2>
+          <span class="hint">달성률 = 실적 ÷ 계획 · 증감률 = (올해 − 전년) ÷ 전년 · 진척률 = 누계실적 ÷ 연간계획</span>
+        </div>
+        <div class="panel scroll"><table id="detail"></table></div>
+      </div>
+
+      <div class="view matrix" data-view="compare" hidden>
+        <div class="sec-head">
+          <h2 id="matrixTitle">조직별 비교</h2>
+          <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+            <div class="legend"><span class="scale">미달 <span class="ramp"></span> 초과</span></div>
+            <div class="seg" id="matrixMode">
+              <button type="button" data-mode="plan" aria-pressed="true">계획 대비</button>
+              <button type="button" data-mode="yoy" aria-pressed="false">전년 대비</button>
+            </div>
+          </div>
+        </div>
+        <div class="split split-c">
+          <div class="panel scroll"><table id="matrix"></table></div>
+          <div class="panel chart-panel">
+            <div class="chart-title" id="chartTitle"></div>
+            <div class="hint">지역별 누계 비교 · 왼쪽 표의 행을 클릭하면 항목이 바뀝니다</div>
+            <div id="chart"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer id="footer"></footer>
+  </main>
+</div>
+<!-- 월별 상세 팝업 -->
+<div class="modal" id="modal" hidden>
+  <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="mTitle">
+    <div class="modal-head">
+      <div>
+        <div class="modal-title" id="mTitle"></div>
+        <div class="hint" id="mSub"></div>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+        <div class="seg" id="mOrgs"></div>
+        <button class="modal-close" id="mClose" type="button" aria-label="닫기">×</button>
+      </div>
+    </div>
+    <div class="kpis" id="mKpis"></div>
+    <div class="panel chart-panel" style="margin-bottom:12px">
+      <div class="sec-head" style="margin-bottom:4px">
+        <div class="chart-title">월별 추이</div>
+        <div class="legend">
+          <span><i style="background:var(--bar-py)"></i><span class="pyLbl">전년</span> 실적</span>
+          <span><i style="background:var(--bar-plan)"></i><span class="cyLbl">올해</span> 계획</span>
+          <span><i style="background:var(--bar-act)"></i><span class="cyLbl">올해</span> 실적</span>
+          <span><i style="background:rgba(var(--pos-rgb),.15)"></i>누계 범위</span>
+        </div>
+      </div>
+      <div id="mChart"></div>
+    </div>
+    <div class="panel scroll monthly"><table id="mTable"></table></div>
+  </div>
+</div>
+<div id="tip"></div>
+
+<script>
+// ===== 4부문 소속 인원 (직접 수정하세요) =====
+window.STAFF_DATA = {
+  asOf: "",            // 비워두면 조직도 기준일 사용
+  leader:  [["부문리더(부문장·지역팀장)", 5], ["지원팀장", 2], ["영업팀장", 31], ["개발팀장", 4]],
+  manager: [["OFC", 201], ["RFC", 28], ["지원", 20]],
+  // 지역팀별 추가 인원 (OFC 는 조직도 엑셀에서 자동)
+  regions: {
+    "1지역": [["RFC", 7], ["지원", 2]],
+    "2지역": [["RFC", 7], ["지원", 2]],
+    "3지역": [["RFC", 7], ["지원", 2]],
+    "4지역": [["RFC", 7], ["지원", 2]],
+  },
+  support: { name: "4부문 지원", leaders: 2, items: [["부문지원", 7], ["REM", 5]] },   // leaders: 지원팀장
+  // 지역 카드 리더 수 (지역팀장 1 + 영업팀장 7 + 추가 1). 비워두면 지역팀장 1 + 영업팀 수로 자동 계산
+  regionLeaders: { "1지역": 9, "2지역": 9, "3지역": 9, "4지역": 9 },
+  // FCS 카드의 리더 = 신선영업팀장(팀 수) 로 자동 계산
+};
+/*OFFICE_START*/
+window.OFFICE_DATA = {"offices": [{"name": "대전", "scope": "1, 2지역팀", "address": "대전광역시 중구 보문로 246, 대림빌딩 17층 GS25 중부본부", "store": null, "type": "사무실", "regions": ["1지역", "2지역"], "regionText": "1,2지역팀"}, {"name": "아산", "scope": "1지역 영업3팀,4팀", "address": "충남 아산시 탕정면 탕정면로 228", "store": "GS25 아산탕정점", "type": "점포 내 사무소", "regions": ["1지역"], "regionText": "1지역"}, {"name": "당진", "scope": "1지역 영업1팀,2팀", "address": "충남 당진시 신평면 거산3거리길 68", "store": "GS25 신평충무점", "type": "점포 내 사무소", "regions": ["1지역"], "regionText": "1지역"}, {"name": "공주", "scope": "1지역 영업7팀", "address": "충남 공주시 신금1길 30-21", "store": "GS25 명성점", "type": "점포 내 사무소", "regions": ["1지역"], "regionText": "1지역"}, {"name": "보령", "scope": "2지역 영업6팀", "address": "충남 보령시 머드로 141", "store": "GS25 대천센터점", "type": "점포 내 사무소", "regions": ["2지역"], "regionText": "2지역"}, {"name": "천안", "scope": "1지역 영업5팀,6팀", "address": "충남 천안시 동남구 신방동 1039번지 1층", "store": "GS25 신방그랜드점", "type": "점포 내 사무소", "regions": ["1지역"], "regionText": "1지역"}, {"name": "전주1", "scope": "3지역 전체", "address": "전북 전주시 완산구 홍산중앙로 26, 효자 사무실", "store": null, "type": "사무실", "regions": ["3지역"], "regionText": "3지역"}, {"name": "전주2", "scope": "3지역 전체", "address": "전북 전주시 완산구 범안3길 2 1층", "store": null, "type": "사무실", "regions": ["3지역"], "regionText": "3지역"}, {"name": "군산", "scope": "3지역 영업1팀", "address": "전북 군산시 수송안6길 12", "store": "GS25 수송사랑점", "type": "점포 내 사무소", "regions": ["3지역"], "regionText": "3지역"}, {"name": "광주", "scope": "4지역팀", "address": "광주 광산구 첨단강변로 87번길 5, 6층", "store": null, "type": "사무실", "regions": ["4지역"], "regionText": "4지역"}, {"name": "순천", "scope": "4지역 영업6팀", "address": "전남 순천시 연향상가1길 1", "store": "GS25 순천모아점", "type": "점포 내 사무소", "regions": ["4지역"], "regionText": "4지역"}, {"name": "여수", "scope": "4지역 영업7팀", "address": "전남 여수시 여서1로 78", "store": "GS25 여수GS점", "type": "점포 내 사무소", "regions": ["4지역"], "regionText": "4지역"}]};
+/*OFFICE_END*/
+/*ORG_START*/
+window.ORG_DATA = {"asOf": "26년 9월 28일 기준", "division": {"main": {"area": "충남,대전,전북,광주,전남", "stores": 2776, "ofc": 185, "per": 15.0}, "fcs": {"stores": 194, "ofc": 16, "per": 12.1}, "total": {"stores": 2970, "ofc": 201, "per": 14.8}}, "regions": [{"key": "FCS", "name": "4부문 FCS", "area": "충남,대전,전북,광주,전남", "stores": 194, "ofc": 16, "per": 12.1, "teams": [{"name": "신선영업1팀", "area": "충남", "stores": 56, "parts": 5, "per": 11.2}, {"name": "신선영업2팀", "area": "대전, 세종, 충남 부여", "stores": 57, "parts": 5, "per": 11.4}, {"name": "신선영업3팀", "area": "전북, 광주, 전남", "stores": 81, "parts": 6, "per": 13.5}]}, {"key": "1지역", "name": "4부문 1지역", "area": "충남", "stores": 702, "ofc": 46, "per": 15.3, "teams": [{"name": "영업1팀", "area": "서산,태안,당진", "stores": 113, "parts": 7, "per": 16.1}, {"name": "영업2팀", "area": "당진, 아산", "stores": 112, "parts": 6, "per": 18.7}, {"name": "영업3팀", "area": "아산, 예산, 홍성", "stores": 107, "parts": 7, "per": 15.3}, {"name": "영업4팀", "area": "아산, 천안(서북구)", "stores": 93, "parts": 6, "per": 15.5}, {"name": "영업5팀", "area": "아산, 천안(서북구)", "stores": 81, "parts": 6, "per": 13.5}, {"name": "영업6팀", "area": "천안(동남구, 서북구)", "stores": 99, "parts": 7, "per": 14.1}, {"name": "영업7팀", "area": "천안(동남구, 서북구), 공주, 청양", "stores": 97, "parts": 7, "per": 13.9}]}, {"key": "2지역", "name": "4부문 2지역", "area": "충남, 대전, 세종", "stores": 698, "ofc": 46, "per": 15.2, "teams": [{"name": "영업1팀", "area": "대전(동구, 중구), 충남 금산", "stores": 110, "parts": 7, "per": 15.7}, {"name": "영업2팀", "area": "대전(서구, 중구)", "stores": 99, "parts": 7, "per": 14.1}, {"name": "영업3팀", "area": "대전(대덕구, 유성구, 동구)", "stores": 85, "parts": 6, "per": 14.2}, {"name": "영업4팀", "area": "대전(서구, 유성구), 계룡", "stores": 108, "parts": 7, "per": 15.4}, {"name": "영업5팀", "area": "대전(서구), 논산, 서천", "stores": 105, "parts": 7, "per": 15}, {"name": "영업6팀", "area": "보령, 세종", "stores": 103, "parts": 7, "per": 14.7}, {"name": "영업7팀", "area": "대전(유성구), 세종, 부여", "stores": 88, "parts": 5, "per": 17.6}]}, {"key": "3지역", "name": "4부문 3지역", "area": "전북, 광주(서구, 광산구)", "stores": 678, "ofc": 46, "per": 14.7, "teams": [{"name": "영업1팀", "area": "군산", "stores": 108, "parts": 7, "per": 15.4}, {"name": "영업2팀", "area": "군산, 익산, 완주", "stores": 103, "parts": 7, "per": 14.7}, {"name": "영업3팀", "area": "전주, 김제", "stores": 87, "parts": 6, "per": 14.5}, {"name": "영업4팀", "area": "전주, 남원, 무주, 완주, 임실, 장수, 진안", "stores": 104, "parts": 7, "per": 14.9}, {"name": "영업5팀", "area": "전주, 부안, 정읍, 고창", "stores": 105, "parts": 7, "per": 15}, {"name": "영업6팀", "area": "광주(남구, 동구)", "stores": 83, "parts": 6, "per": 13.8}, {"name": "영업7팀", "area": "광주(서구), 전남(장성), 전북(남원, 순창)", "stores": 88, "parts": 6, "per": 14.7}]}, {"key": "4지역", "name": "4부문 4지역", "area": "광주, 전남", "stores": 698, "ofc": 47, "per": 14.9, "teams": [{"name": "영업1팀", "area": "광주(광산구), 전남(담양, 함평, 영광)", "stores": 101, "parts": 7, "per": 14.4}, {"name": "영업2팀", "area": "광주(북구), 전남(강진, 무안, 영암)", "stores": 106, "parts": 7, "per": 15.1}, {"name": "영업3팀", "area": "광주(광산구, 북구), 전남(곡성, 구례)", "stores": 87, "parts": 6, "per": 14.5}, {"name": "영업4팀", "area": "목포, 완도, 진도, 해남", "stores": 103, "parts": 7, "per": 14.7}, {"name": "영업5팀", "area": "순천, 고흥, 나주, 보성, 장흥, 화순", "stores": 93, "parts": 6, "per": 15.5}, {"name": "영업6팀", "area": "순천, 여수, 광양", "stores": 107, "parts": 7, "per": 15.3}, {"name": "영업7팀", "area": "여수", "stores": 101, "parts": 7, "per": 14.4}]}], "districts": {"충남|서산시": {"region": "1지역", "stores": 65, "fcs": 3, "teams": {"영업1팀": 65}}, "충남|당진시": {"region": "1지역", "stores": 86, "fcs": 3, "teams": {"영업2팀": 77, "영업1팀": 9}}, "충남|태안군": {"region": "1지역", "stores": 35, "fcs": 0, "teams": {"영업1팀": 35}}, "충남|아산시": {"region": "1지역", "stores": 136, "fcs": 17, "teams": {"영업3팀": 48, "영업5팀": 43, "영업2팀": 30, "영업4팀": 15}}, "충남|홍성군": {"region": "1지역", "stores": 24, "fcs": 3, "teams": {"영업3팀": 24}}, "충남|예산군": {"region": "1지역", "stores": 30, "fcs": 1, "teams": {"영업3팀": 30}}, "충남|천안시": {"region": "1지역", "stores": 265, "fcs": 24, "teams": {"영업6팀": 97, "영업4팀": 77, "영업7팀": 53, "영업5팀": 38}}, "충남|청양군": {"region": "1지역", "stores": 6, "fcs": 0, "teams": {"영업7팀": 6}}, "충남|공주시": {"region": "1지역", "stores": 38, "fcs": 2, "teams": {"영업7팀": 38}}, "대전|동구": {"region": "2지역", "stores": 74, "fcs": 5, "teams": {"영업1팀": 73, "영업3팀": 1}}, "충남|금산군": {"region": "2지역", "stores": 10, "fcs": 0, "teams": {"영업1팀": 10}}, "대전|중구": {"region": "2지역", "stores": 75, "fcs": 8, "teams": {"영업2팀": 50, "영업1팀": 25}}, "대전|서구": {"region": "2지역", "stores": 149, "fcs": 15, "teams": {"영업5팀": 56, "영업4팀": 47, "영업2팀": 46}}, "대전|대덕구": {"region": "2지역", "stores": 36, "fcs": 5, "teams": {"영업3팀": 36}}, "대전|유성구": {"region": "2지역", "stores": 125, "fcs": 6, "teams": {"영업3팀": 47, "영업4팀": 44, "영업7팀": 34}}, "충남|계룡시": {"region": "2지역", "stores": 12, "fcs": 0, "teams": {"영업4팀": 12}}, "충남|논산시": {"region": "2지역", "stores": 32, "fcs": 0, "teams": {"영업5팀": 32}}, "충남|서천군": {"region": "2지역", "stores": 14, "fcs": 0, "teams": {"영업5팀": 14}}, "세종|세종": {"region": "2지역", "stores": 96, "fcs": 14, "teams": {"영업6팀": 60, "영업7팀": 36}}, "충남|보령시": {"region": "2지역", "stores": 38, "fcs": 0, "teams": {"영업6팀": 38}}, "충남|부여군": {"region": "2지역", "stores": 14, "fcs": 1, "teams": {"영업7팀": 14}}, "전북|군산시": {"region": "3지역", "stores": 108, "fcs": 9, "teams": {"영업1팀": 104, "영업2팀": 4}}, "전북|익산시": {"region": "3지역", "stores": 71, "fcs": 2, "teams": {"영업2팀": 71}}, "전북|완주군": {"region": "3지역", "stores": 29, "fcs": 5, "teams": {"영업2팀": 23, "영업4팀": 6}}, "전북|전주시": {"region": "3지역", "stores": 192, "fcs": 8, "teams": {"영업4팀": 73, "영업3팀": 62, "영업5팀": 57}}, "전북|김제시": {"region": "3지역", "stores": 23, "fcs": 0, "teams": {"영업3팀": 23}}, "전북|장수군": {"region": "3지역", "stores": 3, "fcs": 0, "teams": {"영업4팀": 3}}, "전북|임실군": {"region": "3지역", "stores": 4, "fcs": 0, "teams": {"영업4팀": 4}}, "전북|남원시": {"region": "3지역", "stores": 14, "fcs": 2, "teams": {"영업7팀": 9, "영업4팀": 5}}, "전북|진안군": {"region": "3지역", "stores": 3, "fcs": 0, "teams": {"영업4팀": 3}}, "전북|무주군": {"region": "3지역", "stores": 4, "fcs": 0, "teams": {"영업4팀": 4}}, "전북|부안군": {"region": "3지역", "stores": 11, "fcs": 0, "teams": {"영업5팀": 11}}, "전북|정읍시": {"region": "3지역", "stores": 24, "fcs": 1, "teams": {"영업5팀": 24}}, "전북|고창군": {"region": "3지역", "stores": 7, "fcs": 0, "teams": {"영업5팀": 7}}, "광주|남구": {"region": "3지역", "stores": 47, "fcs": 3, "teams": {"영업6팀": 47}}, "광주|동구": {"region": "3지역", "stores": 35, "fcs": 1, "teams": {"영업6팀": 35}}, "광주|서구": {"region": "3지역", "stores": 68, "fcs": 7, "teams": {"영업7팀": 68}}, "전남|장성군": {"region": "3지역", "stores": 7, "fcs": 0, "teams": {"영업7팀": 7}}, "전북|순창군": {"region": "3지역", "stores": 3, "fcs": 0, "teams": {"영업7팀": 3}}, "광주|광산구": {"region": "4지역", "stores": 96, "fcs": 8, "teams": {"영업1팀": 81, "영업3팀": 15}}, "전남|담양군": {"region": "4지역", "stores": 8, "fcs": 0, "teams": {"영업1팀": 8}}, "전남|영광군": {"region": "4지역", "stores": 8, "fcs": 0, "teams": {"영업1팀": 8}}, "전남|함평군": {"region": "4지역", "stores": 2, "fcs": 0, "teams": {"영업1팀": 2}}, "광주|북구": {"region": "4지역", "stores": 126, "fcs": 7, "teams": {"영업2팀": 69, "영업3팀": 57}}, "전남|무안군": {"region": "4지역", "stores": 18, "fcs": 3, "teams": {"영업2팀": 18}}, "전남|영암군": {"region": "4지역", "stores": 14, "fcs": 3, "teams": {"영업2팀": 14}}, "전남|강진군": {"region": "4지역", "stores": 4, "fcs": 0, "teams": {"영업2팀": 4}}, "전남|곡성군": {"region": "4지역", "stores": 10, "fcs": 0, "teams": {"영업3팀": 10}}, "전남|구례군": {"region": "4지역", "stores": 3, "fcs": 0, "teams": {"영업3팀": 3}}, "전남|목포시": {"region": "4지역", "stores": 59, "fcs": 3, "teams": {"영업4팀": 59}}, "전남|해남군": {"region": "4지역", "stores": 19, "fcs": 0, "teams": {"영업4팀": 19}}, "전남|진도군": {"region": "4지역", "stores": 4, "fcs": 0, "teams": {"영업4팀": 4}}, "전남|완도군": {"region": "4지역", "stores": 15, "fcs": 0, "teams": {"영업4팀": 15}}, "전남|나주시": {"region": "4지역", "stores": 29, "fcs": 2, "teams": {"영업5팀": 29}}, "전남|화순군": {"region": "4지역", "stores": 10, "fcs": 1, "teams": {"영업5팀": 10}}, "전남|보성군": {"region": "4지역", "stores": 7, "fcs": 0, "teams": {"영업5팀": 7}}, "전남|장흥군": {"region": "4지역", "stores": 10, "fcs": 0, "teams": {"영업5팀": 10}}, "전남|순천시": {"region": "4지역", "stores": 76, "fcs": 5, "teams": {"영업6팀": 53, "영업5팀": 23}}, "전남|고흥군": {"region": "4지역", "stores": 12, "fcs": 0, "teams": {"영업5팀": 12}}, "전남|광양시": {"region": "4지역", "stores": 37, "fcs": 2, "teams": {"영업6팀": 37}}, "전남|여수시": {"region": "4지역", "stores": 105, "fcs": 4, "teams": {"영업7팀": 93, "영업6팀": 12}}}};
+/*ORG_END*/
+window.ORG_MAP = {"w": 520, "h": 693.7, "shapes": [{"k": "전남|신안군", "d": "M0.0,674.4L3.1,675.1L4.9,679.0L9.5,684.6L3.9,685.0L0.0,680.9L0.0,674.4ZM140.7,553.4L141.7,559.3L138.2,561.0L134.2,556.9L140.7,553.4ZM180.0,552.2L182.7,557.1L186.4,558.9L187.9,562.7L182.1,573.6L176.2,576.3L175.8,568.1L179.3,569.0L182.2,565.2L176.4,553.7L180.0,552.2ZM176.3,546.8L176.8,551.0L174.2,556.9L177.8,559.7L179.4,564.0L177.5,567.6L170.8,568.5L169.1,553.1L176.3,546.8ZM194.6,543.4L201.4,546.1L202.6,552.9L197.2,556.6L191.0,555.7L187.3,549.7L189.0,545.6L194.6,543.4ZM182.8,541.1L183.3,544.6L181.9,550.4L179.1,547.8L179.3,541.0L182.8,541.1ZM55.6,538.1L51.0,545.3L49.1,543.3L55.6,538.1ZM203.5,536.2L203.7,541.3L200.8,543.7L197.1,542.1L196.8,539.0L203.5,536.2ZM64.3,537.4L64.8,546.0L62.1,550.3L55.2,553.8L53.6,550.5L56.1,542.8L58.9,537.9L64.3,537.4ZM21.7,534.9L20.1,542.0L15.1,543.8L19.7,536.4L21.7,534.9ZM161.5,530.7L163.0,532.7L170.0,535.2L168.9,541.1L165.1,542.5L161.1,547.5L151.7,542.7L151.7,535.2L156.6,534.4L161.5,530.7ZM182.3,519.6L185.2,521.3L190.2,520.3L192.9,524.3L197.4,524.3L203.1,530.3L203.6,533.1L199.3,537.4L194.2,540.6L189.5,541.5L187.4,538.4L181.0,535.7L179.8,533.7L180.8,526.8L179.9,521.2L182.3,519.6ZM166.8,513.7L167.1,523.9L163.1,525.6L156.5,525.6L158.3,529.8L156.7,532.7L152.3,534.2L147.8,531.6L146.8,522.7L150.5,520.1L155.6,520.2L161.2,516.7L162.5,514.1L166.8,513.7ZM198.8,514.1L199.7,523.4L192.4,523.4L190.1,519.5L185.7,519.9L185.8,516.5L191.9,514.9L196.2,509.5L198.8,514.1ZM188.5,495.9L192.8,497.7L195.2,504.5L188.4,508.9L189.6,514.2L185.9,515.5L184.5,512.3L178.1,503.5L182.5,501.3L186.4,503.2L188.5,495.9ZM222.1,487.1L224.9,490.0L229.4,490.0L227.5,494.3L227.3,500.9L233.2,500.3L236.0,504.0L233.4,511.5L228.6,510.6L229.1,503.8L216.1,501.3L219.4,499.4L223.2,493.6L219.2,489.7L222.1,487.1ZM209.8,483.5L214.4,485.1L210.6,490.0L207.9,486.6L209.8,483.5ZM178.9,484.0L184.3,486.8L186.6,491.8L183.1,500.3L176.6,502.7L166.8,500.0L165.3,497.3L169.8,489.0L173.1,489.9L178.1,487.5L178.9,484.0ZM207.0,472.5L209.9,473.9L206.6,483.8L203.3,488.7L202.1,481.6L204.5,474.4L207.0,472.5ZM213.4,467.8L215.7,468.0L217.3,474.8L213.4,474.0L213.4,467.8ZM192.0,463.2L195.8,463.3L199.1,466.0L202.0,472.4L199.6,481.6L196.5,483.5L190.1,480.5L192.3,476.7L191.9,469.0L188.7,470.4L185.4,469.1L192.0,463.2ZM194.5,456.1L198.5,456.6L204.5,460.6L203.6,463.7L194.8,461.7L191.9,457.7L194.5,456.1ZM213.1,447.3L212.8,452.2L215.8,457.2L218.0,460.8L214.6,466.5L209.2,464.0L210.8,459.3L208.5,456.2L201.6,456.2L197.1,454.1L198.2,445.8L202.5,443.7L206.1,445.9L213.1,447.3ZM197.3,436.7L194.2,438.1L191.0,442.9L189.7,447.4L189.2,455.4L184.1,457.5L176.2,455.5L175.0,450.0L176.3,446.0L183.0,444.0L189.1,436.9L197.3,436.7Z", "cx": 177.0, "cy": 512.9, "a": 2915.6}, {"k": "전남|진도군", "d": "M174.8,624.2L177.5,627.4L182.2,626.6L184.8,633.6L172.5,632.2L171.2,627.8L174.8,624.2ZM178.2,583.7L180.6,587.2L174.9,592.8L174.5,587.3L178.2,583.7ZM213.7,562.7L223.5,566.8L224.1,571.1L229.7,572.5L237.9,581.9L236.0,590.7L233.5,593.0L234.9,596.0L229.7,602.1L225.5,604.5L221.4,603.7L219.9,606.9L216.4,606.3L215.8,610.5L212.3,610.6L204.5,615.2L199.4,616.5L192.2,614.9L192.2,611.5L188.5,610.0L183.8,601.5L186.2,596.3L194.1,588.5L199.2,586.5L200.2,582.6L203.9,581.2L209.0,575.0L214.4,574.6L215.6,572.0L211.8,567.3L213.7,562.7Z", "cx": 209.9, "cy": 594.1, "a": 1672.8}, {"k": "전남|완도군", "d": "M268.8,655.8L271.3,657.9L275.3,657.9L274.0,663.8L268.5,667.8L264.3,669.1L260.6,665.4L262.6,658.0L268.8,655.8ZM289.5,652.3L293.3,654.5L290.9,659.6L293.1,665.0L289.8,671.3L284.5,667.4L283.2,663.5L287.0,658.4L284.4,655.8L287.5,651.1L289.5,652.3ZM332.2,647.5L338.3,656.9L336.5,661.5L330.6,662.3L323.8,657.0L328.5,648.8L332.2,647.5ZM272.3,643.3L277.5,645.0L282.8,650.5L280.0,652.0L281.3,655.6L275.8,657.5L270.9,656.0L268.5,653.7L271.8,646.9L272.3,643.3ZM349.5,619.2L354.9,621.1L352.7,625.3L346.9,628.2L344.1,625.6L344.2,621.8L349.5,619.2ZM322.4,616.4L327.9,616.9L333.2,621.2L330.6,626.1L327.6,624.9L323.5,628.8L321.0,623.1L315.6,620.8L318.6,617.4L322.4,616.4ZM358.6,611.1L362.2,614.6L368.9,615.1L367.4,620.2L361.3,621.9L353.3,615.2L354.1,611.1L358.6,611.1ZM293.8,605.2L296.9,606.0L302.6,611.2L302.1,614.3L305.6,623.5L309.7,625.6L307.7,630.2L302.6,631.4L299.9,629.2L295.6,630.1L292.5,625.1L287.2,620.8L285.3,609.8L287.1,607.3L293.8,605.2ZM341.9,602.9L343.0,605.3L339.8,612.4L336.9,615.8L326.9,611.9L328.4,606.9L334.4,605.2L339.3,607.8L341.9,602.9ZM321.6,596.1L327.4,608.0L321.8,609.4L310.5,609.9L306.9,608.8L308.5,604.3L313.0,598.1L315.4,598.5L321.6,596.1ZM360.9,592.7L364.3,594.0L366.0,599.0L364.4,604.8L358.8,600.3L358.1,594.5L360.9,592.7Z", "cx": 311.1, "cy": 628.6, "a": 1508.0}, {"k": "전남|장성군", "d": "M327.8,364.5L334.5,369.1L334.0,373.3L337.3,378.0L336.8,381.6L331.2,386.4L329.2,391.5L331.4,395.3L327.0,396.0L326.2,403.5L329.9,412.2L321.9,417.3L316.2,419.6L306.9,416.1L308.5,411.6L303.4,412.1L300.3,417.8L300.0,421.2L294.3,420.5L292.6,425.3L288.0,425.6L286.1,422.2L278.5,415.8L276.7,416.6L275.4,410.6L279.7,408.0L281.6,402.6L286.5,396.7L290.5,389.5L296.5,389.9L297.5,386.4L302.4,383.8L302.1,379.7L306.3,373.2L305.5,367.0L310.1,362.9L317.6,362.8L320.0,358.8L324.5,363.5L327.8,364.5Z", "cx": 309.3, "cy": 394.6, "a": 2147.3}, {"k": "전남|영광군", "d": "M171.2,386.5L174.8,391.3L170.3,391.7L171.2,386.5ZM250.0,371.7L255.8,372.9L257.7,375.9L256.3,381.7L263.5,389.9L263.1,395.2L265.5,399.5L269.2,398.1L276.7,400.0L274.7,395.6L278.9,393.1L282.8,396.3L286.5,396.7L281.6,402.6L279.7,408.0L275.4,410.6L276.7,416.6L275.1,424.1L265.9,427.9L259.9,427.7L256.3,426.0L250.5,427.1L247.8,430.1L244.9,427.2L239.8,428.5L235.4,431.9L230.2,425.6L224.1,428.9L222.3,417.7L224.8,411.5L227.2,412.0L227.1,403.9L233.6,403.6L237.1,399.9L237.2,394.6L240.8,385.4L242.3,376.3L245.2,372.0L250.0,371.7Z", "cx": 251.4, "cy": 406.4, "a": 2053.1}, {"k": "전남|함평군", "d": "M276.7,416.6L278.5,415.8L286.1,422.2L288.0,425.6L291.3,430.8L288.2,432.0L288.4,443.2L282.5,449.6L277.3,449.5L275.9,457.0L278.0,466.5L277.2,470.7L272.8,475.3L269.7,472.1L267.2,475.0L261.7,471.6L259.7,471.9L259.2,465.3L254.1,464.6L252.9,459.9L255.5,454.6L251.8,452.5L252.3,448.5L249.7,445.3L244.9,444.9L235.4,431.9L239.8,428.5L244.9,427.2L247.8,430.1L250.5,427.1L256.3,426.0L259.9,427.7L265.9,427.9L275.1,424.1L276.7,416.6Z", "cx": 266.3, "cy": 443.8, "a": 1631.1}, {"k": "전남|무안군", "d": "M251.8,452.5L255.5,454.6L252.9,459.9L254.1,464.6L259.2,465.3L259.7,471.9L261.7,471.6L267.2,475.0L262.6,488.8L268.6,496.5L269.5,500.4L268.6,508.4L263.0,519.1L258.7,521.8L252.1,516.3L251.0,510.6L248.3,506.5L243.5,504.8L240.3,499.1L239.3,494.3L242.1,489.5L239.7,487.5L238.9,481.4L240.1,478.0L237.3,475.9L235.1,485.7L230.7,488.8L228.3,487.6L226.7,482.2L221.8,477.2L223.9,472.4L228.9,476.0L233.6,472.4L230.9,468.8L239.3,463.6L237.8,458.7L232.3,460.5L230.9,453.3L227.9,449.2L222.9,458.5L221.1,455.8L215.8,457.2L212.8,452.2L213.1,447.3L212.0,445.2L214.9,437.1L217.6,436.2L227.3,438.9L231.0,435.1L231.0,443.1L229.2,448.5L235.3,453.1L240.6,451.9L242.5,454.9L241.1,461.9L248.9,456.7L251.8,452.5Z", "cx": 245.3, "cy": 479.0, "a": 1940.0}, {"k": "전남|영암군", "d": "M319.6,498.6L326.0,499.1L323.3,505.7L316.6,508.1L314.4,519.2L309.6,518.0L305.3,524.5L297.2,522.5L288.9,529.8L293.2,534.6L291.1,539.6L282.7,541.9L271.7,541.8L267.0,541.6L265.0,535.9L259.5,529.5L254.4,528.8L252.2,530.9L248.6,529.0L240.9,528.6L239.5,530.7L235.1,528.9L237.6,525.5L237.4,522.3L250.3,518.6L249.5,516.5L252.1,516.3L258.7,521.8L263.0,519.1L268.6,508.4L269.5,500.4L272.6,497.8L273.1,493.7L279.1,485.7L282.2,486.5L287.7,493.6L291.8,494.9L292.2,488.2L289.7,484.3L290.9,481.8L296.5,482.9L299.6,488.1L300.5,493.8L308.9,492.2L312.5,496.8L316.2,499.4L319.6,498.6Z", "cx": 284.4, "cy": 514.1, "a": 2357.9}, {"k": "전남|해남군", "d": "M239.2,530.5L239.1,533.0L251.0,536.1L250.7,540.4L254.4,546.8L258.7,545.3L262.9,547.1L271.7,541.8L282.7,541.9L291.1,539.6L297.7,541.7L294.5,551.4L294.6,558.5L291.5,562.1L295.8,568.5L292.9,573.5L294.1,577.7L293.7,589.9L299.8,589.7L303.1,593.3L300.9,596.0L296.3,596.7L293.2,599.8L287.8,600.8L281.5,605.3L282.0,615.2L278.8,617.8L278.8,623.0L270.4,623.6L268.0,627.7L262.9,628.8L262.0,624.1L264.7,620.7L263.4,614.6L256.2,615.1L256.2,609.9L257.9,604.9L262.8,602.4L257.7,597.8L255.4,599.7L252.0,594.4L253.7,591.6L251.5,588.3L254.4,581.4L252.3,575.7L247.2,572.9L241.5,573.0L237.5,568.7L234.3,569.2L229.1,566.4L225.4,567.9L223.8,562.4L218.9,561.1L220.0,553.5L217.3,552.6L214.5,545.7L215.0,538.9L218.0,534.8L218.0,531.0L220.2,524.2L222.8,523.4L229.3,528.8L232.1,536.8L230.2,538.7L230.5,543.4L235.4,551.2L236.9,556.1L247.6,562.5L246.5,557.2L236.4,550.3L233.5,542.9L230.9,540.7L235.4,537.8L239.2,530.5Z", "cx": 262.4, "cy": 570.4, "a": 4159.3}, {"k": "전남|강진군", "d": "M314.4,519.2L317.8,522.3L319.6,526.7L324.4,532.4L324.1,535.8L326.9,543.9L328.9,555.7L325.9,554.8L325.6,560.5L329.3,565.3L329.2,571.2L323.3,581.6L325.2,588.7L323.5,594.0L318.8,594.7L313.3,590.6L312.7,580.1L313.8,567.1L309.9,559.6L307.6,577.1L307.4,584.4L304.2,585.7L305.6,589.4L303.1,593.3L299.8,589.7L293.7,589.9L294.1,577.7L292.9,573.5L295.8,568.5L291.5,562.1L294.6,558.5L294.5,551.4L297.7,541.7L291.1,539.6L293.2,534.6L288.9,529.8L297.2,522.5L305.3,524.5L309.6,518.0L314.4,519.2Z", "cx": 310.0, "cy": 555.6, "a": 2056.6}, {"k": "전남|장흥군", "d": "M359.0,506.2L355.0,517.0L354.2,521.6L354.9,529.3L346.9,536.2L348.7,541.5L355.4,541.5L360.7,550.2L359.6,552.0L351.1,556.9L350.9,561.6L348.9,567.0L349.9,573.9L347.0,573.2L344.5,576.0L347.2,579.2L345.1,582.6L347.8,585.9L343.7,589.8L340.5,594.8L338.4,593.7L329.3,592.8L331.2,599.2L323.5,594.0L325.2,588.7L323.3,581.6L329.2,571.2L329.3,565.3L325.6,560.5L325.9,554.8L328.9,555.7L326.9,543.9L324.1,535.8L324.4,532.4L319.6,526.7L317.8,522.3L314.4,519.2L316.6,508.1L323.3,505.7L326.0,499.1L330.8,497.3L333.4,498.2L334.7,504.0L340.8,508.2L348.2,503.3L350.6,506.7L354.0,505.4L359.0,506.2Z", "cx": 337.5, "cy": 542.8, "a": 2545.5}, {"k": "전남|화순군", "d": "M373.7,425.1L378.8,425.2L386.2,420.7L389.4,427.1L387.1,432.1L388.6,439.3L385.8,447.6L386.8,466.5L385.1,467.8L384.4,474.4L380.3,477.2L375.7,476.5L370.6,483.3L367.1,486.0L366.9,490.9L368.6,498.0L363.8,500.9L363.4,504.1L359.0,506.2L354.0,505.4L350.6,506.7L348.2,503.3L340.8,508.2L334.7,504.0L333.4,498.2L330.8,497.3L326.0,499.1L319.6,498.6L324.4,495.1L328.1,494.2L329.1,491.2L327.5,483.6L329.6,480.7L329.4,476.7L332.7,471.8L327.8,467.2L333.6,456.7L332.2,451.6L337.2,448.6L339.6,452.4L343.2,452.8L346.0,449.0L349.8,447.9L351.7,443.3L354.0,439.0L355.9,437.9L365.1,442.9L368.4,439.3L364.6,432.0L367.1,428.4L373.7,425.1Z", "cx": 358.2, "cy": 467.6, "a": 3257.2}, {"k": "전남|보성군", "d": "M429.2,507.4L425.6,511.0L429.7,512.2L424.4,517.1L422.9,514.1L417.3,509.1L413.1,509.4L411.1,512.3L405.9,512.3L403.2,516.6L398.1,517.2L397.2,520.5L390.8,529.0L388.7,536.2L385.5,539.3L378.1,538.9L375.8,537.0L371.9,542.8L364.8,546.0L360.7,550.2L355.4,541.5L348.7,541.5L346.9,536.2L354.9,529.3L354.2,521.6L355.0,517.0L359.0,506.2L363.4,504.1L363.8,500.9L368.6,498.0L366.9,490.9L367.1,486.0L370.6,483.3L375.7,476.5L380.3,477.2L384.4,474.4L389.4,472.2L389.8,476.9L392.9,479.5L395.0,483.8L394.1,493.1L398.8,495.6L405.9,491.8L408.3,491.9L415.0,499.0L421.7,502.2L422.4,505.1L426.3,505.0L429.2,507.4Z", "cx": 381.8, "cy": 511.4, "a": 2745.0}, {"k": "전남|고흥군", "d": "M437.7,589.4L444.9,591.6L451.3,594.8L451.0,599.1L443.1,603.0L442.9,598.2L438.1,596.6L436.1,593.2L437.7,589.4ZM393.3,584.6L395.5,588.7L391.5,598.3L383.1,597.7L375.2,598.6L370.3,590.6L375.2,585.4L377.4,589.0L386.9,584.2L388.9,585.7L393.3,584.6ZM436.8,572.6L440.6,574.7L437.4,580.6L442.9,581.2L444.9,584.2L441.1,586.7L435.7,587.8L432.3,578.7L436.8,572.6ZM424.4,517.1L423.6,519.6L425.5,524.6L421.1,528.1L424.3,534.9L435.6,538.7L435.2,544.0L440.4,543.9L442.1,548.4L445.6,562.1L442.0,565.2L436.5,564.0L434.3,565.6L428.2,562.5L424.9,564.5L427.4,569.1L432.2,571.1L430.3,575.9L426.2,582.0L422.1,582.4L421.7,586.2L413.1,589.0L414.7,595.4L411.6,596.3L405.2,588.2L404.4,583.6L399.6,578.6L390.8,578.3L388.0,575.6L383.3,578.0L374.8,576.4L373.0,569.5L378.8,563.9L383.8,561.3L384.0,554.1L389.0,549.3L390.5,553.7L394.2,550.4L395.1,542.1L398.4,535.2L403.6,533.1L405.0,537.9L403.8,543.7L410.2,545.4L410.8,541.6L413.8,535.7L412.0,525.7L408.2,526.3L406.2,530.6L402.1,528.3L400.4,530.3L397.1,523.7L397.2,520.5L398.1,517.2L403.2,516.6L405.9,512.3L411.1,512.3L413.1,509.4L417.3,509.1L422.9,514.1L424.4,517.1Z", "cx": 411.1, "cy": 559.8, "a": 3315.1}, {"k": "전남|구례군", "d": "M458.8,399.1L462.2,408.4L464.8,409.8L466.4,415.4L466.2,421.6L467.5,427.4L464.4,432.8L463.5,442.5L460.9,442.1L456.3,444.8L454.2,447.9L450.7,445.1L448.2,441.1L445.1,441.1L441.1,434.7L434.7,431.0L430.2,427.1L427.2,426.4L421.8,425.3L421.9,418.1L426.3,412.8L423.1,400.4L431.8,387.6L439.2,386.0L444.8,387.8L450.1,392.7L458.8,399.1Z", "cx": 445.2, "cy": 415.4, "a": 1819.6}, {"k": "전남|곡성군", "d": "M386.5,393.0L386.7,396.1L391.8,397.5L393.3,392.8L400.3,398.5L405.4,398.0L408.5,400.5L417.9,396.4L423.1,400.4L426.3,412.8L421.9,418.1L421.8,425.3L427.2,426.4L428.1,436.1L423.5,441.7L421.5,446.5L415.8,447.0L413.2,452.9L411.3,453.5L400.1,447.0L391.7,439.2L388.6,439.3L387.1,432.1L389.4,427.1L386.2,420.7L378.8,425.2L373.7,425.1L371.6,424.1L367.3,412.9L370.1,409.9L368.9,403.8L370.0,400.8L373.5,401.3L383.2,393.9L386.5,393.0Z", "cx": 400.8, "cy": 419.9, "a": 2288.2}, {"k": "전남|담양군", "d": "M370.0,400.8L368.9,403.8L370.1,409.9L367.3,412.9L371.6,424.1L373.7,425.1L367.1,428.4L364.6,432.0L368.4,439.3L365.1,442.9L355.9,437.9L354.0,439.0L353.6,434.1L356.0,431.3L352.4,426.7L347.6,427.0L339.6,414.7L339.3,412.2L334.7,410.5L329.9,412.2L326.2,403.5L327.0,396.0L331.4,395.3L329.2,391.5L331.2,386.4L336.8,381.6L337.3,378.0L339.7,379.6L345.3,379.6L347.9,377.7L346.6,372.2L354.5,365.2L358.6,363.6L359.1,370.3L361.1,371.3L359.8,378.7L357.7,380.8L365.1,386.2L363.6,397.3L370.0,400.8Z", "cx": 351.3, "cy": 403.1, "a": 1890.8}, {"k": "전남|광양시", "d": "M488.3,481.4L488.6,484.8L493.5,484.8L497.1,488.6L497.0,495.2L492.7,493.6L492.4,490.7L482.2,489.2L486.0,481.1L488.3,481.4ZM492.5,478.3L494.2,484.4L489.7,484.2L489.0,480.4L492.5,478.3ZM495.8,472.1L493.4,474.3L492.6,477.1L486.7,480.0L481.5,485.0L479.7,488.6L470.4,495.2L466.2,488.4L464.0,491.3L462.1,492.9L458.7,487.5L458.9,482.8L453.3,478.4L453.8,472.6L455.7,467.1L455.1,461.2L451.2,458.1L449.2,452.8L450.7,445.1L454.2,447.9L456.3,444.8L460.9,442.1L463.5,442.5L464.4,432.8L467.5,427.4L471.3,432.7L473.9,433.4L480.5,439.9L480.5,445.9L484.9,450.8L488.4,451.6L488.9,455.3L494.1,457.9L494.8,462.7L497.6,465.4L495.8,472.1Z", "cx": 473.1, "cy": 465.0, "a": 1945.8}, {"k": "전남|나주시", "d": "M288.4,443.2L304.1,445.1L308.1,448.7L309.8,453.5L318.7,457.4L325.4,451.6L332.2,451.6L333.6,456.7L327.8,467.2L332.7,471.8L329.4,476.7L329.6,480.7L327.5,483.6L329.1,491.2L328.1,494.2L324.4,495.1L319.6,498.6L316.2,499.4L312.5,496.8L308.9,492.2L300.5,493.8L299.6,488.1L296.5,482.9L290.9,481.8L289.7,484.3L292.2,488.2L291.8,494.9L287.7,493.6L282.2,486.5L279.1,485.7L273.1,493.7L272.6,497.8L269.5,500.4L268.6,496.5L262.6,488.8L267.2,475.0L269.7,472.1L272.8,475.3L277.2,470.7L278.0,466.5L275.9,457.0L277.3,449.5L282.5,449.6L288.4,443.2Z", "cx": 300.4, "cy": 471.8, "a": 2530.4}, {"k": "전남|순천시", "d": "M450.7,445.1L449.2,452.8L451.2,458.1L455.1,461.2L455.7,467.1L453.8,472.6L453.3,478.4L458.9,482.8L458.7,487.5L462.1,492.9L461.1,495.2L453.8,494.5L451.1,497.0L453.9,502.1L452.3,505.0L448.7,503.5L447.2,497.1L442.6,501.8L443.1,504.2L429.2,507.4L426.3,505.0L422.4,505.1L421.7,502.2L415.0,499.0L408.3,491.9L405.9,491.8L398.8,495.6L394.1,493.1L395.0,483.8L392.9,479.5L389.8,476.9L389.4,472.2L384.4,474.4L385.1,467.8L386.8,466.5L385.8,447.6L388.6,439.3L391.7,439.2L400.1,447.0L411.3,453.5L413.2,452.9L415.8,447.0L421.5,446.5L423.5,441.7L428.1,436.1L427.2,426.4L430.2,427.1L434.7,431.0L441.1,434.7L445.1,441.1L448.2,441.1L450.7,445.1Z", "cx": 423.9, "cy": 470.5, "a": 3799.1}, {"k": "전남|여수시", "d": "M406.3,682.2L407.7,693.7L404.1,688.8L406.3,682.2ZM399.5,639.5L400.6,645.0L399.6,648.7L394.1,647.2L395.2,642.8L399.5,639.5ZM501.0,591.9L501.9,595.3L501.3,602.1L497.3,601.6L501.0,591.9ZM489.1,571.0L491.9,571.0L493.0,575.0L496.3,578.6L499.3,584.5L493.9,583.9L486.2,579.4L484.0,574.1L489.1,571.0ZM473.8,563.6L477.8,567.3L474.0,571.0L470.3,565.9L473.8,563.6ZM452.9,555.9L456.5,557.2L453.5,561.2L450.1,559.5L452.9,555.9ZM490.4,529.9L497.3,533.6L498.3,537.1L495.6,541.8L499.0,546.5L500.0,553.4L498.5,557.8L501.0,562.5L497.3,563.6L490.7,561.9L483.4,555.0L486.0,551.8L485.8,547.6L490.3,544.3L492.2,539.9L492.1,534.7L490.4,529.9ZM484.7,492.3L489.9,494.1L490.0,498.3L484.8,499.4L479.9,495.5L484.7,492.3ZM452.3,505.0L453.9,502.1L451.1,497.0L453.8,494.5L461.1,495.2L462.1,492.9L464.0,491.3L465.6,493.8L461.1,497.8L464.9,503.6L470.9,507.9L475.9,506.4L481.2,501.3L487.7,502.4L492.9,500.1L495.3,501.2L494.4,511.9L491.7,518.3L490.7,529.3L482.2,532.9L473.7,524.9L470.3,534.1L467.4,537.2L467.3,540.4L470.4,549.8L466.8,551.3L461.1,548.5L457.5,550.4L454.0,546.1L453.9,540.0L456.8,531.1L459.0,530.0L461.1,524.4L459.2,523.5L455.1,513.2L448.9,512.6L452.3,505.0Z", "cx": 474.1, "cy": 532.8, "a": 1932.4}, {"k": "전남|목포시", "d": "M243.5,504.8L248.3,506.5L251.0,510.6L252.1,516.3L249.5,516.5L248.9,514.9L241.5,518.6L235.5,519.1L234.2,516.7L235.7,511.8L239.0,506.4L243.5,504.8Z", "cx": 242.9, "cy": 512.3, "a": 170.8}, {"k": "전북|부안군", "d": "M310.9,297.2L313.8,298.1L319.8,307.0L322.5,310.8L320.2,314.8L309.9,313.7L308.7,318.3L304.8,317.8L301.3,323.0L300.4,330.6L300.7,339.1L291.5,339.5L291.4,337.4L284.9,334.5L281.4,336.4L273.6,335.2L267.3,335.7L264.9,337.7L258.2,336.2L253.7,332.1L253.3,325.3L256.8,320.4L259.8,320.0L265.8,313.1L272.8,311.4L278.5,305.8L283.2,299.3L282.4,290.1L286.1,288.1L296.5,287.7L306.3,290.9L310.9,297.2Z", "cx": 288.0, "cy": 315.1, "a": 1954.8}, {"k": "전북|고창군", "d": "M310.1,362.9L305.5,367.0L306.3,373.2L302.1,379.7L302.4,383.8L297.5,386.4L296.5,389.9L290.5,389.5L286.5,396.7L282.8,396.3L278.9,393.1L274.7,395.6L276.7,400.0L269.2,398.1L265.5,399.5L263.1,395.2L263.5,389.9L256.3,381.7L257.7,375.9L255.8,372.9L250.0,371.7L246.6,369.8L249.0,366.3L256.7,351.3L263.3,348.1L267.5,349.5L271.2,346.3L278.8,346.0L281.4,339.8L291.5,339.5L300.7,339.1L307.0,339.0L308.0,348.3L310.4,350.4L308.7,357.5L310.1,362.9Z", "cx": 281.2, "cy": 367.2, "a": 2543.9}, {"k": "전북|순창군", "d": "M409.1,360.8L410.2,363.4L406.4,371.7L402.5,373.7L400.1,372.3L397.6,378.6L394.0,378.7L390.0,387.4L386.5,393.0L383.2,393.9L373.5,401.3L370.0,400.8L363.6,397.3L365.1,386.2L357.7,380.8L359.8,378.7L361.1,371.3L359.1,370.3L358.6,363.6L354.5,365.2L346.6,372.2L347.9,377.7L345.3,379.6L339.7,379.6L337.3,378.0L334.0,373.3L334.5,369.1L327.8,364.5L326.6,360.2L330.3,359.5L336.1,361.1L340.2,359.9L338.9,351.5L348.2,343.1L350.7,347.3L354.9,345.4L357.4,348.5L368.4,353.9L375.7,355.0L378.8,364.4L384.9,363.9L384.8,361.5L389.8,358.0L394.7,361.6L397.3,359.3L402.9,361.7L409.1,360.8Z", "cx": 368.7, "cy": 370.6, "a": 2075.1}, {"k": "전북|임실군", "d": "M402.1,292.6L403.1,298.2L406.4,306.3L406.1,312.1L411.2,315.9L411.9,318.6L421.4,318.4L432.0,324.7L432.7,328.0L430.8,329.7L423.7,329.4L421.3,331.3L422.0,338.5L419.3,342.5L415.3,349.9L417.6,352.9L417.2,356.3L409.5,357.1L409.1,360.8L402.9,361.7L397.3,359.3L394.7,361.6L389.8,358.0L384.8,361.5L384.9,363.9L378.8,364.4L375.7,355.0L368.4,353.9L368.1,351.3L373.4,346.9L368.3,344.6L369.2,340.5L367.4,336.5L371.4,334.2L369.4,328.1L371.7,328.6L377.2,322.4L375.6,320.0L375.2,312.6L377.8,310.3L377.7,306.2L381.6,304.8L385.0,301.6L400.1,311.8L398.6,305.1L399.5,302.8L397.7,296.6L402.1,292.6Z", "cx": 395.9, "cy": 333.5, "a": 2544.2}, {"k": "전북|장수군", "d": "M481.4,290.2L477.6,294.5L474.3,296.9L474.3,308.0L471.3,310.6L470.2,317.1L466.7,323.4L468.2,328.9L465.3,331.4L464.9,336.4L462.0,338.9L460.3,343.3L458.1,345.2L457.1,350.0L459.3,355.3L456.2,358.4L455.3,362.3L452.4,362.9L446.9,353.7L438.4,345.2L435.8,346.4L430.9,344.3L421.9,344.8L419.3,342.5L422.0,338.5L421.3,331.3L423.7,329.4L430.8,329.7L432.7,328.0L436.0,328.7L440.4,319.6L437.1,316.3L440.1,306.3L443.6,301.9L448.7,298.0L446.6,293.1L448.6,284.9L459.2,289.0L463.5,284.9L466.6,278.5L468.5,284.2L476.1,285.3L481.4,290.2Z", "cx": 452.6, "cy": 320.1, "a": 2219.9}, {"k": "전북|무주군", "d": "M514.1,237.0L513.9,242.8L517.5,245.5L520.0,255.5L515.1,258.5L516.1,261.5L509.5,267.2L501.5,275.4L497.7,275.8L494.8,278.7L489.9,277.7L485.1,288.1L481.4,290.2L476.1,285.3L468.5,284.2L466.6,278.5L466.0,274.0L458.3,269.5L459.8,264.2L453.4,257.4L454.6,254.3L449.1,245.4L451.9,239.4L451.5,234.6L461.4,236.5L466.3,240.4L468.7,232.8L467.5,226.9L470.0,226.6L473.0,229.3L474.0,233.1L478.7,228.1L480.9,229.3L482.5,234.6L487.2,234.8L497.7,238.9L500.1,236.1L509.8,233.2L514.1,237.0Z", "cx": 483.9, "cy": 256.0, "a": 2654.4}, {"k": "전북|진안군", "d": "M449.1,245.4L454.6,254.3L453.4,257.4L459.8,264.2L458.3,269.5L466.0,274.0L466.6,278.5L463.5,284.9L459.2,289.0L448.6,284.9L446.6,293.1L448.7,298.0L443.6,301.9L440.1,306.3L437.1,316.3L440.4,319.6L436.0,328.7L432.7,328.0L432.0,324.7L421.4,318.4L411.9,318.6L411.2,315.9L406.1,312.1L406.4,306.3L403.1,298.2L402.1,292.6L402.7,290.1L408.1,287.4L407.1,283.5L409.5,281.6L411.5,276.8L411.2,273.1L413.7,270.5L413.6,263.0L417.1,261.2L415.6,246.5L419.4,244.0L419.0,240.0L421.9,236.9L426.2,240.3L430.9,236.1L434.3,240.5L436.4,245.8L442.2,247.1L449.1,245.4Z", "cx": 431.6, "cy": 280.9, "a": 3273.9}, {"k": "전북|완주군", "d": "M362.8,278.9L364.2,283.3L364.3,289.6L355.6,287.1L351.7,283.8L351.1,280.9L353.9,276.9L353.1,273.4L357.0,273.0L361.3,275.8L362.8,278.9ZM421.9,236.9L419.0,240.0L419.4,244.0L415.6,246.5L417.1,261.2L413.6,263.0L413.7,270.5L411.2,273.1L411.5,276.8L409.5,281.6L407.1,283.5L408.1,287.4L402.7,290.1L402.1,292.6L397.7,296.6L399.5,302.8L398.6,305.1L400.1,311.8L385.0,301.6L381.6,304.8L377.7,306.2L377.8,310.3L375.2,312.6L375.6,320.0L377.2,322.4L371.7,328.6L369.4,328.1L369.5,325.5L364.0,315.3L363.4,309.2L367.8,303.8L371.2,298.3L373.5,299.0L382.0,291.3L389.0,293.0L392.3,287.2L394.2,285.6L390.7,281.1L388.5,274.3L383.4,275.0L379.4,267.1L375.6,264.5L368.3,266.3L363.8,265.0L359.0,266.3L357.6,260.6L360.1,258.9L364.3,261.2L369.2,257.7L371.8,251.0L372.0,243.3L375.2,240.9L373.7,235.4L377.7,229.3L376.1,227.2L377.5,222.4L383.3,223.0L385.2,220.7L389.9,219.3L397.6,220.6L398.6,216.4L402.6,217.6L406.5,216.4L411.8,212.5L414.7,212.4L417.7,217.5L418.8,230.0L421.0,232.2L421.9,236.9Z", "cx": 391.7, "cy": 260.6, "a": 3491.9}, {"k": "전북|김제시", "d": "M325.1,261.0L326.7,263.6L332.2,261.4L335.2,263.8L340.5,261.9L351.7,268.5L353.1,273.4L353.9,276.9L351.1,280.9L351.7,283.8L355.6,287.1L364.3,289.6L365.8,293.1L362.0,296.0L367.8,303.8L363.4,309.2L364.0,315.3L357.8,318.0L350.6,312.3L348.7,307.0L343.1,304.5L339.9,305.7L337.8,301.4L332.7,298.1L327.5,303.9L324.0,303.9L319.8,307.0L313.8,298.1L310.9,297.2L309.2,290.9L310.9,287.2L302.8,283.3L296.5,278.5L295.2,275.8L302.4,272.4L312.9,272.8L315.3,266.2L319.8,265.2L322.0,262.2L325.1,261.0Z", "cx": 334.8, "cy": 286.7, "a": 2125.2}, {"k": "전북|남원시", "d": "M419.3,342.5L421.9,344.8L430.9,344.3L435.8,346.4L438.4,345.2L446.9,353.7L452.4,362.9L455.3,362.3L456.2,358.4L459.3,355.3L457.1,350.0L458.1,345.2L460.3,343.3L467.4,348.0L472.7,359.0L469.8,360.6L471.2,367.1L475.4,367.5L474.4,374.7L470.4,377.3L464.9,386.2L467.2,391.2L466.7,393.8L461.6,398.6L458.8,399.1L450.1,392.7L444.8,387.8L439.2,386.0L431.8,387.6L423.1,400.4L417.9,396.4L408.5,400.5L405.4,398.0L400.3,398.5L393.3,392.8L391.8,397.5L386.7,396.1L386.5,393.0L390.0,387.4L394.0,378.7L397.6,378.6L400.1,372.3L402.5,373.7L406.4,371.7L410.2,363.4L409.1,360.8L409.5,357.1L417.2,356.3L417.6,352.9L415.3,349.9L419.3,342.5Z", "cx": 433.9, "cy": 373.4, "a": 3105.1}, {"k": "전북|정읍시", "d": "M319.8,307.0L324.0,303.9L327.5,303.9L332.7,298.1L337.8,301.4L339.9,305.7L343.1,304.5L348.7,307.0L350.6,312.3L357.8,318.0L364.0,315.3L369.5,325.5L369.4,328.1L371.4,334.2L367.4,336.5L369.2,340.5L368.3,344.6L373.4,346.9L368.1,351.3L368.4,353.9L357.4,348.5L354.9,345.4L350.7,347.3L348.2,343.1L338.9,351.5L340.2,359.9L336.1,361.1L330.3,359.5L326.6,360.2L327.8,364.5L324.5,363.5L320.0,358.8L317.6,362.8L310.1,362.9L308.7,357.5L310.4,350.4L308.0,348.3L307.0,339.0L300.7,339.1L300.4,330.6L301.3,323.0L304.8,317.8L308.7,318.3L309.9,313.7L320.2,314.8L322.5,310.8L319.8,307.0Z", "cx": 334.4, "cy": 332.4, "a": 2899.6}, {"k": "전북|익산시", "d": "M376.1,227.2L377.7,229.3L373.7,235.4L375.2,240.9L372.0,243.3L371.8,251.0L369.2,257.7L364.3,261.2L360.1,258.9L357.6,260.6L359.0,266.3L352.2,266.5L351.7,268.5L340.5,261.9L335.2,263.8L332.2,261.4L326.7,263.6L325.1,261.0L329.4,257.3L330.9,251.0L335.4,246.2L336.1,240.8L333.8,240.2L328.1,234.6L326.9,228.3L328.1,226.4L328.7,216.4L332.2,210.1L338.0,210.4L344.2,206.5L350.3,209.1L352.7,208.2L356.5,211.1L361.3,209.7L363.5,220.8L367.2,224.4L376.1,227.2Z", "cx": 350.0, "cy": 237.1, "a": 2149.8}, {"k": "전북|군산시", "d": "M325.1,261.0L322.0,262.2L312.2,264.3L309.6,267.3L303.4,266.7L301.3,268.1L292.3,266.0L290.7,268.6L281.0,268.0L280.1,261.0L281.0,255.1L277.3,254.0L265.0,255.7L263.6,248.7L272.4,247.6L286.1,246.9L290.5,245.7L293.0,242.3L301.4,243.2L303.1,241.9L305.7,236.7L310.6,234.9L317.0,234.4L326.9,228.3L328.1,234.6L333.8,240.2L336.1,240.8L335.4,246.2L330.9,251.0L329.4,257.3L325.1,261.0Z", "cx": 305.1, "cy": 251.3, "a": 1483.3}, {"k": "전북|전주시", "d": "M359.0,266.3L363.8,265.0L368.3,266.3L375.6,264.5L379.4,267.1L383.4,275.0L388.5,274.3L390.7,281.1L394.2,285.6L392.3,287.2L388.8,285.1L384.6,285.7L381.0,280.9L377.5,281.4L371.6,277.9L365.4,281.6L362.8,278.9L361.3,275.8L357.0,273.0L353.1,273.4L351.7,268.5L352.2,266.5L359.0,266.3ZM362.8,278.9L365.4,281.6L371.6,277.9L377.5,281.4L381.0,280.9L384.6,285.7L388.8,285.1L392.3,287.2L389.0,293.0L382.0,291.3L373.5,299.0L371.2,298.3L367.8,303.8L362.0,296.0L365.8,293.1L364.3,289.6L364.2,283.3L362.8,278.9Z", "cx": 373.5, "cy": 281.1, "a": 834.3}, {"k": "충남|태안군", "d": "M234.0,102.8L238.4,104.3L241.0,109.8L239.5,117.0L240.6,124.1L246.3,137.1L247.8,147.0L244.7,150.0L237.8,147.1L235.8,148.9L229.7,142.4L227.6,135.8L229.0,130.4L226.6,115.2L224.7,109.1L230.2,103.8L234.0,102.8ZM229.1,56.9L232.3,61.0L233.0,64.8L230.8,73.7L231.3,78.2L230.1,82.8L230.3,90.2L233.0,99.7L226.5,106.5L221.4,109.4L219.4,106.7L220.0,101.6L222.1,99.0L220.1,91.3L216.0,89.0L214.2,79.0L209.7,84.7L206.5,84.7L203.8,88.8L199.3,88.0L191.4,90.2L191.3,85.7L199.0,78.8L205.7,81.6L204.8,77.0L201.4,71.0L197.8,69.9L192.0,73.7L186.1,66.4L191.2,66.0L193.6,62.8L197.5,49.6L199.7,52.1L203.1,49.1L202.1,44.9L205.9,37.5L213.3,35.0L212.0,40.2L208.1,41.9L212.1,45.8L214.0,42.2L217.2,41.3L219.8,36.8L221.5,30.8L219.8,22.9L224.3,20.7L225.3,25.1L223.3,27.5L223.2,32.6L226.4,36.3L226.6,39.4L221.7,50.5L225.9,51.4L219.2,56.2L222.2,58.3L229.1,56.9Z", "cx": 220.2, "cy": 83.9, "a": 2395.5}, {"k": "충남|예산군", "d": "M321.3,64.1L322.1,71.2L326.0,72.3L326.9,75.7L331.2,75.9L334.1,79.7L334.0,82.5L342.6,82.2L346.5,85.1L346.2,87.7L344.6,93.1L340.3,100.8L338.3,108.6L333.4,115.1L328.5,112.6L323.5,112.2L319.7,122.0L316.1,122.4L310.2,120.7L305.2,121.3L305.6,110.2L309.9,107.4L306.4,95.7L303.6,94.7L305.1,89.6L298.6,89.2L296.4,91.3L283.4,94.5L282.0,100.9L275.5,99.7L277.4,93.6L276.2,91.3L279.9,81.9L278.8,78.2L286.5,71.2L288.1,66.0L295.3,63.9L296.6,59.8L301.3,60.7L305.3,67.8L311.4,70.8L316.4,66.1L321.3,64.1Z", "cx": 312.5, "cy": 89.6, "a": 2277.4}, {"k": "충남|홍성군", "d": "M310.2,120.7L309.5,124.3L306.0,127.6L303.4,134.9L301.2,132.8L296.9,133.3L291.7,137.1L284.8,136.2L280.9,132.0L278.7,133.6L276.4,126.4L272.3,128.2L267.7,126.7L260.4,121.7L257.7,124.4L255.6,123.9L251.1,116.2L249.9,109.0L250.7,106.5L255.3,104.5L251.7,99.8L253.4,95.7L261.7,98.7L266.2,95.2L271.9,95.6L276.2,91.3L277.4,93.6L275.5,99.7L282.0,100.9L283.4,94.5L296.4,91.3L298.6,89.2L305.1,89.6L303.6,94.7L306.4,95.7L309.9,107.4L305.6,110.2L305.2,121.3L310.2,120.7Z", "cx": 282.4, "cy": 112.5, "a": 1940.4}, {"k": "충남|청양군", "d": "M347.6,165.9L338.7,170.5L334.7,168.1L327.4,168.7L322.9,159.1L324.4,154.7L320.4,154.6L316.7,156.5L314.2,162.0L306.3,161.1L301.2,156.9L297.7,150.1L295.1,148.8L294.6,140.8L291.7,137.1L296.9,133.3L301.2,132.8L303.4,134.9L306.0,127.6L309.5,124.3L310.2,120.7L316.1,122.4L319.7,122.0L323.5,112.2L328.5,112.6L333.4,115.1L330.8,125.6L332.5,127.8L332.6,133.3L339.2,138.7L345.8,135.8L351.1,137.2L356.5,145.7L357.3,150.3L350.1,158.3L349.9,162.5L347.6,165.9Z", "cx": 325.0, "cy": 144.2, "a": 2022.9}, {"k": "충남|서천군", "d": "M271.9,199.4L275.4,202.2L283.2,202.8L288.6,200.9L290.5,202.1L295.3,198.8L296.6,201.2L311.4,200.4L314.3,201.4L314.4,207.9L322.5,215.5L322.9,224.0L328.1,226.4L326.9,228.3L317.0,234.4L310.6,234.9L305.7,236.7L303.1,241.9L289.4,239.6L290.7,234.9L286.3,229.5L284.2,229.4L284.4,221.0L279.3,217.3L273.9,210.6L270.7,212.6L266.7,208.4L262.0,207.7L265.4,197.9L271.9,199.4Z", "cx": 297.9, "cy": 217.8, "a": 1555.0}, {"k": "충남|부여군", "d": "M301.2,156.9L306.3,161.1L314.2,162.0L316.7,156.5L320.4,154.6L324.4,154.7L322.9,159.1L327.4,168.7L334.7,168.1L338.7,170.5L347.6,165.9L349.8,170.5L357.2,178.0L364.3,179.1L364.0,183.7L359.5,186.2L354.8,194.1L351.2,193.3L349.1,198.4L353.5,205.2L352.7,208.2L350.3,209.1L344.2,206.5L338.0,210.4L332.2,210.1L328.7,216.4L328.1,226.4L322.9,224.0L322.5,215.5L314.4,207.9L314.3,201.4L311.4,200.4L296.6,201.2L295.3,198.8L299.2,193.4L299.4,190.1L303.0,187.9L303.5,184.2L295.9,180.7L295.6,174.2L293.1,170.9L293.6,166.8L296.1,165.5L298.2,157.9L301.2,156.9Z", "cx": 325.8, "cy": 186.0, "a": 2605.9}, {"k": "충남|금산군", "d": "M420.9,180.2L424.1,181.9L423.5,185.1L427.6,193.7L430.2,194.8L433.9,198.0L438.7,193.3L438.5,191.4L443.2,188.0L450.3,185.5L459.1,189.1L462.6,192.7L462.6,200.2L463.3,205.4L461.2,211.7L466.3,218.2L466.3,220.8L470.0,226.6L467.5,226.9L468.7,232.8L466.3,240.4L461.4,236.5L451.5,234.6L451.9,239.4L449.1,245.4L442.2,247.1L436.4,245.8L434.3,240.5L430.9,236.1L426.2,240.3L421.9,236.9L421.0,232.2L418.8,230.0L417.7,217.5L414.7,212.4L411.8,212.5L411.0,205.4L413.4,200.2L419.5,192.1L419.1,180.9L420.9,180.2Z", "cx": 440.7, "cy": 215.0, "a": 2456.9}, {"k": "충남|당진시", "d": "M323.9,46.0L322.0,52.3L325.8,59.6L325.3,62.7L321.3,64.1L316.4,66.1L311.4,70.8L305.3,67.8L301.3,60.7L296.6,59.8L295.3,63.9L288.1,66.0L283.9,57.3L273.4,54.6L264.5,54.2L261.4,44.5L254.7,40.9L255.4,36.3L257.7,30.1L255.9,15.6L251.1,9.0L259.4,0.0L263.3,1.3L265.1,4.9L285.5,15.3L297.5,14.9L311.6,20.2L311.5,22.2L321.0,46.2L323.9,46.0Z", "cx": 288.0, "cy": 36.9, "a": 2965.7}, {"k": "충남|계룡시", "d": "M400.1,167.7L400.0,174.8L398.2,177.7L406.0,182.1L403.5,186.6L399.7,188.8L388.3,179.5L390.1,173.1L388.3,166.2L390.8,163.0L396.6,163.4L400.1,167.7Z", "cx": 395.8, "cy": 175.7, "a": 256.7}, {"k": "충남|논산시", "d": "M388.3,166.2L390.1,173.1L388.3,179.5L399.7,188.8L403.5,186.6L406.1,189.9L410.4,191.8L413.4,200.2L411.0,205.4L411.8,212.5L406.5,216.4L402.6,217.6L398.6,216.4L397.6,220.6L389.9,219.3L385.2,220.7L383.3,223.0L377.5,222.4L376.1,227.2L367.2,224.4L363.5,220.8L361.3,209.7L356.5,211.1L352.7,208.2L353.5,205.2L349.1,198.4L351.2,193.3L354.8,194.1L359.5,186.2L364.0,183.7L364.3,179.1L364.5,175.2L371.4,166.0L374.4,169.7L378.6,172.3L381.5,168.9L388.3,166.2Z", "cx": 381.2, "cy": 198.6, "a": 2323.2}, {"k": "충남|서산시", "d": "M255.4,36.3L254.7,40.9L261.4,44.5L264.5,54.2L273.4,54.6L283.9,57.3L288.1,66.0L286.5,71.2L278.8,78.2L279.9,81.9L276.2,91.3L271.9,95.6L266.2,95.2L261.7,98.7L253.4,95.7L252.7,86.5L249.0,90.5L249.4,95.7L245.7,105.7L240.3,101.6L234.7,99.6L234.0,90.0L231.7,88.8L231.3,78.2L230.8,73.7L233.0,64.8L232.3,61.0L229.1,56.9L226.7,51.8L230.5,49.3L234.5,48.7L234.5,42.8L240.4,39.1L243.0,35.9L237.7,27.6L229.0,24.0L229.9,20.5L227.5,16.3L236.7,12.1L246.0,11.5L250.6,13.5L255.7,21.9L257.3,29.6L255.4,36.3Z", "cx": 252.9, "cy": 62.5, "a": 3091.2}, {"k": "충남|아산시", "d": "M365.8,28.8L369.5,34.7L368.9,46.5L372.5,47.8L369.8,59.2L373.0,63.8L374.1,68.1L368.4,72.1L366.7,80.7L362.9,81.1L357.0,86.0L353.9,93.0L348.2,93.6L346.2,87.7L346.5,85.1L342.6,82.2L334.0,82.5L334.1,79.7L331.2,75.9L326.9,75.7L326.0,72.3L322.1,71.2L321.3,64.1L325.3,62.7L325.8,59.6L322.0,52.3L323.9,46.0L324.0,42.7L330.1,40.3L335.8,39.7L335.2,36.4L351.3,29.5L358.0,31.1L365.8,28.8Z", "cx": 348.6, "cy": 58.6, "a": 2291.4}, {"k": "충남|보령시", "d": "M233.4,161.4L233.9,167.2L230.2,166.2L233.4,161.4ZM247.3,154.4L252.1,161.5L240.6,158.6L238.6,155.5L247.3,154.4ZM291.7,137.1L294.6,140.8L295.1,148.8L297.7,150.1L301.2,156.9L298.2,157.9L296.1,165.5L293.6,166.8L293.1,170.9L295.6,174.2L295.9,180.7L303.5,184.2L303.0,187.9L299.4,190.1L299.2,193.4L295.3,198.8L290.5,202.1L288.6,200.9L283.2,202.8L275.4,202.2L271.9,199.4L267.6,197.3L265.2,191.7L265.3,187.7L268.4,182.2L264.8,174.6L260.2,168.3L269.3,163.0L261.4,155.7L256.1,155.1L259.2,145.1L256.5,139.2L254.8,127.7L257.7,124.4L260.4,121.7L267.7,126.7L272.3,128.2L276.4,126.4L278.7,133.6L280.9,132.0L284.8,136.2L291.7,137.1Z", "cx": 277.7, "cy": 163.6, "a": 2500.8}, {"k": "충남|공주시", "d": "M379.9,101.1L380.9,104.3L385.7,106.8L387.9,113.7L384.0,120.3L385.7,123.4L383.7,125.8L389.9,137.7L389.3,141.7L393.8,146.1L399.8,149.3L404.3,147.9L403.5,162.8L400.1,167.7L396.6,163.4L390.8,163.0L388.3,166.2L381.5,168.9L378.6,172.3L374.4,169.7L371.4,166.0L364.5,175.2L364.3,179.1L357.2,178.0L349.8,170.5L347.6,165.9L349.9,162.5L350.1,158.3L357.3,150.3L356.5,145.7L351.1,137.2L345.8,135.8L339.2,138.7L332.6,133.3L332.5,127.8L330.8,125.6L333.4,115.1L338.3,108.6L340.3,100.8L344.6,93.1L346.2,87.7L348.2,93.6L353.9,93.0L362.1,94.1L365.8,96.3L372.7,92.4L378.1,96.0L379.9,101.1Z", "cx": 365.9, "cy": 133.2, "a": 3645.8}, {"k": "충남|천안시", "d": "M374.2,21.9L378.8,21.3L389.4,25.7L392.8,30.7L397.2,33.6L402.0,34.6L405.7,39.0L395.7,45.3L394.1,48.6L383.9,49.9L379.8,54.6L379.1,59.5L373.0,63.8L369.8,59.2L372.5,47.8L368.9,46.5L369.5,34.7L365.8,28.8L373.1,21.1L374.2,21.9ZM405.8,39.3L409.0,40.9L408.7,46.0L414.2,47.9L413.7,53.3L417.9,53.8L426.3,61.4L425.1,63.9L429.6,69.9L426.9,72.5L423.7,69.5L414.3,71.0L415.1,75.7L409.1,78.2L409.0,81.9L404.9,85.1L398.0,84.1L389.8,77.4L382.3,75.4L376.9,81.5L378.6,84.9L382.5,87.9L380.7,91.0L381.3,97.7L379.9,101.1L378.1,96.0L372.7,92.4L365.8,96.3L362.1,94.1L353.9,93.0L357.0,86.0L362.9,81.1L366.7,80.7L368.4,72.1L374.1,68.1L373.0,63.8L379.1,59.5L379.8,54.6L383.9,49.9L394.1,48.6L395.7,45.3L405.8,39.3Z", "cx": 389.6, "cy": 59.2, "a": 2696.6}, {"k": "세종|세종", "d": "M404.9,85.1L409.0,87.2L407.6,92.5L405.1,93.4L403.7,97.8L407.7,102.2L409.0,109.5L412.1,110.1L414.4,114.1L421.0,114.8L423.0,118.9L426.4,119.1L427.7,123.0L427.3,129.6L425.2,130.4L422.5,128.5L418.5,131.8L417.4,140.3L412.5,146.2L406.5,146.1L404.3,147.9L399.8,149.3L393.8,146.1L389.3,141.7L389.9,137.7L383.7,125.8L385.7,123.4L384.0,120.3L387.9,113.7L385.7,106.8L380.9,104.3L379.9,101.1L381.3,97.7L380.7,91.0L382.5,87.9L378.6,84.9L376.9,81.5L382.3,75.4L389.8,77.4L398.0,84.1L404.9,85.1Z", "cx": 399.8, "cy": 114.7, "a": 1978.6}, {"k": "대전|대덕구", "d": "M442.5,143.8L436.6,150.5L435.5,155.5L438.2,160.2L428.4,164.0L426.6,162.5L425.1,157.4L428.1,155.4L429.4,147.4L424.4,141.7L426.5,138.5L432.7,138.3L435.9,139.8L440.7,138.0L445.0,140.0L442.5,143.8Z", "cx": 433.2, "cy": 149.1, "a": 282.0}, {"k": "대전|유성구", "d": "M426.5,138.5L424.4,141.7L429.4,147.4L428.1,155.4L425.1,157.4L422.4,157.4L416.6,162.6L414.6,166.6L414.9,170.6L408.8,180.2L406.0,182.1L398.2,177.7L400.0,174.8L400.1,167.7L403.5,162.8L404.3,147.9L406.5,146.1L412.5,146.2L417.4,140.3L418.5,131.8L422.5,128.5L425.2,130.4L426.8,132.3L426.5,138.5Z", "cx": 413.9, "cy": 156.1, "a": 738.3}, {"k": "대전|서구", "d": "M425.1,157.4L426.6,162.5L423.4,169.2L420.9,180.2L419.1,180.9L419.5,192.1L413.4,200.2L410.4,191.8L406.1,189.9L403.5,186.6L406.0,182.1L408.8,180.2L414.9,170.6L414.6,166.6L416.6,162.6L422.4,157.4L425.1,157.4Z", "cx": 415.9, "cy": 178.6, "a": 403.6}, {"k": "대전|중구", "d": "M426.6,162.5L428.4,164.0L436.3,173.8L431.7,176.2L433.2,181.2L431.6,183.6L433.9,187.8L430.2,194.8L427.6,193.7L423.5,185.1L424.1,181.9L420.9,180.2L423.4,169.2L426.6,162.5Z", "cx": 428.1, "cy": 178.4, "a": 264.3}, {"k": "대전|동구", "d": "M447.4,146.1L452.3,146.5L454.5,152.4L449.1,154.1L449.5,158.2L444.7,166.3L444.0,176.9L441.9,183.2L443.2,188.0L438.5,191.4L438.7,193.3L433.9,198.0L430.2,194.8L433.9,187.8L431.6,183.6L433.2,181.2L431.7,176.2L436.3,173.8L428.4,164.0L438.2,160.2L435.5,155.5L436.6,150.5L442.5,143.8L445.0,149.3L447.4,146.1Z", "cx": 440.1, "cy": 168.2, "a": 579.8}, {"k": "광주|광산구", "d": "M321.9,417.3L324.9,418.9L325.9,427.9L322.3,428.8L319.5,432.2L320.5,437.0L318.1,442.8L315.7,444.2L315.7,448.3L309.8,453.5L308.1,448.7L304.1,445.1L288.4,443.2L288.2,432.0L291.3,430.8L288.0,425.6L292.6,425.3L294.3,420.5L300.0,421.2L300.3,417.8L303.4,412.1L308.5,411.6L306.9,416.1L316.2,419.6L321.9,417.3Z", "cx": 306.5, "cy": 431.7, "a": 910.2}, {"k": "광주|북구", "d": "M329.9,412.2L334.7,410.5L339.3,412.2L339.6,414.7L347.6,427.0L352.4,426.7L356.0,431.3L353.6,434.1L354.0,439.0L351.7,443.3L349.0,438.3L346.1,438.3L343.9,434.8L336.6,431.7L335.0,434.9L330.7,431.0L322.3,428.8L325.9,427.9L324.9,418.9L321.9,417.3L329.9,412.2Z", "cx": 338.5, "cy": 425.4, "a": 496.8}, {"k": "광주|남구", "d": "M335.5,435.5L338.7,440.3L336.1,443.3L337.2,448.6L332.2,451.6L325.4,451.6L318.7,457.4L309.8,453.5L315.7,448.3L318.8,448.7L322.6,445.6L331.4,442.8L330.9,436.0L335.5,435.5Z", "cx": 326.3, "cy": 447.6, "a": 232.9}, {"k": "광주|서구", "d": "M322.3,428.8L330.7,431.0L335.0,434.9L335.5,435.5L330.9,436.0L331.4,442.8L322.6,445.6L318.8,448.7L315.7,448.3L315.7,444.2L318.1,442.8L320.5,437.0L319.5,432.2L322.3,428.8Z", "cx": 324.7, "cy": 438.3, "a": 201.3}, {"k": "광주|동구", "d": "M335.5,435.5L335.0,434.9L336.6,431.7L343.9,434.8L346.1,438.3L349.0,438.3L351.7,443.3L349.8,447.9L346.0,449.0L343.2,452.8L339.6,452.4L337.2,448.6L336.1,443.3L338.7,440.3L335.5,435.5Z", "cx": 342.7, "cy": 442.7, "a": 206.9}]};
+</script>
+<script>
+/*DATA_START*/
+// 자동 생성 영역 — build_data.py 실행 시 교체됩니다.
+// values: { 조직: { 항목: { pyPlan 전년계획, pyAct 전년실적, cyPlan 올해계획, cyAct 올해실적 } } } — 각 값은 1~12월 배열
+// 일매출(agg=ratio)은 {n: 총매출(백만), d: 영업일수} 쌍으로 저장, 화면에서 n합÷d합×1000 으로 계산
+// 값이 null 이면 화면에 '-' 로 표시됩니다.
+window.DASHBOARD_DATA = {
+  "title": "GS25 4부문 관리자용 대시보드",
+  "baseDate": "2026년 9월",
+  "period": "1월~선택월 누계",
+  "prevYear": 2025,
+  "currYear": 2026,
+  "thresholds": {
+    "good": 100,
+    "warning": 95
+  },
+  "latestMonth": 9,
+  "items": [
+    {
+      "key": "sales",
+      "name": "일매출",
+      "unit": "천원",
+      "decimals": 0,
+      "agg": "ratio",
+      "scale": 1000,
+      "note": "점당 일평균 (총매출÷영업일수)",
+      "lastMonth": 9,
+      "higherIsBetter": true
+    },
+    {
+      "key": "profit",
+      "name": "손익",
+      "unit": "억",
+      "decimals": 1,
+      "agg": "sum",
+      "note": "영업이익1 · 계획 미제공",
+      "lastMonth": 7,
+      "higherIsBetter": true
+    },
+    {
+      "key": "open",
+      "name": "출점",
+      "unit": "점",
+      "decimals": 0,
+      "agg": "sum",
+      "note": "",
+      "lastMonth": 9,
+      "higherIsBetter": true
+    },
+    {
+      "key": "close",
+      "name": "폐점",
+      "unit": "점",
+      "decimals": 0,
+      "agg": "sum",
+      "note": "",
+      "lastMonth": 9,
+      "higherIsBetter": true,
+      "compare": "count"
+    },
+    {
+      "key": "renewal",
+      "name": "리뉴얼",
+      "unit": "점",
+      "decimals": 0,
+      "agg": "sum",
+      "note": "",
+      "lastMonth": 9,
+      "higherIsBetter": true
+    },
+    {
+      "key": "snb",
+      "name": "S&B",
+      "unit": "점",
+      "decimals": 0,
+      "agg": "sum",
+      "note": "실행 · 계획 미제공",
+      "lastMonth": 8,
+      "higherIsBetter": true
+    },
+    {
+      "key": "fcs",
+      "name": "FCS",
+      "unit": "점",
+      "decimals": 0,
+      "agg": "sum",
+      "note": "신규점+기존점 · 25년 계획은 연간만 존재",
+      "lastMonth": 9,
+      "higherIsBetter": true
+    },
+    {
+      "key": "chicken",
+      "name": "치킨25",
+      "unit": "점",
+      "decimals": 0,
+      "agg": "sum",
+      "note": "원시 데이터 미포함",
+      "lastMonth": 0,
+      "higherIsBetter": true
+    }
+  ],
+  "subItems": [
+    {
+      "key": "fcs_new",
+      "name": "FCS 신규",
+      "unit": "점",
+      "decimals": 0,
+      "agg": "sum",
+      "lastMonth": 9,
+      "higherIsBetter": true,
+      "note": "FCS 신규점 · 25년 계획은 연간만 존재"
+    },
+    {
+      "key": "fcs_exist",
+      "name": "FCS 기존",
+      "unit": "점",
+      "decimals": 0,
+      "agg": "sum",
+      "lastMonth": 9,
+      "higherIsBetter": true,
+      "note": "FCS 기존점 · 25년 계획은 연간만 존재"
+    }
+  ],
+  "orgs": [
+    "4부문",
+    "4부문1지역",
+    "4부문2지역",
+    "4부문3지역",
+    "4부문4지역"
+  ],
+  "values": {
+    "4부문": {
+      "sales": {
+        "pyPlan": {
+          "n": [
+            129872.412,
+            120334.841,
+            141300.954,
+            143314.67,
+            151049.709,
+            148671.418,
+            147244.222,
+            153187.004,
+            155715.341,
+            152012.064,
+            144298.237,
+            138028.662
+          ],
+          "d": [
+            88679,
+            80627,
+            90411,
+            87799,
+            90674,
+            87388,
+            89774,
+            89963,
+            88354,
+            91287,
+            88943,
+            91859
+          ]
+        },
+        "pyAct": {
+          "n": [
+            129542.601,
+            116462.915,
+            138816.046,
+            140201.696,
+            147191.479,
+            144623.428,
+            153109.823,
+            156178.475,
+            155215.798,
+            157841.032,
+            146933.583,
+            138853.508
+          ],
+          "d": [
+            88626,
+            80221,
+            89602,
+            86959,
+            89749,
+            86637,
+            89194,
+            89247,
+            87367,
+            89868,
+            87422,
+            89704
+          ]
+        },
+        "cyPlan": {
+          "n": [
+            133190.092,
+            125514.837,
+            144717.828,
+            145583.922,
+            153287.756,
+            151021.471,
+            153758.043,
+            155627.214,
+            159824.452,
+            159478.587,
+            150603.202,
+            144564.737
+          ],
+          "d": [
+            88930,
+            80080,
+            89956,
+            87646,
+            90741,
+            87861,
+            90535,
+            90555,
+            88659,
+            91909,
+            89294,
+            91971
+          ]
+        },
+        "cyAct": {
+          "n": [
+            133190.092,
+            125514.837,
+            144844.594,
+            148777.213,
+            160544.303,
+            156311.62,
+            157175.078,
+            158456.077,
+            163599.767,
+            null,
+            null,
+            null
+          ],
+          "d": [
+            89013,
+            80187,
+            90077,
+            87299,
+            90257,
+            87120,
+            89508,
+            89699,
+            87558,
+            null,
+            null,
+            null
+          ]
+        }
+      },
+      "profit": {
+        "pyPlan": null,
+        "pyAct": [
+          -2.2,
+          -4.6,
+          19,
+          21.2,
+          30,
+          22.3,
+          21.9,
+          35,
+          43,
+          33.9,
+          13.5,
+          -27.1
+        ],
+        "cyPlan": null,
+        "cyAct": [
+          4.2,
+          -6.5,
+          9.2,
+          14.9,
+          35.7,
+          29.8,
+          17.7,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      "open": {
+        "pyPlan": [
+          19,
+          19,
+          23,
+          17,
+          18,
+          17,
+          18,
+          21,
+          20,
+          15,
+          16,
+          14
+        ],
+        "pyAct": [
+          14,
+          10,
+          14,
+          16,
+          20,
+          16,
+          24,
+          19,
+          19,
+          18,
+          19,
+          14
+        ],
+        "cyPlan": [
+          14,
+          17,
+          20,
+          23,
+          23,
+          23,
+          20,
+          20,
+          17,
+          16,
+          13,
+          12
+        ],
+        "cyAct": [
+          14,
+          19,
+          21,
+          17,
+          18,
+          24,
+          21,
+          19,
+          25,
+          null,
+          null,
+          null
+        ]
+      },
+      "close": {
+        "pyPlan": [
+          14,
+          18,
+          13,
+          8,
+          11,
+          16,
+          12,
+          12,
+          6,
+          11,
+          8,
+          7
+        ],
+        "pyAct": [
+          13,
+          17,
+          22,
+          15,
+          13,
+          15,
+          19,
+          17,
+          17,
+          16,
+          15,
+          12
+        ],
+        "cyPlan": [
+          16,
+          17,
+          16,
+          15,
+          10,
+          13,
+          9,
+          11,
+          8,
+          10,
+          12,
+          15
+        ],
+        "cyAct": [
+          18,
+          17,
+          19,
+          16,
+          14,
+          18,
+          16,
+          14,
+          12,
+          null,
+          null,
+          null
+        ]
+      },
+      "renewal": {
+        "pyPlan": [
+          21,
+          18,
+          13,
+          13,
+          7,
+          0,
+          2,
+          3,
+          0,
+          5,
+          2,
+          1
+        ],
+        "pyAct": [
+          17,
+          10,
+          18,
+          11,
+          7,
+          8,
+          5,
+          2,
+          2,
+          2,
+          3,
+          3
+        ],
+        "cyPlan": [
+          19,
+          24,
+          12,
+          10,
+          8,
+          4,
+          2,
+          1,
+          2,
+          4,
+          2,
+          3
+        ],
+        "cyAct": [
+          8,
+          7,
+          6,
+          11,
+          7,
+          5,
+          5,
+          7,
+          6,
+          null,
+          null,
+          null
+        ]
+      },
+      "snb": {
+        "pyPlan": null,
+        "pyAct": [
+          4,
+          2,
+          3,
+          4,
+          6,
+          6,
+          5,
+          4,
+          3,
+          4,
+          5,
+          2
+        ],
+        "cyPlan": null,
+        "cyAct": [
+          1,
+          5,
+          4,
+          4,
+          7,
+          5,
+          12,
+          3,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      "fcs": {
+        "pyPlan": null,
+        "pyAct": [
+          8,
+          3,
+          8,
+          8,
+          4,
+          2,
+          3,
+          3,
+          6,
+          7,
+          4,
+          3
+        ],
+        "cyPlan": [
+          4,
+          5,
+          5,
+          6,
+          7,
+          5,
+          6,
+          7,
+          5,
+          5,
+          4,
+          2
+        ],
+        "cyAct": [
+          4,
+          4,
+          7,
+          8,
+          6,
+          5,
+          10,
+          5,
+          10,
+          null,
+          null,
+          null
+        ]
+      },
+      "fcs_new": {
+        "pyPlan": null,
+        "pyAct": [
+          7,
+          2,
+          4,
+          6,
+          3,
+          1,
+          2,
+          3,
+          4,
+          4,
+          3,
+          2
+        ],
+        "cyPlan": [
+          3,
+          3,
+          3,
+          4,
+          5,
+          4,
+          4,
+          4,
+          4,
+          4,
+          3,
+          2
+        ],
+        "cyAct": [
+          4,
+          3,
+          6,
+          5,
+          5,
+          1,
+          5,
+          3,
+          4,
+          null,
+          null,
+          null
+        ]
+      },
+      "fcs_exist": {
+        "pyPlan": null,
+        "pyAct": [
+          1,
+          1,
+          4,
+          2,
+          1,
+          1,
+          1,
+          0,
+          2,
+          3,
+          1,
+          1
+        ],
+        "cyPlan": [
+          1,
+          2,
+          2,
+          2,
+          2,
+          1,
+          2,
+          3,
+          1,
+          1,
+          1,
+          0
+        ],
+        "cyAct": [
+          0,
+          1,
+          1,
+          3,
+          1,
+          4,
+          5,
+          2,
+          6,
+          null,
+          null,
+          null
+        ]
+      },
+      "chicken": {
+        "pyPlan": null,
+        "pyAct": null,
+        "cyPlan": null,
+        "cyAct": null
+      }
+    },
+    "4부문1지역": {
+      "sales": {
+        "pyPlan": {
+          "n": [
+            33739.698,
+            30990.107,
+            37594.012,
+            38595.854,
+            40432.439,
+            39782.666,
+            38724.627,
+            40346.293,
+            40955.149,
+            40596.312,
+            38265.717,
+            35960.099
+          ],
+          "d": [
+            21799,
+            19860,
+            22485,
+            21921,
+            22642,
+            21755,
+            22208,
+            22349,
+            22149,
+            22906,
+            22296,
+            22945
+          ]
+        },
+        "pyAct": {
+          "n": [
+            32758.964,
+            29782.967,
+            36431.448,
+            37035.797,
+            38715.596,
+            37999.383,
+            39552.296,
+            40009.972,
+            40468.621,
+            40222.159,
+            38397.412,
+            35906.3
+          ],
+          "d": [
+            21760,
+            19656,
+            22325,
+            21684,
+            22280,
+            21485,
+            21902,
+            21916,
+            21778,
+            22419,
+            21942,
+            22537
+          ]
+        },
+        "cyPlan": {
+          "n": [
+            33756.907,
+            31695.569,
+            38049.118,
+            38561.666,
+            40393.369,
+            39769.474,
+            39860.494,
+            39945.002,
+            41093.605,
+            41022.117,
+            38994.541,
+            37259.373
+          ],
+          "d": [
+            22214,
+            19996,
+            22826,
+            22294,
+            22996,
+            22209,
+            22675,
+            22644,
+            22429,
+            23287,
+            22605,
+            23158
+          ]
+        },
+        "cyAct": {
+          "n": [
+            33756.907,
+            31695.569,
+            38050.964,
+            39305.774,
+            42179.056,
+            41167.491,
+            40976.068,
+            41227.073,
+            42985.792,
+            null,
+            null,
+            null
+          ],
+          "d": [
+            22214,
+            20047,
+            22860,
+            22156,
+            22934,
+            22012,
+            22452,
+            22602,
+            22286,
+            null,
+            null,
+            null
+          ]
+        }
+      },
+      "profit": {
+        "pyPlan": null,
+        "pyAct": [
+          0.1,
+          -0.8,
+          7.2,
+          7.3,
+          9.7,
+          8.4,
+          6.3,
+          9.1,
+          12.9,
+          9.3,
+          4.8,
+          -5.6
+        ],
+        "cyPlan": null,
+        "cyAct": [
+          1.5,
+          -1.1,
+          4.2,
+          5.6,
+          10.1,
+          9.3,
+          4.9,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      "open": {
+        "pyPlan": [
+          5,
+          5,
+          6,
+          5,
+          5,
+          5,
+          6,
+          5,
+          5,
+          4,
+          4,
+          4
+        ],
+        "pyAct": [
+          5,
+          4,
+          4,
+          4,
+          5,
+          4,
+          5,
+          4,
+          7,
+          6,
+          6,
+          4
+        ],
+        "cyPlan": [
+          4,
+          4,
+          5,
+          6,
+          6,
+          6,
+          6,
+          5,
+          4,
+          4,
+          3,
+          3
+        ],
+        "cyAct": [
+          4,
+          5,
+          5,
+          6,
+          5,
+          6,
+          7,
+          5,
+          7,
+          null,
+          null,
+          null
+        ]
+      },
+      "close": {
+        "pyPlan": [
+          4,
+          5,
+          5,
+          1,
+          3,
+          4,
+          0,
+          4,
+          0,
+          3,
+          1,
+          1
+        ],
+        "pyAct": [
+          4,
+          6,
+          5,
+          3,
+          4,
+          4,
+          3,
+          4,
+          4,
+          4,
+          3,
+          2
+        ],
+        "cyPlan": [
+          4,
+          4,
+          1,
+          4,
+          3,
+          2,
+          4,
+          2,
+          2,
+          2,
+          4,
+          2
+        ],
+        "cyAct": [
+          4,
+          3,
+          3,
+          5,
+          5,
+          5,
+          5,
+          2,
+          4,
+          null,
+          null,
+          null
+        ]
+      },
+      "renewal": {
+        "pyPlan": [
+          2,
+          3,
+          3,
+          4,
+          2,
+          0,
+          2,
+          2,
+          0,
+          2,
+          1,
+          1
+        ],
+        "pyAct": [
+          2,
+          4,
+          2,
+          2,
+          3,
+          2,
+          1,
+          1,
+          1,
+          1,
+          2,
+          0
+        ],
+        "cyPlan": [
+          3,
+          9,
+          1,
+          1,
+          2,
+          0,
+          0,
+          0,
+          0,
+          2,
+          0,
+          0
+        ],
+        "cyAct": [
+          1,
+          1,
+          1,
+          4,
+          3,
+          2,
+          1,
+          4,
+          1,
+          null,
+          null,
+          null
+        ]
+      },
+      "snb": {
+        "pyPlan": null,
+        "pyAct": [
+          1,
+          1,
+          2,
+          3,
+          1,
+          2,
+          0,
+          2,
+          2,
+          1,
+          0,
+          0
+        ],
+        "cyPlan": null,
+        "cyAct": [
+          0,
+          1,
+          1,
+          1,
+          1,
+          2,
+          2,
+          0,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      "fcs": {
+        "pyPlan": null,
+        "pyAct": [
+          2,
+          1,
+          3,
+          4,
+          1,
+          0,
+          2,
+          2,
+          2,
+          2,
+          2,
+          0
+        ],
+        "cyPlan": [
+          0,
+          1,
+          2,
+          1,
+          2,
+          2,
+          2,
+          2,
+          2,
+          1,
+          1,
+          0
+        ],
+        "cyAct": [
+          1,
+          1,
+          2,
+          2,
+          1,
+          1,
+          5,
+          1,
+          2,
+          null,
+          null,
+          null
+        ]
+      },
+      "fcs_new": {
+        "pyPlan": null,
+        "pyAct": [
+          2,
+          1,
+          1,
+          3,
+          1,
+          0,
+          1,
+          2,
+          2,
+          1,
+          1,
+          0
+        ],
+        "cyPlan": [
+          0,
+          1,
+          1,
+          1,
+          2,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0
+        ],
+        "cyAct": [
+          1,
+          1,
+          2,
+          1,
+          0,
+          0,
+          2,
+          0,
+          0,
+          null,
+          null,
+          null
+        ]
+      },
+      "fcs_exist": {
+        "pyPlan": null,
+        "pyAct": [
+          0,
+          0,
+          2,
+          1,
+          0,
+          0,
+          1,
+          0,
+          0,
+          1,
+          1,
+          0
+        ],
+        "cyPlan": [
+          0,
+          0,
+          1,
+          0,
+          0,
+          1,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0
+        ],
+        "cyAct": [
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          3,
+          1,
+          2,
+          null,
+          null,
+          null
+        ]
+      },
+      "chicken": {
+        "pyPlan": null,
+        "pyAct": null,
+        "cyPlan": null,
+        "cyAct": null
+      }
+    },
+    "4부문2지역": {
+      "sales": {
+        "pyPlan": {
+          "n": [
+            33236.794,
+            30681.257,
+            36286.209,
+            36717.229,
+            38523.3,
+            38144.128,
+            37344.108,
+            39153.037,
+            39754.034,
+            38806.809,
+            36962.669,
+            35446.151
+          ],
+          "d": [
+            22441,
+            20422,
+            22933,
+            22166,
+            22917,
+            22073,
+            22651,
+            22665,
+            22252,
+            22945,
+            22359,
+            23095
+          ]
+        },
+        "pyAct": {
+          "n": [
+            33031.901,
+            30089.661,
+            36184.352,
+            36734.458,
+            38553.133,
+            38044.34,
+            39893.173,
+            40884.155,
+            40662.53,
+            40257.824,
+            37895.347,
+            36209.945
+          ],
+          "d": [
+            22506,
+            20442,
+            22855,
+            22213,
+            22879,
+            22082,
+            22652,
+            22711,
+            22200,
+            22741,
+            22103,
+            22718
+          ]
+        },
+        "cyPlan": {
+          "n": [
+            34841.651,
+            32606.406,
+            38767.794,
+            37870.141,
+            40067.576,
+            39683.875,
+            40025.112,
+            40912.635,
+            41747.865,
+            40995.405,
+            39138.047,
+            37236.213
+          ],
+          "d": [
+            22474,
+            20321,
+            22828,
+            22317,
+            23148,
+            22383,
+            23037,
+            23083,
+            22618,
+            23422,
+            22736,
+            23470
+          ]
+        },
+        "cyAct": {
+          "n": [
+            34841.651,
+            32606.406,
+            38780.51,
+            39652.202,
+            42578.567,
+            41516.429,
+            41426.814,
+            41589.156,
+            42816.737,
+            null,
+            null,
+            null
+          ],
+          "d": [
+            22526,
+            20349,
+            22947,
+            22307,
+            23036,
+            22244,
+            22821,
+            22784,
+            22219,
+            null,
+            null,
+            null
+          ]
+        }
+      },
+      "profit": {
+        "pyPlan": null,
+        "pyAct": [
+          -0.5,
+          0.4,
+          5.2,
+          7.1,
+          9.5,
+          7.5,
+          7.5,
+          11.1,
+          12.1,
+          8.4,
+          3.6,
+          -6.6
+        ],
+        "cyPlan": null,
+        "cyAct": [
+          1.7,
+          -1.6,
+          4.0,
+          5.7,
+          11.3,
+          10.0,
+          6.3,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      "open": {
+        "pyPlan": [
+          5,
+          5,
+          5,
+          4,
+          4,
+          3,
+          4,
+          5,
+          5,
+          3,
+          4,
+          3
+        ],
+        "pyAct": [
+          3,
+          1,
+          3,
+          5,
+          6,
+          3,
+          5,
+          4,
+          3,
+          5,
+          5,
+          3
+        ],
+        "cyPlan": [
+          3,
+          5,
+          6,
+          6,
+          6,
+          6,
+          5,
+          5,
+          4,
+          4,
+          3,
+          3
+        ],
+        "cyAct": [
+          3,
+          6,
+          8,
+          3,
+          3,
+          6,
+          3,
+          6,
+          5,
+          null,
+          null,
+          null
+        ]
+      },
+      "close": {
+        "pyPlan": [
+          3,
+          4,
+          3,
+          3,
+          3,
+          4,
+          4,
+          2,
+          3,
+          4,
+          1,
+          2
+        ],
+        "pyAct": [
+          3,
+          2,
+          4,
+          4,
+          4,
+          4,
+          5,
+          5,
+          4,
+          4,
+          4,
+          3
+        ],
+        "cyPlan": [
+          1,
+          2,
+          6,
+          4,
+          2,
+          6,
+          2,
+          1,
+          2,
+          5,
+          0,
+          4
+        ],
+        "cyAct": [
+          5,
+          5,
+          4,
+          3,
+          3,
+          3,
+          4,
+          4,
+          4,
+          null,
+          null,
+          null
+        ]
+      },
+      "renewal": {
+        "pyPlan": [
+          6,
+          4,
+          3,
+          2,
+          1,
+          0,
+          0,
+          1,
+          0,
+          3,
+          1,
+          0
+        ],
+        "pyAct": [
+          7,
+          4,
+          4,
+          3,
+          2,
+          1,
+          2,
+          0,
+          0,
+          0,
+          0,
+          2
+        ],
+        "cyPlan": [
+          3,
+          3,
+          2,
+          2,
+          1,
+          2,
+          2,
+          0,
+          1,
+          1,
+          1,
+          2
+        ],
+        "cyAct": [
+          3,
+          1,
+          0,
+          3,
+          3,
+          1,
+          1,
+          2,
+          2,
+          null,
+          null,
+          null
+        ]
+      },
+      "snb": {
+        "pyPlan": null,
+        "pyAct": [
+          1,
+          0,
+          0,
+          0,
+          5,
+          2,
+          2,
+          1,
+          1,
+          1,
+          2,
+          1
+        ],
+        "cyPlan": null,
+        "cyAct": [
+          0,
+          3,
+          2,
+          1,
+          2,
+          2,
+          2,
+          2,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      "fcs": {
+        "pyPlan": null,
+        "pyAct": [
+          2,
+          1,
+          2,
+          3,
+          2,
+          2,
+          1,
+          0,
+          1,
+          1,
+          1,
+          3
+        ],
+        "cyPlan": [
+          1,
+          2,
+          0,
+          2,
+          2,
+          1,
+          1,
+          2,
+          1,
+          1,
+          2,
+          0
+        ],
+        "cyAct": [
+          0,
+          1,
+          3,
+          1,
+          1,
+          1,
+          3,
+          1,
+          3,
+          null,
+          null,
+          null
+        ]
+      },
+      "fcs_new": {
+        "pyPlan": null,
+        "pyAct": [
+          2,
+          0,
+          0,
+          2,
+          1,
+          1,
+          1,
+          0,
+          1,
+          0,
+          1,
+          2
+        ],
+        "cyPlan": [
+          1,
+          1,
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0
+        ],
+        "cyAct": [
+          0,
+          0,
+          2,
+          1,
+          1,
+          1,
+          2,
+          1,
+          1,
+          null,
+          null,
+          null
+        ]
+      },
+      "fcs_exist": {
+        "pyPlan": null,
+        "pyAct": [
+          0,
+          1,
+          2,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0,
+          1,
+          0,
+          1
+        ],
+        "cyPlan": [
+          0,
+          1,
+          0,
+          1,
+          1,
+          0,
+          0,
+          1,
+          0,
+          0,
+          1,
+          0
+        ],
+        "cyAct": [
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          1,
+          0,
+          2,
+          null,
+          null,
+          null
+        ]
+      },
+      "chicken": {
+        "pyPlan": null,
+        "pyAct": null,
+        "cyPlan": null,
+        "cyAct": null
+      }
+    },
+    "4부문3지역": {
+      "sales": {
+        "pyPlan": {
+          "n": [
+            32289.944,
+            30113.889,
+            34837.754,
+            35232.81,
+            37231.834,
+            36684.965,
+            36589.823,
+            37856.187,
+            38707.688,
+            37489.035,
+            35838.218,
+            34306.205
+          ],
+          "d": [
+            22564,
+            20474,
+            22874,
+            22186,
+            22907,
+            22151,
+            22873,
+            22951,
+            22431,
+            23175,
+            22573,
+            23347
+          ]
+        },
+        "pyAct": {
+          "n": [
+            32409.824,
+            28952.112,
+            33928.155,
+            34053.874,
+            36049.792,
+            35389.75,
+            37856.273,
+            38834.942,
+            38533.265,
+            39888.955,
+            36804.705,
+            34129.745
+          ],
+          "d": [
+            22433,
+            20307,
+            22462,
+            21706,
+            22508,
+            21712,
+            22588,
+            22590,
+            21987,
+            22668,
+            22040,
+            22463
+          ]
+        },
+        "cyPlan": {
+          "n": [
+            31628.255,
+            29813.51,
+            33434.666,
+            34374.263,
+            36086.939,
+            35487.761,
+            36368.789,
+            36702.079,
+            37965.654,
+            38687.199,
+            35936.414,
+            33717.763
+          ],
+          "d": [
+            21888,
+            19627,
+            21890,
+            21272,
+            22016,
+            21371,
+            22070,
+            22047,
+            21437,
+            22182,
+            21561,
+            22228
+          ]
+        },
+        "cyAct": {
+          "n": [
+            31628.255,
+            29813.51,
+            33452.691,
+            34141.82,
+            37050.109,
+            36155.664,
+            36404.349,
+            36764.769,
+            38128.333,
+            null,
+            null,
+            null
+          ],
+          "d": [
+            21919,
+            19655,
+            21882,
+            21150,
+            21794,
+            21119,
+            21791,
+            21793,
+            21212,
+            null,
+            null,
+            null
+          ]
+        }
+      },
+      "profit": {
+        "pyPlan": null,
+        "pyAct": [
+          -1.5,
+          -2.1,
+          2.8,
+          3,
+          6,
+          3.4,
+          3.8,
+          7.1,
+          9.3,
+          7.8,
+          2.7,
+          -7.7
+        ],
+        "cyPlan": null,
+        "cyAct": [
+          0.1,
+          -2.8,
+          0.4,
+          1.5,
+          6.2,
+          4.8,
+          2.3,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      "open": {
+        "pyPlan": [
+          5,
+          5,
+          6,
+          4,
+          5,
+          5,
+          5,
+          6,
+          5,
+          4,
+          4,
+          4
+        ],
+        "pyAct": [
+          2,
+          3,
+          3,
+          3,
+          5,
+          4,
+          12,
+          4,
+          5,
+          5,
+          5,
+          3
+        ],
+        "cyPlan": [
+          3,
+          4,
+          4,
+          5,
+          5,
+          6,
+          4,
+          5,
+          4,
+          4,
+          3,
+          3
+        ],
+        "cyAct": [
+          3,
+          4,
+          4,
+          2,
+          7,
+          7,
+          3,
+          3,
+          8,
+          null,
+          null,
+          null
+        ]
+      },
+      "close": {
+        "pyPlan": [
+          3,
+          5,
+          3,
+          2,
+          4,
+          4,
+          6,
+          4,
+          0,
+          1,
+          2,
+          1
+        ],
+        "pyAct": [
+          4,
+          4,
+          7,
+          5,
+          2,
+          4,
+          5,
+          4,
+          4,
+          4,
+          4,
+          3
+        ],
+        "cyPlan": [
+          6,
+          3,
+          4,
+          3,
+          1,
+          4,
+          1,
+          4,
+          3,
+          2,
+          2,
+          7
+        ],
+        "cyAct": [
+          5,
+          4,
+          6,
+          4,
+          3,
+          5,
+          4,
+          3,
+          2,
+          null,
+          null,
+          null
+        ]
+      },
+      "renewal": {
+        "pyPlan": [
+          5,
+          6,
+          5,
+          2,
+          4,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "pyAct": [
+          5,
+          1,
+          6,
+          3,
+          1,
+          3,
+          1,
+          0,
+          0,
+          0,
+          0,
+          1
+        ],
+        "cyPlan": [
+          4,
+          6,
+          3,
+          3,
+          4,
+          0,
+          0,
+          0,
+          1,
+          1,
+          1,
+          1
+        ],
+        "cyAct": [
+          0,
+          3,
+          1,
+          2,
+          0,
+          1,
+          1,
+          0,
+          0,
+          null,
+          null,
+          null
+        ]
+      },
+      "snb": {
+        "pyPlan": null,
+        "pyAct": [
+          0,
+          1,
+          0,
+          1,
+          0,
+          1,
+          2,
+          0,
+          0,
+          2,
+          1,
+          0
+        ],
+        "cyPlan": null,
+        "cyAct": [
+          0,
+          0,
+          1,
+          1,
+          3,
+          1,
+          3,
+          0,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      "fcs": {
+        "pyPlan": null,
+        "pyAct": [
+          3,
+          1,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0,
+          1,
+          2,
+          0,
+          0
+        ],
+        "cyPlan": [
+          2,
+          0,
+          1,
+          2,
+          1,
+          1,
+          2,
+          2,
+          1,
+          1,
+          0,
+          1
+        ],
+        "cyAct": [
+          2,
+          2,
+          0,
+          2,
+          3,
+          2,
+          0,
+          2,
+          1,
+          null,
+          null,
+          null
+        ]
+      },
+      "fcs_new": {
+        "pyPlan": null,
+        "pyAct": [
+          2,
+          1,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0,
+          1,
+          2,
+          0,
+          0
+        ],
+        "cyPlan": [
+          1,
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0,
+          1
+        ],
+        "cyAct": [
+          2,
+          2,
+          0,
+          2,
+          3,
+          0,
+          0,
+          1,
+          1,
+          null,
+          null,
+          null
+        ]
+      },
+      "fcs_exist": {
+        "pyPlan": null,
+        "pyAct": [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "cyPlan": [
+          1,
+          0,
+          0,
+          1,
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        "cyAct": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          2,
+          0,
+          1,
+          0,
+          null,
+          null,
+          null
+        ]
+      },
+      "chicken": {
+        "pyPlan": null,
+        "pyAct": null,
+        "cyPlan": null,
+        "cyAct": null
+      }
+    },
+    "4부문4지역": {
+      "sales": {
+        "pyPlan": {
+          "n": [
+            30605.976,
+            28549.589,
+            32582.979,
+            32768.777,
+            34862.136,
+            34059.659,
+            34585.664,
+            35831.487,
+            36298.47,
+            35119.908,
+            33231.633,
+            32316.207
+          ],
+          "d": [
+            21875,
+            19871,
+            22119,
+            21526,
+            22208,
+            21409,
+            22042,
+            21998,
+            21522,
+            22261,
+            21715,
+            22472
+          ]
+        },
+        "pyAct": {
+          "n": [
+            31341.913,
+            27638.174,
+            32272.091,
+            32377.567,
+            33872.958,
+            33189.955,
+            35808.081,
+            36449.404,
+            35551.382,
+            37472.095,
+            33836.119,
+            32607.517
+          ],
+          "d": [
+            21927,
+            19816,
+            21960,
+            21356,
+            22082,
+            21358,
+            22052,
+            22030,
+            21402,
+            22040,
+            21337,
+            21986
+          ]
+        },
+        "cyPlan": {
+          "n": [
+            32963.279,
+            31399.352,
+            34466.25,
+            34777.852,
+            36739.871,
+            36080.36,
+            37503.648,
+            38067.498,
+            39017.328,
+            38773.865,
+            36534.2,
+            36351.388
+          ],
+          "d": [
+            22354,
+            20136,
+            22412,
+            21763,
+            22581,
+            21898,
+            22753,
+            22781,
+            22175,
+            23018,
+            22392,
+            23115
+          ]
+        },
+        "cyAct": {
+          "n": [
+            32963.279,
+            31399.352,
+            34560.43,
+            35677.417,
+            38736.57,
+            37472.036,
+            38367.847,
+            38875.079,
+            39668.905,
+            null,
+            null,
+            null
+          ],
+          "d": [
+            22354,
+            20136,
+            22388,
+            21686,
+            22493,
+            21745,
+            22444,
+            22520,
+            21841,
+            null,
+            null,
+            null
+          ]
+        }
+      },
+      "profit": {
+        "pyPlan": null,
+        "pyAct": [
+          -0.3,
+          -2,
+          3.4,
+          3.3,
+          5.3,
+          2.7,
+          4.1,
+          7.5,
+          8.5,
+          8.3,
+          2.2,
+          -7
+        ],
+        "cyPlan": null,
+        "cyAct": [
+          1.1,
+          -0.9,
+          0.6,
+          2.1,
+          8.1,
+          5.7,
+          4.1,
+          null,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      "open": {
+        "pyPlan": [
+          4,
+          4,
+          6,
+          4,
+          4,
+          4,
+          3,
+          5,
+          5,
+          4,
+          4,
+          3
+        ],
+        "pyAct": [
+          4,
+          2,
+          4,
+          4,
+          4,
+          5,
+          2,
+          7,
+          4,
+          2,
+          3,
+          4
+        ],
+        "cyPlan": [
+          4,
+          4,
+          5,
+          6,
+          6,
+          5,
+          5,
+          5,
+          5,
+          4,
+          4,
+          3
+        ],
+        "cyAct": [
+          4,
+          4,
+          4,
+          6,
+          3,
+          5,
+          8,
+          5,
+          5,
+          null,
+          null,
+          null
+        ]
+      },
+      "close": {
+        "pyPlan": [
+          4,
+          4,
+          2,
+          2,
+          1,
+          4,
+          2,
+          2,
+          3,
+          3,
+          4,
+          3
+        ],
+        "pyAct": [
+          2,
+          5,
+          6,
+          3,
+          3,
+          3,
+          6,
+          4,
+          5,
+          4,
+          4,
+          4
+        ],
+        "cyPlan": [
+          5,
+          8,
+          5,
+          4,
+          4,
+          1,
+          2,
+          4,
+          1,
+          1,
+          6,
+          2
+        ],
+        "cyAct": [
+          4,
+          5,
+          6,
+          4,
+          3,
+          5,
+          3,
+          5,
+          2,
+          null,
+          null,
+          null
+        ]
+      },
+      "renewal": {
+        "pyPlan": [
+          8,
+          5,
+          2,
+          5,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "pyAct": [
+          3,
+          1,
+          6,
+          3,
+          1,
+          2,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0
+        ],
+        "cyPlan": [
+          9,
+          6,
+          6,
+          4,
+          1,
+          2,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        "cyAct": [
+          4,
+          2,
+          4,
+          2,
+          1,
+          1,
+          2,
+          1,
+          3,
+          null,
+          null,
+          null
+        ]
+      },
+      "snb": {
+        "pyPlan": null,
+        "pyAct": [
+          2,
+          0,
+          1,
+          0,
+          0,
+          1,
+          1,
+          1,
+          0,
+          0,
+          2,
+          1
+        ],
+        "cyPlan": null,
+        "cyAct": [
+          1,
+          1,
+          0,
+          1,
+          1,
+          0,
+          5,
+          1,
+          null,
+          null,
+          null,
+          null
+        ]
+      },
+      "fcs": {
+        "pyPlan": null,
+        "pyAct": [
+          1,
+          0,
+          2,
+          0,
+          0,
+          0,
+          0,
+          1,
+          2,
+          2,
+          1,
+          0
+        ],
+        "cyPlan": [
+          1,
+          2,
+          2,
+          1,
+          2,
+          1,
+          1,
+          1,
+          1,
+          2,
+          1,
+          1
+        ],
+        "cyAct": [
+          1,
+          0,
+          2,
+          3,
+          1,
+          1,
+          2,
+          1,
+          4,
+          null,
+          null,
+          null
+        ]
+      },
+      "fcs_new": {
+        "pyPlan": null,
+        "pyAct": [
+          1,
+          0,
+          2,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          1,
+          1,
+          0
+        ],
+        "cyPlan": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "cyAct": [
+          1,
+          0,
+          2,
+          1,
+          1,
+          0,
+          1,
+          1,
+          2,
+          null,
+          null,
+          null
+        ]
+      },
+      "fcs_exist": {
+        "pyPlan": null,
+        "pyAct": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          2,
+          1,
+          0,
+          0
+        ],
+        "cyPlan": [
+          0,
+          1,
+          1,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "cyAct": [
+          0,
+          0,
+          0,
+          2,
+          0,
+          1,
+          1,
+          0,
+          2,
+          null,
+          null,
+          null
+        ]
+      },
+      "chicken": {
+        "pyPlan": null,
+        "pyAct": null,
+        "cyPlan": null,
+        "cyAct": null
+      }
+    }
+  }
+};
+/*DATA_END*/
+</script>
+<script>
+(function () {
+  const D = window.DASHBOARD_DATA;
+  const PY = D.prevYear, CY = D.currYear;
+  const ITEM = Object.fromEntries(D.items.map(i => [i.key, i]));
+  const state = { org: D.orgs[0], mode: "plan", item: D.items[0].key, month: D.latestMonth, mItem: null, mOrg: D.orgs[0] };
+
+  // ---------- 포맷 ----------
+  const fmt = (v, d = 0) => (v == null || isNaN(v)) ? "-" : v.toLocaleString("ko-KR", { minimumFractionDigits: d, maximumFractionDigits: d });
+  const signed = (v, d = 0) => (v == null || isNaN(v)) ? "-" : (v > 0 ? "+" : v < 0 ? "−" : "") + fmt(Math.abs(v), d);
+  const pct = (v) => (v == null || !isFinite(v)) ? "-" : fmt(v, 1) + "%";
+  const arrow = (v) => v > 0 ? "▲" : v < 0 ? "▼" : "";
+  const shortOrg = (o) => o === "4부문" ? "4부문" : o.replace("4부문", "");
+  const dirCls = (eff) => eff == null ? "" : eff >= 0 ? "up" : "down";
+
+  // ---------- 집계: 월 from~to 합계 (일매출은 총매출합 ÷ 영업일수합) ----------
+  function agg(it, s, from, to) {
+    if (!s) return null;
+    if (it.agg === "ratio") {
+      let n = 0, d = 0, has = false;
+      for (let i = from - 1; i < to; i++) if (s.n[i] != null && s.d[i]) { n += s.n[i]; d += s.d[i]; has = true; }
+      return has ? n / d * (it.scale || 1) : null;
+    }
+    let sum = 0, has = false;
+    for (let i = from - 1; i < to; i++) if (s[i] != null) { sum += s[i]; has = true; }
+    return has ? sum : null;
+  }
+
+  function status(effRate) {
+    if (effRate == null) return { cls: "s-none", label: "계획 없음" };
+    if (effRate >= D.thresholds.good) return { cls: "s-good", label: "달성" };
+    if (effRate >= D.thresholds.warning) return { cls: "s-warning", label: "근접" };
+    return { cls: "s-critical", label: "미달" };
+  }
+
+  // 네 값으로 비교지표 계산 (누계·월별 공용)
+  function derive(it, pyPlan, pyAct, cyPlan, cyAct, cyPlanYear = null) {
+    const ok = (...a) => a.every(x => x != null);
+    const d = it.decimals || 0, u = it.unit || "";
+    const isCount = it.compare === "count";
+    const hib = it.higherIsBetter !== false;
+    const pyRate = ok(pyPlan, pyAct) && pyPlan ? pyAct / pyPlan * 100 : null;
+    const rate = ok(cyPlan, cyAct) && cyPlan ? cyAct / cyPlan * 100 : null;
+    const planDiff = ok(cyPlan, cyAct) ? cyAct - cyPlan : null;
+    const yoyDiff = ok(pyAct, cyAct) ? cyAct - pyAct : null;
+    const yoy = ok(pyAct, cyAct) && pyAct ? yoyDiff / Math.abs(pyAct) * 100 : null;
+    const progress = ok(cyPlanYear, cyAct) && cyPlanYear ? cyAct / cyPlanYear * 100 : null;
+    const cnt = (x) => x == null ? "-" : signed(x, d) + u;
+    const effRate = isCount || rate == null ? null : (hib ? rate : 200 - rate);
+    const effYoy = isCount || yoy == null ? null : (hib ? yoy : -yoy);
+    const planTxt = isCount ? cnt(planDiff) : pct(rate);
+    const yoyTxt = isCount ? cnt(yoyDiff) : `${arrow(yoy)} ${pct(yoy == null ? null : Math.abs(yoy))}`;
+    const pyRateTxt = isCount ? cnt(ok(pyPlan, pyAct) ? pyAct - pyPlan : null) : pct(pyRate);
+    const progressTxt = isCount ? (ok(cyPlanYear, cyAct) ? "잔여 " + fmt(cyPlanYear - cyAct, d) + u : "-") : pct(progress);
+    const st = isCount ? { cls: "", label: "" } : status(effRate);
+    const chartLbl = isCount ? (planDiff != null ? "계획 " + cnt(planDiff) : "전년 " + cnt(yoyDiff))
+                             : (rate != null ? "달성 " + pct(rate) : "전년비 " + (yoy > 0 ? "+" : "") + pct(yoy));
+    return { it, d, isCount, pyPlan, pyAct, cyPlan, cyAct, cyPlanYear, pyRate, rate, planDiff, yoyDiff, yoy, progress,
+             effRate, effYoy, planTxt, yoyTxt, pyRateTxt, progressTxt, st, chartLbl };
+  }
+
+  // 누계 (1 ~ 선택월, 단 항목의 최종 실적월을 넘지 않음)
+  function calc(key, org, M = state.month) {
+    const it = ITEM[key], v = D.values[org][key] || {};
+    const m = Math.min(M, it.lastMonth || 0);
+    if (!m) return Object.assign(derive(it, null, null, null, null), { noData: true, m: 0, period: "-" });
+    const r = derive(it, agg(it, v.pyPlan, 1, m), agg(it, v.pyAct, 1, m), agg(it, v.cyPlan, 1, m), agg(it, v.cyAct, 1, m),
+                     agg(it, v.cyPlan, 1, 12));
+    r.m = m; r.period = `1~${m}월 누계`; r.noData = r.cyAct == null && r.pyAct == null;
+    return r;
+  }
+  // 특정 월 한 달
+  function calcMonth(key, org, mon) {
+    const it = ITEM[key], v = D.values[org][key] || {};
+    const act = mon <= (it.lastMonth || 0) ? agg(it, v.cyAct, mon, mon) : null;
+    return derive(it, agg(it, v.pyPlan, mon, mon), agg(it, v.pyAct, mon, mon), agg(it, v.cyPlan, mon, mon), act);
+  }
+
+  // ---------- 툴팁 ----------
+  const tip = document.getElementById("tip");
+  function showTip(e, html) {
+    tip.innerHTML = html; tip.style.opacity = 1;
+    const w = tip.offsetWidth, h = tip.offsetHeight;
+    let x = e.clientX + 14, y = e.clientY + 14;
+    if (x + w > innerWidth - 8) x = e.clientX - w - 14;
+    if (y + h > innerHeight - 8) y = e.clientY - h - 14;
+    tip.style.left = x + "px"; tip.style.top = y + "px";
+  }
+  const hideTip = () => tip.style.opacity = 0;
+  const tipRows = (rows) => rows.map(([k, v]) => `<div class="r"><span>${k}</span><b class="num">${v}</b></div>`).join("");
+
+  // ---------- 헤더 / 탭 / 월 선택 ----------
+  document.title = D.title;
+  document.getElementById("title").textContent = D.title;
+  document.querySelectorAll(".pyLbl").forEach(e => e.textContent = PY + "년");
+  document.querySelectorAll(".cyLbl").forEach(e => e.textContent = CY + "년");
+
+  const tabs = document.getElementById("tabs");
+  D.orgs.forEach(o => {
+    const b = document.createElement("button");
+    b.className = "tab"; b.type = "button"; b.setAttribute("role", "tab"); b.textContent = o;
+    b.onclick = () => { state.org = o; render(); };
+    tabs.appendChild(b);
+  });
+
+  const monthSel = document.getElementById("monthSel");
+  for (let m = 1; m <= D.latestMonth; m++) monthSel.add(new Option(m + "월", m, false, m === state.month));
+  monthSel.onchange = () => { state.month = +monthSel.value; render(); };
+
+  function renderHeader() {
+    document.getElementById("subtitle").innerHTML =
+      `<span class="chip">최종 실적 <b>${CY}년 ${D.latestMonth}월</b></span>` +
+      `<span class="chip">조회 <b>1~${state.month}월 누계</b></span>` +
+      `<span class="chip">비교 <b>${PY}년 vs ${CY}년</b></span>` +
+      (state.page === "total" ? `<span class="chip">조직 <b>${state.org}</b></span>` : "");
+    document.getElementById("rangeLbl").textContent = `1~${state.month}월 누계`;
+    const capped = D.items.filter(i => i.lastMonth && i.lastMonth < state.month).map(i => `${i.name} ${i.lastMonth}월`);
+    document.getElementById("footer").textContent =
+      `판정 기준: 달성 ≥ ${D.thresholds.good}%, 근접 ≥ ${D.thresholds.warning}%, 그 외 미달` +
+      (capped.length ? ` · 실적 미마감 항목은 최종 실적월까지만 집계 (${capped.join(", ")})` : "");
+    tabs.querySelectorAll(".tab").forEach(b => b.setAttribute("aria-selected", b.textContent === state.org));
+  }
+
+  // ---------- 요약 ----------
+  function renderSummary() {
+    const rows = D.items.map(i => calc(i.key, state.org));
+    const withPlan = rows.filter(r => r.effRate != null), withPy = rows.filter(r => r.effYoy != null);
+    const nPlan = withPlan.filter(r => r.effRate >= D.thresholds.good).length;
+    const nYoy = withPy.filter(r => r.effYoy >= 0).length;
+    const sales = calc("sales", state.org), profit = calc("profit", state.org);
+    const cards = [
+      ["계획 달성 항목", `${nPlan}<small> / ${withPlan.length}개 (계획 있는 항목)</small>`],
+      ["전년 초과 항목", `${nYoy}<small> / ${withPy.length}개</small>`],
+      [`일매출 계획 달성률 <small>(${sales.period})</small>`, `<span class="num">${pct(sales.rate)}</span>`],
+      [`손익 전년 대비 <small>(${profit.period})</small>`, `<span class="num ${dirCls(profit.effYoy)}">${profit.yoyTxt}</span>`],
+    ];
+    document.getElementById("summary").innerHTML = cards.map(([l, v]) =>
+      `<div class="sum-card"><div class="sum-label">${state.org} · ${l}</div><div class="sum-value">${v}</div></div>`).join("");
+  }
+
+  // ---------- 항목 카드 ----------
+  function renderCards() {
+    document.getElementById("cards").innerHTML = D.items.map(i => {
+      const r = calc(i.key, state.org), st = r.st;
+      if (r.noData) return `<div class="card nodata" data-item="${i.key}">
+        <div class="card-top"><span class="card-name">${i.name}</span><span class="card-unit">${i.unit}</span></div>
+        <div class="empty">데이터 준비중<small>${i.note || ""}</small></div></div>`;
+      const max = Math.max(...[r.pyAct, r.cyPlan, r.cyAct].filter(x => x != null), 1);
+      const bar = (lbl, v, color) => `<div class="bar-row"><span class="lbl">${lbl}</span>
+        <div class="track">${v == null ? "" : `<div class="fill" style="width:${Math.max(0, v / max * 100)}%;background:${color}"></div>`}</div>
+        <span class="val num">${fmt(v, r.d)}</span></div>`;
+      const foot = [
+        r.pyPlan != null ? `<span>${PY} 계획 <span class="num">${fmt(r.pyPlan, r.d)}</span> · ${r.isCount ? "차이" : "달성"} <span class="num">${r.pyRateTxt}</span></span>` : "",
+        r.cyPlanYear != null ? `<span>${CY} 연간계획 <span class="num">${fmt(r.cyPlanYear, r.d)}</span>${i.agg === "ratio" ? "" : ` · ${r.isCount ? "" : "진척 "}<span class="num">${r.progressTxt}</span>`}</span>` : ""
+      ].join("") || `<span>계획 데이터 없음</span>`;
+      return `<div class="card" data-item="${i.key}" tabindex="0" role="button" aria-label="${i.name} 월별 보기">
+        <div class="card-top"><span class="card-name">${i.name}</span><span class="card-unit">${r.period} · ${i.unit}</span></div>
+        <div class="card-value num">${fmt(r.cyAct, r.d)}<small>${i.unit}</small></div>
+        ${i.note ? `<div class="card-note">${i.note}</div>` : ""}
+        <div class="metrics">
+          <div class="metric ${r.planDiff == null ? "muted" : ""}">
+            <div class="metric-label">계획 대비</div>
+            <div class="metric-val num">${r.planTxt}</div>
+            <div class="metric-sub">${r.isCount ? `계획 <span class="num">${fmt(r.cyPlan, r.d)}${i.unit}</span>`
+              : `<span class="status ${st.cls}"><span class="dot"></span>${st.label}</span> <span class="num">${r.planDiff == null ? "" : signed(r.planDiff, r.d)}</span>`}</div>
+          </div>
+          <div class="metric">
+            <div class="metric-label">전년 대비</div>
+            <div class="metric-val num ${dirCls(r.effYoy)}">${r.yoyTxt}</div>
+            <div class="metric-sub num">${r.isCount ? `전년 ${fmt(r.pyAct, r.d)}${i.unit}` : `${signed(r.yoyDiff, r.d)} ${i.unit}`}</div>
+          </div>
+        </div>
+        <div class="bars">
+          ${bar(PY + " 실적", r.pyAct, "var(--bar-py)")}
+          ${r.cyPlan != null ? bar(CY + " 계획", r.cyPlan, "var(--bar-plan)") : ""}
+          ${bar(CY + " 실적", r.cyAct, "var(--bar-act)")}
+        </div>
+        <div class="card-foot">${foot}</div>
+        <div class="more">월별 보기 ›</div>
+      </div>`;
+    }).join("");
+    document.querySelectorAll(".card:not(.nodata)").forEach(c => {
+      c.onclick = () => openModal(c.dataset.item);
+      c.onkeydown = (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openModal(c.dataset.item); } };
+    });
+  }
+
+  // ---------- 누계 실적표 ----------
+  function renderDetail() {
+    document.getElementById("detailTitle").textContent = `누계 실적표 — ${state.org} (1~${state.month}월)`;
+    const head = `<thead>
+      <tr><th rowspan="2">항목</th><th rowspan="2" class="grp">기간</th><th class="grp sep" colspan="3">${PY}년</th><th class="grp sep" colspan="4">${CY}년 (계획 대비)</th><th class="grp sep" colspan="2">${CY}년 연간</th><th class="grp sep" colspan="2">전년 대비</th></tr>
+      <tr><th class="sep">계획</th><th>실적</th><th>달성률</th>
+          <th class="sep">계획</th><th>실적</th><th>차이</th><th>달성률</th>
+          <th class="sep">연간계획</th><th>진척률</th>
+          <th class="sep">증감</th><th>증감률</th></tr></thead>`;
+    const body = D.items.map(i => {
+      const r = calc(i.key, state.org), st = r.st;
+      return `<tr>
+        <td class="name">${i.name}<span>${i.unit}</span></td>
+        <td class="period">${r.period}</td>
+        <td class="num sep">${fmt(r.pyPlan, r.d)}</td><td class="num">${fmt(r.pyAct, r.d)}</td><td class="num">${r.pyRateTxt}</td>
+        <td class="num sep">${fmt(r.cyPlan, r.d)}</td><td class="num"><b>${fmt(r.cyAct, r.d)}</b></td><td class="num">${signed(r.planDiff, r.d)}</td>
+        <td class="num">${st.label ? `<span class="status ${st.cls}"><span class="dot"></span>${st.label}</span> ` : ""}<b>${r.planTxt}</b></td>
+        <td class="num sep">${fmt(r.cyPlanYear, r.d)}</td><td class="num">${i.agg === "ratio" ? "-" : r.progressTxt}</td>
+        <td class="num sep">${signed(r.yoyDiff, r.d)}</td><td class="num ${dirCls(r.effYoy)}">${r.isCount ? "-" : r.yoyTxt}</td>
+      </tr>`;
+    }).join("");
+    document.getElementById("detail").innerHTML = head + "<tbody>" + body + "</tbody>";
+  }
+
+  // ---------- 조직별 비교 ----------
+  function cellBg(delta) {
+    if (delta == null) return "transparent";
+    const a = Math.min(Math.abs(delta) / 10, 1) * 0.55;
+    return `rgba(var(${delta >= 0 ? "--pos-rgb" : "--neg-rgb"}),${a.toFixed(3)})`;
+  }
+  function renderMatrix() {
+    const plan = state.mode === "plan";
+    document.getElementById("matrixTitle").textContent = `조직별 비교 (1~${state.month}월 누계)`;
+    const head = `<thead><tr><th>항목</th>${D.orgs.map(o => `<th class="grp">${o}</th>`).join("")}</tr></thead>`;
+    const body = D.items.map(i => `<tr data-item="${i.key}" class="${i.key === state.item ? "selected" : ""}">
+      <td class="name">${i.name}<span>${i.unit}</span></td>
+      ${D.orgs.map(o => {
+        const r = calc(i.key, o);
+        const sub = plan ? `${fmt(r.cyAct, r.d)} / ${fmt(r.cyPlan, r.d)}` : `${fmt(r.cyAct, r.d)} / ${fmt(r.pyAct, r.d)}`;
+        const delta = plan ? (r.effRate == null ? null : r.effRate - 100) : r.effYoy;
+        return `<td class="cell num" data-org="${o}" style="background:${cellBg(delta)}">${plan ? r.planTxt : r.yoyTxt}<span class="s">${sub}</span></td>`;
+      }).join("")}</tr>`).join("");
+    const t = document.getElementById("matrix");
+    t.innerHTML = head + "<tbody>" + body + "</tbody>";
+    t.querySelectorAll("tbody tr").forEach(tr => tr.onclick = () => {
+      if (calc(tr.dataset.item, D.orgs[0]).noData) return;
+      state.item = tr.dataset.item; renderMatrix(); renderChart();
+    });
+    t.querySelectorAll("td.cell").forEach(td => {
+      td.onmousemove = (e) => {
+        const r = calc(td.parentElement.dataset.item, td.dataset.org);
+        showTip(e, `<div class="t">${td.dataset.org} · ${r.it.name} (${r.period})</div>` + tipRows([
+          [`${PY} 실적`, fmt(r.pyAct, r.d)], [`${CY} 계획`, fmt(r.cyPlan, r.d)], [`${CY} 실적`, fmt(r.cyAct, r.d)],
+          ["계획 대비", r.planTxt], ["전년 대비", r.yoyTxt]]));
+      };
+      td.onmouseleave = hideTip;
+    });
+  }
+  document.querySelectorAll("#matrixMode button").forEach(b => b.onclick = () => {
+    state.mode = b.dataset.mode;
+    document.querySelectorAll("#matrixMode button").forEach(x => x.setAttribute("aria-pressed", x === b));
+    renderMatrix();
+  });
+
+  // ---------- 차트 공통 ----------
+  function niceMax(v) {
+    if (v <= 0) return 1;
+    const p = Math.pow(10, Math.floor(Math.log10(v))); const n = v / p;
+    return (n <= 1 ? 1 : n <= 2 ? 2 : n <= 2.5 ? 2.5 : n <= 5 ? 5 : 10) * p;
+  }
+  // 눈금 간격: 1·2·5 × 10^n
+  function niceStep(v) {
+    const p = Math.pow(10, Math.floor(Math.log10(v))); const n = v / p;
+    return (n <= 1 ? 1 : n <= 2 ? 2 : n <= 5 ? 5 : 10) * p;
+  }
+  const SERIES = [["pyAct", () => `${PY} 실적`, "var(--bar-py)"], ["cyPlan", () => `${CY} 계획`, "var(--bar-plan)"], ["cyAct", () => `${CY} 실적`, "var(--bar-act)"]];
+  const barPath = (x, yy, bw, base) => {
+    const rr = Math.min(4, bw / 2, Math.max(0, base - yy));
+    return `M${x},${base} V${yy + rr} Q${x},${yy} ${x + rr},${yy} H${x + bw - rr} Q${x + bw},${yy} ${x + bw},${yy + rr} V${base} Z`;
+  };
+
+  // 그룹 막대 (labels × 3계열). opts: {sub(i), shade:[from,to]}
+  function groupedBars(el, rows, labels, opts = {}) {
+    const W = Math.max(el.clientWidth, 240), H = opts.H || 280, m = { t: 24, r: 8, b: opts.sub ? 44 : 28, l: 52 };
+    const iw = W - m.l - m.r, ih = H - m.t - m.b, base = m.t + ih;
+    const vals = rows.flatMap(r => SERIES.map(([k]) => r[k])).filter(v => v != null);
+    const vmin = Math.min(0, ...vals), vtop = Math.max(0, ...vals);
+    const step = niceStep((vtop - vmin) / 4 || 1);
+    const vmax = Math.max(step, Math.ceil(vtop / step) * step), lo = Math.floor(vmin / step) * step;
+    const y = v => m.t + (vmax - v) / (vmax - lo) * ih;
+    const zero = y(0);
+    const gw = iw / rows.length, bw = Math.max(3, Math.min(28, (gw * 0.75 - 4) / 3)), gap = 2;
+    let s = `<svg width="${W}" height="${H}">`;
+    if (opts.shade) { const [a, b] = opts.shade; s += `<rect class="range-bg" x="${m.l + (a - 1) * gw}" y="${m.t}" width="${(b - a + 1) * gw}" height="${ih}"/>`; }
+    for (let v = lo; v <= vmax + 1e-9; v += step) {
+      const yy = y(v);
+      s += `<line class="${Math.abs(v) < 1e-9 ? "axis" : "gridline"}" x1="${m.l}" x2="${W - m.r}" y1="${yy}" y2="${yy}"/>`;
+      s += `<text x="${m.l - 8}" y="${yy + 4}" text-anchor="end" class="num">${fmt(v, step < 1 ? 1 : 0)}</text>`;
+    }
+    rows.forEach((r, gi) => {
+      const gx = m.l + gi * gw + (gw - (bw * 3 + gap * 2)) / 2;
+      SERIES.forEach(([k, , c], si) => {
+        const v = r[k]; if (v == null) return;
+        const x = gx + si * (bw + gap);
+        if (v >= 0) s += `<path d="${barPath(x, y(v), bw, zero)}" fill="${c}"/>`;
+        else s += `<rect x="${x}" y="${zero}" width="${bw}" height="${y(v) - zero}" fill="${c}"/>`;
+        if (opts.allLabels && gw >= 40) {
+          const ly = v >= 0 ? y(v) - 4 : y(v) + 11;
+          s += `<text class="pt-lbl ${k}" x="${x + bw / 2}" y="${ly}" text-anchor="middle" style="font-size:${bw < 14 ? 9 : 10}px">${fmt(v, r.d)}</text>`;
+        }
+      });
+      if (opts.valueLabels && r.cyAct != null) s += `<text class="val-lbl num" x="${gx + 2 * (bw + gap) + bw / 2}" y="${y(Math.max(0, r.cyAct)) - 6}" text-anchor="middle">${fmt(r.cyAct, r.d)}</text>`;
+      s += `<text x="${m.l + gi * gw + gw / 2}" y="${H - m.b + 18}" text-anchor="middle" style="font-weight:600;fill:var(--text-1)">${gw < 40 ? labels[gi].replace("월", "") : labels[gi]}</text>`;
+      if (opts.sub) s += `<text x="${m.l + gi * gw + gw / 2}" y="${H - m.b + 34}" text-anchor="middle" class="num">${opts.sub(r)}</text>`;
+      s += `<rect class="hit" data-i="${gi}" x="${m.l + gi * gw}" y="${m.t}" width="${gw}" height="${ih}" fill="transparent"/>`;
+    });
+    el.innerHTML = s + "</svg>";
+    bindHits(el, rows, labels);
+  }
+
+  // 꺾은선 (일매출처럼 평균형 지표)
+  function lines(el, rows, labels, opts = {}) {
+    const W = Math.max(el.clientWidth, 240), H = opts.H || 280, m = { t: 20, r: 16, b: 28, l: 52 };
+    const iw = W - m.l - m.r, ih = H - m.t - m.b;
+    const vals = rows.flatMap(r => SERIES.map(([k]) => r[k])).filter(v => v != null);
+    let lo = Math.min(...vals), hi = Math.max(...vals); const pad = (hi - lo) * 0.15 || hi * 0.05 || 1;
+    lo -= pad; hi += pad;
+    const step = niceStep((hi - lo) / 4); lo = Math.floor(lo / step) * step; hi = Math.ceil(hi / step) * step;
+    const y = v => m.t + (hi - v) / (hi - lo) * ih;
+    const gw = iw / rows.length, x = i => m.l + gw * i + gw / 2;
+    let s = `<svg width="${W}" height="${H}">`;
+    if (opts.shade) { const [a, b] = opts.shade; s += `<rect class="range-bg" x="${m.l + (a - 1) * gw}" y="${m.t}" width="${(b - a + 1) * gw}" height="${ih}"/>`; }
+    for (let v = lo; v <= hi + 1e-9; v += step) {
+      s += `<line class="gridline" x1="${m.l}" x2="${W - m.r}" y1="${y(v)}" y2="${y(v)}"/>`;
+      s += `<text x="${m.l - 8}" y="${y(v) + 4}" text-anchor="end" class="num">${fmt(v)}</text>`;
+    }
+    SERIES.forEach(([k, , c]) => {
+      let d = "", pen = false;
+      rows.forEach((r, i) => { if (r[k] == null) { pen = false; return; } d += (pen ? "L" : "M") + x(i) + "," + y(r[k]); pen = true; });
+      if (d) s += `<path class="line" d="${d}" stroke="${c}" ${k === "cyPlan" ? 'stroke-dasharray="5 4"' : ""}/>`;
+      rows.forEach((r, i) => { if (r[k] != null) s += `<circle cx="${x(i)}" cy="${y(r[k])}" r="4" fill="${c}" stroke="var(--surface)" stroke-width="2"/>`; });
+    });
+    if (opts.allLabels && gw >= 36) rows.forEach((r, i) => {
+      const pts = SERIES.map(([k]) => ({ k, v: r[k] })).filter(p => p.v != null)
+        .map(p => ({ ...p, yy: y(p.v) + 3.5 })).sort((a, b) => a.yy - b.yy);
+      for (let j = 1; j < pts.length; j++) if (pts[j].yy - pts[j - 1].yy < 11) pts[j].yy = pts[j - 1].yy + 11;
+      const last = i === rows.length - 1, lx = last ? x(i) - 7 : x(i) + 7;
+      pts.forEach(p => s += `<text class="pt-lbl ${p.k}" x="${lx}" y="${p.yy}" text-anchor="${last ? "end" : "start"}" style="font-size:${gw < 50 ? 9 : 10}px">${fmt(p.v, r.d)}</text>`);
+    });
+    rows.forEach((r, i) => {
+      s += `<text x="${x(i)}" y="${H - m.b + 18}" text-anchor="middle" style="font-weight:600;fill:var(--text-1)">${gw < 40 ? labels[i].replace("월", "") : labels[i]}</text>`;
+      s += `<rect class="hit" data-i="${i}" x="${m.l + gw * i}" y="${m.t}" width="${gw}" height="${ih}" fill="transparent"/>`;
+    });
+    el.innerHTML = s + "</svg>";
+    bindHits(el, rows, labels);
+  }
+
+  function bindHits(el, rows, labels) {
+    el.querySelectorAll(".hit").forEach(h => {
+      h.onmousemove = (e) => {
+        const r = rows[+h.dataset.i];
+        showTip(e, `<div class="t">${labels[+h.dataset.i]} · ${r.it.name}</div>` + tipRows([
+          [`${PY} 실적`, fmt(r.pyAct, r.d)], [`${CY} 계획`, fmt(r.cyPlan, r.d)], [`${CY} 실적`, fmt(r.cyAct, r.d)],
+          ["계획 대비", r.planTxt], ["전년 대비", r.yoyTxt]]));
+      };
+      h.onmouseleave = hideTip;
+    });
+  }
+
+  // ---------- 지역별 차트 ----------
+  function renderChart() {
+    const it = ITEM[state.item];
+    const orgs = D.orgs.slice(1);
+    const rows = orgs.map(o => calc(it.key, o));
+    document.getElementById("chartTitle").textContent = `${it.name} — 지역별 ${PY}년 실적 · ${CY}년 계획 · ${CY}년 실적 (${it.unit}, ${rows[0].period})`;
+    groupedBars(document.getElementById("chart"), rows, orgs.map(shortOrg), { valueLabels: true, sub: r => r.chartLbl });
+  }
+
+  // ---------- 월별 팝업 ----------
+  const modal = document.getElementById("modal");
+  const mOrgs = document.getElementById("mOrgs");
+  D.orgs.forEach(o => {
+    const b = document.createElement("button"); b.type = "button"; b.textContent = shortOrg(o); b.dataset.org = o;
+    b.onclick = () => { state.mOrg = o; renderModal(); };
+    mOrgs.appendChild(b);
+  });
+  function openModal(key, org) {
+    state.mItem = key; state.mOrg = org || state.org;
+    modal.hidden = false; document.body.style.overflow = "hidden";
+    renderModal();
+    document.getElementById("mClose").focus();
+  }
+  function closeModal() { modal.hidden = true; document.body.style.overflow = ""; hideTip(); }
+  document.getElementById("mClose").onclick = closeModal;
+  modal.onclick = (e) => { if (e.target === modal) closeModal(); };
+  addEventListener("keydown", (e) => { if (e.key === "Escape" && !modal.hidden) closeModal(); });
+
+  function renderModal() {
+    const it = ITEM[state.mItem], org = state.mOrg;
+    mOrgs.querySelectorAll("button").forEach(b => b.setAttribute("aria-pressed", b.dataset.org === org));
+    const cum = calc(it.key, org);
+    document.getElementById("mTitle").textContent = `${it.name} 월별 실적 — ${org}`;
+    document.getElementById("mSub").textContent = `단위 ${it.unit} · ${it.note ? it.note + " · " : ""}${CY}년 실적은 ${it.lastMonth}월까지`;
+    document.getElementById("mKpis").innerHTML = [
+      [`${cum.period} ${PY} 실적`, fmt(cum.pyAct, cum.d)],
+      [`${cum.period} ${CY} 계획`, fmt(cum.cyPlan, cum.d)],
+      [`${cum.period} ${CY} 실적`, fmt(cum.cyAct, cum.d)],
+      ["계획 대비", cum.planTxt],
+      ["전년 대비", `<span class="${dirCls(cum.effYoy)}">${cum.yoyTxt}</span>`],
+    ].map(([l, v]) => `<div class="kpi"><div class="l">${l}</div><div class="v num">${v}</div></div>`).join("");
+
+    const rows = Array.from({ length: 12 }, (_, i) => calcMonth(it.key, org, i + 1));
+    const labels = rows.map((_, i) => (i + 1) + "월");
+    const el = document.getElementById("mChart");
+    const opts = { H: 300, shade: cum.m ? [1, cum.m] : null, allLabels: true };
+    (it.agg === "ratio" ? lines : groupedBars)(el, rows, labels, opts);
+
+    const head = `<thead><tr><th>월</th><th class="sep">${PY} 계획</th><th>${PY} 실적</th><th class="sep">${CY} 계획</th><th>${CY} 실적</th><th class="sep">계획 대비</th><th>전년 대비</th></tr></thead>`;
+    const body = rows.map((r, i) => {
+      const mon = i + 1, cls = mon <= cum.m ? "in" : (mon > it.lastMonth ? "out" : "");
+      return `<tr class="${cls}"><td class="name">${mon}월</td>
+        <td class="num sep">${fmt(r.pyPlan, r.d)}</td><td class="num">${fmt(r.pyAct, r.d)}</td>
+        <td class="num sep">${fmt(r.cyPlan, r.d)}</td><td class="num"><b>${fmt(r.cyAct, r.d)}</b></td>
+        <td class="num sep">${r.st.label && r.effRate != null ? `<span class="status ${r.st.cls}"><span class="dot"></span>${r.st.label}</span> ` : ""}${r.planTxt}</td>
+        <td class="num ${dirCls(r.effYoy)}">${r.yoyTxt}</td></tr>`;
+    }).join("");
+    const foot = `<tfoot><tr><td>${cum.period}</td>
+      <td class="num sep">${fmt(cum.pyPlan, cum.d)}</td><td class="num">${fmt(cum.pyAct, cum.d)}</td>
+      <td class="num sep">${fmt(cum.cyPlan, cum.d)}</td><td class="num">${fmt(cum.cyAct, cum.d)}</td>
+      <td class="num sep">${cum.planTxt}</td><td class="num ${dirCls(cum.effYoy)}">${cum.yoyTxt}</td></tr></tfoot>`;
+    document.getElementById("mTable").innerHTML = head + "<tbody>" + body + "</tbody>" + foot;
+  }
+
+  // ---------- 페이지 / 목차 ----------
+  const PAGE_NAMES = { home: "초기 화면", org: "조직 및 사무소 현황", sales: "영업지표", dev: "개발지표", total: "종합 지표 확인" };
+  const PAGE_EL = { home: "p-home", org: "p-org", sales: "p-group", dev: "p-group", total: "p-total" };
+  // 영업지표 전용 항목 (데이터 미수령 → 자리만 마련, 데이터가 들어오면 build_data.py 의 items 에 추가)
+  [["o4o", "O4O"], ["slowstock", "부진재고"], ["orderinc", "발주장려금"], ["recontract", "재계약"]].forEach(([key, name]) => {
+    if (!ITEM[key]) ITEM[key] = { key, name, unit: "", decimals: 0, agg: "sum", note: "데이터 준비중", lastMonth: 0 };
+  });
+  (D.subItems || []).forEach(it => { ITEM[it.key] = it; });   // FCS 신규/기존 등 화면 전용 세부항목
+  const GROUPS = { sales: ["sales", "profit", "recontract", "renewal", "o4o", "orderinc", "slowstock", "chicken"],
+                   dev: ["open", "close", "snb", "fcs", "fcs_new", "fcs_exist"] };
+  state.page = "home"; state.gItem = { sales: "sales", dev: "open" }; state.gOrg = D.orgs[0]; state.tView = "cards";
+  try { const h = location.hash.replace("#", ""); if (PAGE_NAMES[h]) state.page = h; } catch (e) {}
+  document.querySelectorAll("#nav button").forEach(b => b.onclick = () => {
+    state.page = b.dataset.page;
+    try { history.replaceState(null, "", "#" + state.page); } catch (e) {}
+    render(); window.scrollTo(0, 0);
+  });
+  document.querySelectorAll(".thGood").forEach(e => e.textContent = D.thresholds.good);
+  document.querySelectorAll(".thWarn").forEach(e => e.textContent = D.thresholds.warning);
+  document.querySelectorAll("#totalView button").forEach(b => b.onclick = () => {
+    state.tView = b.dataset.view; renderTotalView();
+  });
+  function renderTotalView() {
+    document.querySelectorAll("#totalView button").forEach(b => b.setAttribute("aria-pressed", b.dataset.view === state.tView));
+    document.querySelectorAll("#p-total .view").forEach(v => v.hidden = v.dataset.view !== state.tView);
+    if (state.tView === "compare") renderChart();
+  }
+
+  // 상태색 (요약표 셀 배경)
+  function tint(r) {
+    if (r.effRate == null) return "";
+    if (r.effRate >= D.thresholds.good) return "background:rgba(var(--pos-rgb),.08)";
+    if (r.effRate >= D.thresholds.warning) return "background:rgba(250,178,25,.12)";
+    return "background:rgba(var(--neg-rgb),.09)";
+  }
+
+  // ---------- 1. 초기 화면 ----------
+  function renderHome() {
+    document.getElementById("homeTitle").textContent = `부문·지역 실적 요약 — 1~${state.month}월 누계`;
+    const head = `<colgroup><col class="c-item">${D.orgs.map(() => "<col>").join("")}</colgroup>
+      <thead><tr><th style="text-align:left">항목</th>${D.orgs.map((o, i) => `<th class="${i ? "" : "lead"}">${o}</th>`).join("")}</tr></thead>`;
+    const body = D.items.map(i => {
+      const r0 = calc(i.key, D.orgs[0]);
+      const name = `<td class="iname"><b>${i.name}</b><span>${r0.noData ? i.unit : r0.period + " · " + i.unit}</span></td>`;
+      if (r0.noData) return `<tr>${name}<td class="na" colspan="${D.orgs.length}">데이터 준비중 (${i.note || ""})</td></tr>`;
+      return `<tr>${name}${D.orgs.map((o, oi) => {
+        const r = calc(i.key, o), st = r.st;
+        const planCell = r.planDiff == null && !r.isCount ? `<b style="color:var(--text-3);font-weight:500">계획 없음</b>`
+          : `${st.label ? `<span class="status ${st.cls}"><span class="dot"></span></span>` : ""}<b>${r.planTxt}</b>`;
+        return `<td class="hc ${oi ? "" : "lead"}" data-item="${i.key}" data-org="${o}" style="${tint(r)}">
+          <div class="hv num">${fmt(r.cyAct, r.d)}<small>${i.unit}</small></div>
+          <div class="hm"><span class="k">계획</span>${planCell}</div>
+          <div class="hm"><span class="k">전년</span><b class="${dirCls(r.effYoy)}">${r.yoyTxt}</b></div></td>`;
+      }).join("")}</tr>`;
+    }).join("");
+    const counts = D.orgs.map(o => {
+      const rs = D.items.map(i => calc(i.key, o));
+      const wp = rs.filter(r => r.effRate != null), wy = rs.filter(r => r.effYoy != null);
+      return { p: wp.filter(r => r.effRate >= D.thresholds.good).length, pn: wp.length, y: wy.filter(r => r.effYoy >= 0).length, yn: wy.length };
+    });
+    const foot = `<tfoot>
+      <tr><td>계획 달성 항목</td>${counts.map((c, i) => `<td class="${i ? "" : "lead"}"><b>${c.p}</b> / ${c.pn}</td>`).join("")}</tr>
+      <tr><td>전년 초과 항목</td>${counts.map((c, i) => `<td class="${i ? "" : "lead"}"><b>${c.y}</b> / ${c.yn}</td>`).join("")}</tr></tfoot>`;
+    const t = document.getElementById("homeTable");
+    t.innerHTML = head + "<tbody>" + body + "</tbody>" + foot;
+    t.querySelectorAll("td.hc").forEach(td => td.onclick = () => openModal(td.dataset.item, td.dataset.org));
+  }
+
+  // ---------- 3·4. 영업 / 개발 지표 ----------
+  function renderGroup() {
+    const keys = GROUPS[state.page], key = state.gItem[state.page], it = ITEM[key];
+    const seg = document.getElementById("gItems");
+    seg.innerHTML = keys.map(k => `<button type="button" data-k="${k}" aria-pressed="${k === key}">${k === "fcs" ? "FCS 합계" : ITEM[k].name}</button>`).join("");
+    seg.querySelectorAll("button").forEach(b => b.onclick = () => { state.gItem[state.page] = b.dataset.k; renderGroup(); });
+    const rows = D.orgs.map(o => calc(key, o));
+    const tbl = document.getElementById("gTable"), chartEl = document.getElementById("gChart");
+    document.getElementById("gTableTitle").textContent = `${it.name} 조직별 누계 (${[rows[0].period, it.unit].filter(x => x && x !== "-").join(", ") || "데이터 준비중"})`;
+    document.getElementById("gChartTitle").textContent = `${it.name} 월별 추이 — ${state.gOrg}`;
+    document.getElementById("gMore").hidden = !!rows[0].noData;
+    if (rows[0].noData) {
+      tbl.innerHTML = `<tbody><tr><td class="empty-panel">데이터 준비중${it.note && it.note !== "데이터 준비중" ? " · " + it.note : ""}</td></tr></tbody>`;
+      chartEl.innerHTML = `<div class="empty-panel">데이터 준비중</div>`; return;
+    }
+    tbl.innerHTML = `<thead><tr><th>조직</th><th>${PY} 실적</th><th>${CY} 계획</th><th>${CY} 실적</th><th>계획 대비</th><th>전년 대비</th></tr></thead><tbody>` +
+      rows.map((r, i) => `<tr data-org="${D.orgs[i]}" class="${D.orgs[i] === state.gOrg ? "sel" : ""}">
+        <td class="name">${D.orgs[i]}</td><td class="num">${fmt(r.pyAct, r.d)}</td><td class="num">${fmt(r.cyPlan, r.d)}</td>
+        <td class="num"><b>${fmt(r.cyAct, r.d)}</b></td>
+        <td class="num">${r.st.label && r.effRate != null ? `<span class="status ${r.st.cls}"><span class="dot"></span></span> ` : ""}${r.planTxt}</td>
+        <td class="num ${dirCls(r.effYoy)}">${r.yoyTxt}</td></tr>`).join("") + "</tbody>";
+    tbl.querySelectorAll("tbody tr").forEach(tr => tr.onclick = () => { state.gOrg = tr.dataset.org; renderGroup(); });
+    const cum = calc(key, state.gOrg);
+    const mrows = Array.from({ length: 12 }, (_, i) => calcMonth(key, state.gOrg, i + 1));
+    const labels = mrows.map((_, i) => (i + 1) + "월");
+    (it.agg === "ratio" ? lines : groupedBars)(chartEl, mrows, labels, { H: it.agg === "ratio" ? 400 : 320, shade: cum.m ? [1, cum.m] : null, allLabels: true });
+    document.getElementById("gMore").onclick = () => openModal(key, state.gOrg);
+  }
+
+
+  // ---------- 2. 조직 및 사무소 현황 ----------
+  const ORG = window.ORG_DATA, MAP = window.ORG_MAP;
+  const RCOL = { "1지역": "var(--r1)", "2지역": "var(--r2)", "3지역": "var(--r3)", "4지역": "var(--r4)", "FCS": "var(--rFCS)" };
+  const SIDO_FULL = { 대전: "대전", 세종: "세종", 충남: "충남", 전북: "전북", 광주: "광주", 전남: "전남" };
+  state.orgSel = "all";
+
+  // 조직 화면 탭 + 인원 현황
+  state.orgView = "people";
+  document.querySelectorAll("#orgViewTabs button").forEach(b => b.onclick = () => { state.orgView = b.dataset.v; renderOrg(); });
+  function renderStaff() {
+    const S = window.STAFF_DATA; const el = document.getElementById("staffPanel");
+    if (!S) { el.hidden = true; return; }
+    const sum = a => a.reduce((t, [, n]) => t + (n || 0), 0);
+    const L = sum(S.leader), M = sum(S.manager), T = L + M;
+    const chips = a => a.map(([k, n]) => `<span class="chip2">${k}<b class="num">${fmt(n)}명</b></span>`).join("");
+    el.innerHTML = `
+      <div><div class="lbl">4부문 소속 인원 <span class="hint">${S.asOf || (ORG && ORG.asOf) || ""}</span></div>
+        <div class="big num">${fmt(T)}<small>명</small></div>
+        <div class="ratio" title="리더 ${L} · 매니저 ${M}"><i style="width:${L / T * 100}%;background:var(--r1)"></i><i style="width:${M / T * 100}%;background:var(--bar-plan)"></i></div></div>
+      <div><div class="grp-h"><span class="lbl"><i style="display:inline-block;width:10px;height:10px;border-radius:3px;background:var(--r1);margin-right:4px"></i>리더</span><b class="num">${fmt(L)}명</b><span class="pct">${fmt(L / T * 100, 1)}%</span></div>
+        <div class="chips2">${chips(S.leader)}</div></div>
+      <div><div class="grp-h"><span class="lbl"><i style="display:inline-block;width:10px;height:10px;border-radius:3px;background:var(--bar-plan);margin-right:4px"></i>매니저</span><b class="num">${fmt(M)}명</b><span class="pct">${fmt(M / T * 100, 1)}%</span></div>
+        <div class="chips2">${chips(S.manager)}</div></div>`;
+  }
+  const STF = (window.STAFF_DATA && window.STAFF_DATA.regions) || {};
+  const SUP = window.STAFF_DATA && window.STAFF_DATA.support;
+  // 카드 제목줄 요약: 리더 n명 · 매니저 n명
+  const mgr = (r) => (r.ofc || 0) + (STF[r.key] || []).reduce((t, [, n]) => t + n, 0);
+  const lm = (L, M) => `<span class="lm">${L != null ? `리더 <b class="num">${fmt(L)}</b>명 · ` : ""}매니저 <b class="num">${fmt(M)}</b>명</span>`;
+  function staffRow(key) {
+    const a = STF[key]; if (!a) return "";
+    const r = ORG.regions.find(x => x.key === key) || {};
+    const tot = (r.ofc || 0) + a.reduce((t, [, n]) => t + n, 0);
+    return `<div class="pchips">${a.map(([k, n]) => `<span class="chip2">${k}<b class="num">${fmt(n)}명</b></span>`).join("")}</div>`;
+  }
+
+  // ---------- 사무소 현황 ----------
+  const HQ_NAMES = ["대전", "광주"];   // 왼쪽에 크게 표시할 대표 사무소
+  // 대표 사무소 담당 지역 보정 (엑셀과 다르게 표시할 때)
+  const HQ_OVERRIDE = { "광주": { regions: ["3지역", "4지역"], scope: "3, 4지역팀" } };
+  function renderOffice() {
+    const O = window.OFFICE_DATA; if (!O) return;
+    const offs = O.offices.map(o => HQ_OVERRIDE[o.name] ? { ...o, ...HQ_OVERRIDE[o.name] } : o), hq = offs.filter(o => HQ_NAMES.includes(o.name)), rest = offs.filter(o => !HQ_NAMES.includes(o.name));
+    const inStore = offs.filter(o => o.store).length;
+    document.getElementById("offKpis").innerHTML = [
+      ["4부문 지역사무소", offs.length + "개"], ["대표 사무소", hq.map(o => o.name).join(" · ")],
+      ["사무실", (offs.length - inStore) + "개"], ["점포 내 사무소", inStore + "개"],
+    ].map(([l, v]) => `<div class="kpi"><div class="l">${l}</div><div class="v">${v}</div></div>`).join("");
+    const regChip = k => `<span><i style="background:${RCOL[k] || "var(--text-3)"}"></i>${k}</span>`;
+    document.getElementById("offMain").innerHTML = hq.map(o => {
+      return `<div class="hq ${o.name === "광주" ? "gj" : ""}">
+        <span class="tag">대표 사무소 · ${o.type}</span>
+        <h3>${o.name} 사무소</h3>
+        <div class="scope">${o.scope}</div>
+        <div class="addr">${o.address}${o.store ? `<br><b>${o.store}</b>` : ""}</div>
+        <div class="regs">${o.regions.map(regChip).join("")}</div>
+      </div>`;
+    }).join("");
+    const regs = ["1지역", "2지역", "3지역", "4지역"];
+    document.getElementById("offSide").innerHTML = regs.map(rk => {
+      const list = rest.filter(o => o.regions.includes(rk)), via = hq.filter(o => o.regions.includes(rk));
+      return `<div class="off-reg" style="--rc:${RCOL[rk]}">
+        <div class="h"><b>${rk}</b><span>거점 ${list.length}개${via.length ? ` · 대표 ${via.map(o => o.name).join("·")}` : ""}</span></div>
+        ${list.map(o => `<div class="office">
+          <div class="n"><b>${o.name}</b><span class="sc">${o.scope.replace(rk, "").trim() || o.scope}</span><span class="st ${o.store ? "" : "room"}">${o.store || "사무실"}</span></div>
+          <div class="ad">${o.address}</div></div>`).join("") || `<div class="office"><div class="ad">별도 거점 없음</div></div>`}
+      </div>`;
+    }).join("");
+  }
+  function renderOrg() {
+    document.querySelectorAll("#orgViewTabs button").forEach(b => b.setAttribute("aria-pressed", b.dataset.v === state.orgView));
+    document.querySelectorAll("#p-org .org-view").forEach(v => v.hidden = v.dataset.v !== state.orgView);
+    if (state.orgView === "office") { renderOffice(); return; }
+    renderStaff();
+    if (!ORG) { document.getElementById("orgDetail").innerHTML = `<div class="panel placeholder"><div class="ph-title">조직 데이터 없음</div></div>`; return; }
+    const sel = state.orgSel, regs = ORG.regions.filter(r => r.key !== "FCS"), fcs = ORG.regions.find(r => r.key === "FCS");
+    document.getElementById("orgAsOf").textContent = ORG.asOf;
+    // KPI
+    const dv = ORG.division;
+    document.getElementById("orgKpis").innerHTML = [
+      ["4부문 전체 점포", fmt(dv.total && dv.total.stores) + "점"],
+      ["일반점 (FCS 제외)", fmt(dv.main && dv.main.stores) + "점"],
+      ["FCS", fmt(dv.fcs && dv.fcs.stores) + "점"],
+      ["OFC 수", fmt(dv.total && dv.total.ofc) + "명"],
+      ["OFC 인당 점포", fmt(dv.total && dv.total.per, 1) + "점"],
+    ].map(([l, v]) => `<div class="kpi"><div class="l">${l}</div><div class="v num">${v}</div></div>`).join("");
+    // 탭
+    const tabs = [["all", "전체"], ...regs.map(r => [r.key, r.key]), ...(fcs ? [["FCS", "FCS"]] : [])];
+    const ot = document.getElementById("orgTabs");
+    ot.innerHTML = tabs.map(([k, l]) => `<button type="button" data-k="${k}" aria-pressed="${k === sel}">${l}</button>`).join("");
+    ot.querySelectorAll("button").forEach(b => b.onclick = () => { state.orgSel = b.dataset.k; renderOrg(); });
+    // 범례
+    const lg = document.getElementById("orgLegend");
+    lg.innerHTML = regs.map(r => `<button type="button" data-k="${r.key}" aria-pressed="${r.key === sel}"><i style="background:${RCOL[r.key]}"></i>${r.key} <span class="num">${fmt(r.stores)}점</span></button>`).join("")
+      + `<button type="button" data-k="none" disabled style="cursor:default;opacity:.8"><i style="background:var(--surface-2);border:1px solid var(--border)"></i>점포 없음</button>`;
+    lg.querySelectorAll("button[data-k]:not([disabled])").forEach(b => b.onclick = () => { state.orgSel = state.orgSel === b.dataset.k ? "all" : b.dataset.k; renderOrg(); });
+    renderOrgMap();
+    // 상세
+    const el = document.getElementById("orgDetail");
+    if (sel === "all") {
+      el.innerHTML = `<div class="rcards">${regs.map(r => `
+        <div class="rcard" data-k="${r.key}" style="--rc:${RCOL[r.key]}">
+          <div class="t">${r.name}${lm((window.STAFF_DATA.regionLeaders || {})[r.key] ?? 1 + r.teams.length, mgr(r))}<small>영업팀 ${r.teams.length}개</small></div>
+          <div class="a">${r.area || ""}</div>
+          <div class="nums"><div><span>점포수</span><b class="num">${fmt(r.stores)}</b></div><div><span>OFC</span><b class="num">${fmt(r.ofc)}</b></div><div><span>인당 점포</span><b class="num">${fmt(r.per, 1)}</b></div></div>
+          ${staffRow(r.key)}
+        </div>`).join("")}</div>
+        <div class="rcards" style="margin-top:10px">
+        ${fcs ? `<div class="rcard" data-k="FCS" style="--rc:${RCOL.FCS}">
+          <div class="t">${fcs.name}${lm(fcs.teams.length, fcs.ofc || 0)}<small>신선영업팀 ${fcs.teams.length}개</small></div>
+          <div class="a">${fcs.area || ""}</div>
+          <div class="pchips"><span class="chip2">점포수<b class="num">${fmt(fcs.stores)}</b></span><span class="chip2">OFC<b class="num">${fmt(fcs.ofc)}명</b></span><span class="chip2">인당 점포<b class="num">${fmt(fcs.per, 1)}</b></span></div></div>` : ""}
+        ${SUP ? `<div class="rcard nolink" style="--rc:var(--text-3)">
+          <div class="t">${SUP.name}${lm(SUP.leaders, SUP.items.reduce((t, [, n]) => t + n, 0))}<small></small></div>
+          <div class="a">부문 직속 지원 인력</div>
+          <div class="pchips">${SUP.items.map(([k, n]) => `<span class="chip2">${k}<b class="num">${fmt(n)}명</b></span>`).join("")}</div></div>` : ""}
+        </div>`;
+      el.querySelectorAll(".rcard:not(.nolink)").forEach(c => c.onclick = () => { state.orgSel = c.dataset.k; renderOrg(); });
+      return;
+    }
+    const r = ORG.regions.find(x => x.key === sel);
+    el.innerHTML = `<div class="panel">
+      <div class="rhead"><span class="sw" style="background:${RCOL[r.key]}"></span><b>${r.name}</b>
+        <span class="hint">${r.area || ""} · 점포 ${fmt(r.stores)} · OFC ${fmt(r.ofc)}${(STF[r.key] || []).map(([k, n]) => ` · ${k} ${fmt(n)}`).join("")} · 인당 ${fmt(r.per, 1)}</span></div>
+      <div class="scroll"><table class="teams">
+        <thead><tr><th class="l">영업팀</th><th class="l">담당 지역</th><th>점포수</th><th>파트 수</th><th>인당 점포</th></tr></thead>
+        <tbody>${r.teams.map(t => `<tr><td class="name">${t.name}</td><td class="area">${t.area || ""}</td>
+          <td class="num"><b>${fmt(t.stores)}</b></td><td class="num">${fmt(t.parts)}</td><td class="num">${fmt(t.per, 1)}</td></tr>`).join("")}</tbody>
+        <tfoot><tr><td>합계</td><td></td><td class="num"><b>${fmt(r.teams.reduce((a, t) => a + (t.stores || 0), 0))}</b></td><td class="num">${fmt(r.teams.reduce((a, t) => a + (t.parts || 0), 0))}</td><td></td></tr></tfoot>
+      </table></div></div>`;
+  }
+  function renderOrgMap() {
+    const sel = state.orgSel, D2 = ORG.districts;
+    let svg = `<svg viewBox="-6 -6 ${MAP.w + 12} ${MAP.h + 12}" role="img" aria-label="4부문 지역별 담당 지도">`;
+    const acc = {};
+    MAP.shapes.forEach(sh => {
+      const d = D2[sh.k], reg = d && d.region;
+      const fill = reg ? RCOL[reg] : "var(--surface-2)";
+      const dim = sel !== "all" && sel !== "FCS" && reg !== sel;
+      const dimF = sel === "FCS" && !(d && d.fcs);
+      svg += `<path class="dist ${dim || dimF ? "dim" : ""}" data-k="${sh.k}" d="${sh.d}" fill="${sel === "FCS" && d && d.fcs ? RCOL.FCS : fill}"/>`;
+      if (reg) { const a = acc[reg] || (acc[reg] = { x: 0, y: 0, w: 0, n: 0 }); const w = Math.sqrt(sh.a) * (d.stores || 1); a.x += sh.cx * w; a.y += sh.cy * w; a.w += w; a.n += d.stores; }
+    });
+    // 선택 지역의 시군구 이름
+    if (sel !== "all") MAP.shapes.forEach(sh => {
+      const d = D2[sh.k]; if (!d) return;
+      if ((sel === "FCS" && d.fcs) || d.region === sel) svg += `<text class="dlbl" x="${sh.cx}" y="${sh.cy + 3}" text-anchor="middle">${sh.k.split("|")[1].replace(/(시|군)$/, "")}</text>`;
+    });
+    if (sel === "all") Object.entries(acc).forEach(([reg, a]) => {
+      svg += `<text class="rlbl" x="${a.x / a.w}" y="${a.y / a.w}" text-anchor="middle">${reg}</text>`;
+      svg += `<text class="rsub num" x="${a.x / a.w}" y="${a.y / a.w + 15}" text-anchor="middle">${fmt((ORG.regions.find(r => r.key === reg) || {}).stores ?? a.n)}점</text>`;
+    });
+    const el = document.getElementById("orgMap");
+    el.innerHTML = svg + "</svg>";
+    el.querySelectorAll("path.dist").forEach(p => {
+      p.onmousemove = (e) => {
+        const k = p.dataset.k, d = D2[k], [sd, sg] = k.split("|");
+        const title = sd === "세종" ? "세종특별자치시" : `${SIDO_FULL[sd]} ${sg}`;
+        if (!d) return showTip(e, `<div class="t">${title}</div><div class="r"><span>점포 없음</span></div>`);
+        showTip(e, `<div class="t">${title} · ${d.region}</div>` + tipRows([["일반 점포", fmt(d.stores) + "점"], ...(d.fcs ? [["FCS", fmt(d.fcs) + "점"]] : []),
+          ...Object.entries(d.teams).map(([t, n]) => [t, n + "점"])]));
+      };
+      p.onmouseleave = hideTip;
+      p.onclick = () => { const d = D2[p.dataset.k]; if (d && d.region) { state.orgSel = state.orgSel === d.region ? "all" : d.region; renderOrg(); } };
+    });
+  }
+  // ---------- 테마 ----------
+  const themeBtn = document.getElementById("themeBtn");
+  const isDark = () => document.documentElement.dataset.theme ? document.documentElement.dataset.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+  const syncThemeBtn = () => themeBtn.textContent = isDark() ? "라이트 모드" : "다크 모드";
+  try { const t = localStorage.getItem("dash-theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+  themeBtn.onclick = () => {
+    const t = isDark() ? "light" : "dark";
+    document.documentElement.dataset.theme = t;
+    try { localStorage.setItem("dash-theme", t); } catch (e) {}
+    syncThemeBtn();
+  };
+  syncThemeBtn();
+
+  // ---------- 렌더 ----------
+  function render() {
+    const pg = state.page;
+    document.querySelectorAll("#nav button").forEach(b => b.setAttribute("aria-current", b.dataset.page === pg ? "page" : "false"));
+    document.querySelectorAll(".page").forEach(el => el.hidden = el.id !== PAGE_EL[pg]);
+    document.getElementById("pageEyebrow").textContent = `GS25 · 4부문 부문지원팀 · ${PAGE_NAMES[pg]}`;
+    renderHeader();
+    if (pg === "home") renderHome();
+    if (pg === "org") renderOrg();
+    if (pg === "sales" || pg === "dev") renderGroup();
+    if (pg === "total") { renderSummary(); renderCards(); renderDetail(); renderMatrix(); renderTotalView(); }
+    if (!modal.hidden) renderModal();
+  }
+  let rt; addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(() => {
+    if (state.page === "total" && state.tView === "compare") renderChart();
+    if (state.page === "sales" || state.page === "dev") renderGroup();
+    if (!modal.hidden) renderModal(); }, 150); });
+  render();
+})();
+</script>
+</body>
+</html>
