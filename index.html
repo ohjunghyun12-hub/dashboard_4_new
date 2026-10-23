@@ -894,6 +894,17 @@ window.DASHBOARD_DATA = {
       "noCompare": true
     },
     {
+      "key": "mealbox",
+      "name": "밀박스",
+      "unit": "백만원",
+      "decimals": 1,
+      "agg": "sum",
+      "lastMonth": 9,
+      "higherIsBetter": true,
+      "note": "밀박스·스낵바 매출 · BU 실적은 직영 제외",
+      "noCompare": true
+    },
+    {
       "key": "cafe25",
       "name": "카페25 일매출",
       "unit": "천원",
@@ -1064,6 +1075,20 @@ window.DASHBOARD_DATA = {
       376937.93,
       1030045.31,
       1222039.55,
+      null,
+      null,
+      null
+    ],
+    "mealbox": [
+      263.8533,
+      246.7279,
+      307.1929,
+      373.5459,
+      317.6468,
+      358.4659,
+      402.9092,
+      544.7229,
+      643.2875,
       null,
       null,
       null
@@ -1761,6 +1786,25 @@ window.DASHBOARD_DATA = {
           119446.21,
           381774.93,
           448016.5,
+          null,
+          null,
+          null
+        ]
+      },
+      "mealbox": {
+        "pyPlan": null,
+        "pyAct": null,
+        "cyPlan": null,
+        "cyAct": [
+          59.8769,
+          40.8658,
+          90.9761,
+          103.6144,
+          78.5398,
+          113.0126,
+          83.0459,
+          72.42,
+          114.4363,
           null,
           null,
           null
@@ -2675,6 +2719,25 @@ window.DASHBOARD_DATA = {
           null
         ]
       },
+      "mealbox": {
+        "pyPlan": null,
+        "pyAct": null,
+        "cyPlan": null,
+        "cyAct": [
+          25.132,
+          15.7567,
+          23.6233,
+          37.4612,
+          26.5224,
+          31.1043,
+          18.901,
+          18.162,
+          33.0756,
+          null,
+          null,
+          null
+        ]
+      },
       "cafe25": {
         "pyPlan": null,
         "pyAct": null,
@@ -3579,6 +3642,25 @@ window.DASHBOARD_DATA = {
           55443.76,
           102863.13,
           106857.69,
+          null,
+          null,
+          null
+        ]
+      },
+      "mealbox": {
+        "pyPlan": null,
+        "pyAct": null,
+        "cyPlan": null,
+        "cyAct": [
+          8.4641,
+          6.0434,
+          23.3098,
+          8.7315,
+          6.6023,
+          18.2958,
+          24.019,
+          26.5836,
+          28.8522,
           null,
           null,
           null
@@ -4493,6 +4575,25 @@ window.DASHBOARD_DATA = {
           null
         ]
       },
+      "mealbox": {
+        "pyPlan": null,
+        "pyAct": null,
+        "cyPlan": null,
+        "cyAct": [
+          11.2615,
+          1.6755,
+          14.1413,
+          11.6643,
+          13.9738,
+          11.9954,
+          10.2101,
+          4.8391,
+          11.8587,
+          null,
+          null,
+          null
+        ]
+      },
       "cafe25": {
         "pyPlan": null,
         "pyAct": null,
@@ -5402,6 +5503,25 @@ window.DASHBOARD_DATA = {
           null
         ]
       },
+      "mealbox": {
+        "pyPlan": null,
+        "pyAct": null,
+        "cyPlan": null,
+        "cyAct": [
+          13.9799,
+          17.2866,
+          29.8809,
+          45.7074,
+          31.401,
+          51.6077,
+          29.6723,
+          22.7151,
+          38.96,
+          null,
+          null,
+          null
+        ]
+      },
       "cafe25": {
         "pyPlan": null,
         "pyAct": null,
@@ -5888,7 +6008,7 @@ window.DASHBOARD_DATA = {
   // ---------- 종합 지표: 항목 구성 ----------
   const TOTAL_SECTIONS = [
     { title: "영업지표", keys: ["sales", "profit", "recon_owner", "recon_hq", "renewal", "preorder", "quickcom", "quick_cancel",
-                                "onnuri_store", "onnuri_sales", "orderinc", "slowstock", "chicken", "chicken_rate", "cafe25", "gopizza"] },
+                                "onnuri_store", "onnuri_sales", "mealbox", "orderinc", "slowstock", "chicken", "chicken_rate", "cafe25", "gopizza"] },
     { title: "개발지표", keys: ["open", "close", "snb", "fcs", "fcs_new", "fcs_exist"] },
   ];
   const secKeys = sec => sec.keys.filter(k => ITEM[k]);
@@ -6538,6 +6658,7 @@ window.DASHBOARD_DATA = {
     (it.agg === "sum" ? groupedBars : lines)(chartEl, rows, labels, { H: 360, shade: [s0, m], allLabels: true, tip });
     // 주석 (예: 카페25·고피자 10월부터 반영)
     if (it.startMonth) tbl.insertAdjacentHTML("beforeend", `<caption class="tnote">※ ${it.note}</caption>`);
+    else if (/BU 실적/.test(it.note || "")) tbl.insertAdjacentHTML("beforeend", `<caption class="tnote" style="color:var(--text-2)">※ ${it.note.split(" · ").filter(x => /BU/.test(x)).join(" · ")}</caption>`);
   }
 
 
