@@ -407,6 +407,16 @@
   .hq .regs i { width: 9px; height: 9px; border-radius: 3px; display: inline-block; }
   .hq .num-big { position: absolute; right: 20px; top: 16px; text-align: right; font-size: 12px; color: rgba(255,255,255,.8); }
   .hq .num-big b { display: block; font-size: 28px; color: #fff; }
+  .hq.has-lease { display: grid; grid-template-columns: minmax(0,1fr) minmax(200px,44%); gap: 18px; align-items: stretch; }
+  .hq .area { display: inline-block; margin-left: 8px; font-size: 13px; font-weight: 700; background: rgba(255,255,255,.18); border-radius: 8px; padding: 2px 8px; vertical-align: middle; }
+  .hq .lease { background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.22); border-radius: 12px; padding: 12px 14px; align-self: center; }
+  .hq .lease .lease-h { font-size: 11px; font-weight: 700; color: rgba(255,255,255,.75); margin-bottom: 6px; }
+  .hq .lease .term { font-size: 13px; font-weight: 700; margin-bottom: 8px; }
+  .hq .lease .term small { display: block; font-size: 11px; font-weight: 600; color: rgba(255,255,255,.7); }
+  .hq .lease dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 4px 10px; font-size: 12.5px; }
+  .hq .lease dt { color: rgba(255,255,255,.75); } .hq .lease dd { margin: 0; text-align: right; font-weight: 700; font-variant-numeric: tabular-nums; }
+  @media (max-width: 560px) { .hq.has-lease { grid-template-columns: 1fr; } }
+  .office .ar { font-size: 11px; font-weight: 700; color: var(--text-2); }
   .off-side { columns: 2; column-gap: 12px; }
   .off-side .off-reg { break-inside: avoid; margin-bottom: 12px; }
   .off-reg { background: var(--surface); border: 1px solid var(--border); border-top: 4px solid var(--rc); border-radius: 12px; overflow: hidden; }
@@ -596,6 +606,7 @@
           <div id="gChart"></div>
         </div>
       </div>
+      <div class="panel chart-panel" id="gExtra" hidden style="margin-top:12px"></div>
     </section>
 
     <!-- 5. 종합 지표 확인 (기존 대시보드) -->
@@ -705,7 +716,7 @@ window.STAFF_DATA = {
   // FCS 카드의 리더 = 신선영업팀장(팀 수) 로 자동 계산
 };
 /*OFFICE_START*/
-window.OFFICE_DATA = {"offices": [{"name": "대전", "scope": "1, 2지역팀", "address": "대전광역시 중구 보문로 246, 대림빌딩 17층 GS25 중부본부", "store": null, "type": "사무실", "regions": ["1지역", "2지역"], "regionText": "1,2지역팀"}, {"name": "아산", "scope": "1지역 영업3팀,4팀", "address": "충남 아산시 탕정면 탕정면로 228", "store": "GS25 아산탕정점", "type": "점포 내 사무소", "regions": ["1지역"], "regionText": "1지역"}, {"name": "당진", "scope": "1지역 영업1팀,2팀", "address": "충남 당진시 신평면 거산3거리길 68", "store": "GS25 신평충무점", "type": "점포 내 사무소", "regions": ["1지역"], "regionText": "1지역"}, {"name": "공주", "scope": "1지역 영업7팀", "address": "충남 공주시 신금1길 30-21", "store": "GS25 명성점", "type": "점포 내 사무소", "regions": ["1지역"], "regionText": "1지역"}, {"name": "보령", "scope": "2지역 영업6팀", "address": "충남 보령시 머드로 141", "store": "GS25 대천센터점", "type": "점포 내 사무소", "regions": ["2지역"], "regionText": "2지역"}, {"name": "천안", "scope": "1지역 영업5팀,6팀", "address": "충남 천안시 동남구 신방동 1039번지 1층", "store": "GS25 신방그랜드점", "type": "점포 내 사무소", "regions": ["1지역"], "regionText": "1지역"}, {"name": "전주1", "scope": "3지역 전체", "address": "전북 전주시 완산구 홍산중앙로 26, 효자 사무실", "store": null, "type": "사무실", "regions": ["3지역"], "regionText": "3지역"}, {"name": "전주2", "scope": "3지역 전체", "address": "전북 전주시 완산구 범안3길 2 1층", "store": null, "type": "사무실", "regions": ["3지역"], "regionText": "3지역"}, {"name": "군산", "scope": "3지역 영업1팀", "address": "전북 군산시 수송안6길 12", "store": "GS25 수송사랑점", "type": "점포 내 사무소", "regions": ["3지역"], "regionText": "3지역"}, {"name": "광주", "scope": "4지역팀", "address": "광주 광산구 첨단강변로 87번길 5, 6층", "store": null, "type": "사무실", "regions": ["4지역"], "regionText": "4지역"}, {"name": "순천", "scope": "4지역 영업6팀", "address": "전남 순천시 연향상가1길 1", "store": "GS25 순천모아점", "type": "점포 내 사무소", "regions": ["4지역"], "regionText": "4지역"}, {"name": "여수", "scope": "4지역 영업7팀", "address": "전남 여수시 여서1로 78", "store": "GS25 여수GS점", "type": "점포 내 사무소", "regions": ["4지역"], "regionText": "4지역"}]};
+window.OFFICE_DATA = {"offices": [{"name": "대전", "scope": "1, 2지역팀", "address": "대전광역시 중구 보문로 246, 대림빌딩 17층 GS25 중부본부", "store": null, "type": "사무실", "regions": ["1지역", "2지역"], "regionText": "1, 2", "area": 236, "lease": {"term": "2026.07.01 ~ 2028.06.30", "rows": [["보증금", "267,340천원"], ["月 임차료", "8,048천원"], ["月 관리비", "11,059천원"]]}}, {"name": "아산", "scope": "1지역 영업3팀,4팀", "address": "충남 아산시 탕정면 탕정면로 228", "store": "GS25 아산탕정점", "type": "점포 내 사무소", "regions": ["1지역"], "regionText": "1", "area": 24, "lease": null}, {"name": "당진", "scope": "1지역 영업1팀,2팀", "address": "충남 당진시 신평면 거산3거리길 68", "store": "GS25 신평충무점", "type": "점포 내 사무소", "regions": ["1지역"], "regionText": "1", "area": 6, "lease": null}, {"name": "공주", "scope": "1지역 영업7팀", "address": "충남 공주시 신금1길 30-21", "store": "GS25 명성점", "type": "점포 내 사무소", "regions": ["1지역"], "regionText": "1", "area": 6, "lease": null}, {"name": "보령", "scope": "2지역 영업6팀", "address": "충남 보령시 머드로 141", "store": "GS25 대천센터점", "type": "점포 내 사무소", "regions": ["2지역"], "regionText": "2", "area": null, "lease": null}, {"name": "천안", "scope": "1지역 영업5팀,6팀", "address": "충남 천안시 동남구 신방동 1039번지 1층", "store": "GS25 신방그랜드점", "type": "점포 내 사무소", "regions": ["1지역"], "regionText": "1", "area": 6.4, "lease": null}, {"name": "전주1", "scope": "3지역 전체", "address": "전북 전주시 완산구 홍산중앙로 26, 효자 사무실", "store": null, "type": "사무실", "regions": ["3지역"], "regionText": "3", "area": 12, "lease": null}, {"name": "전주2", "scope": "3지역 전체", "address": "전북 전주시 완산구 범안3길 2 1층, 완산 사무실", "store": null, "type": "사무실", "regions": ["3지역"], "regionText": "3", "area": 24, "lease": null}, {"name": "군산", "scope": "3지역 영업1팀", "address": "전북 군산시 수송안6길 12", "store": "GS25 수송사랑점", "type": "점포 내 사무소", "regions": ["3지역"], "regionText": "3", "area": 6, "lease": null}, {"name": "광주", "scope": "3,4지역팀", "address": "광주 광산구 첨단강변로 87번길 5, 6층", "store": null, "type": "사무실", "regions": ["3지역", "4지역"], "regionText": "3,4", "area": 193, "lease": {"term": "2025.11.04 ~ 2030.11.03", "rows": [["보증금", "100,000천원"], ["月 임차료", "10,000천원"], ["月 관리비", "1,700천원"]]}}, {"name": "순천", "scope": "4지역 영업6팀", "address": "전남 순천시 연향상가1길 1", "store": "GS25 순천모아점", "type": "점포 내 사무소", "regions": ["4지역"], "regionText": "4", "area": 6, "lease": null}, {"name": "여수", "scope": "4지역 영업7팀", "address": "전남 여수시 여서1로 78", "store": "GS25 여수GS점", "type": "점포 내 사무소", "regions": ["4지역"], "regionText": "4", "area": 5.4, "lease": null}]};
 /*OFFICE_END*/
 /*PL_START*/
 window.PL_DATA = {"title": "9.28 조직도 기준 점별 평균일매출 / 영업이익(1~8월)   (단위: 원)", "orgBasis": "9.28 조직도 기준", "salesBasis": "9월누계 평균일매출", "plBasis": "영업이익 1~8월 평균", "pBins": ["-3,000천원 미만", "-3,000~-2,000천원", "-2,000~-1,000천원", "-1,000~0천원", "0~1,000천원", "1,000~2,000천원", "2,000~3,000천원", "3,000천원 이상"], "sBins": ["1,000천원 미만", "1,000~1,500천원", "1,500~2,000천원", "2,000~2,500천원", "2,500~3,000천원", "3,000천원 이상"], "orgs": ["4부문", "4부문1지역", "4부문2지역", "4부문3지역", "4부문4지역"], "data": {"4부문": {"stores": 2970, "plStores": 2945, "excluded": 25, "lease": {"owner": {"stores": 1660, "profit": 1004, "loss": 656}, "hq": {"stores": 1276, "profit": 778, "loss": 498}, "etc": {"stores": 9, "profit": 7, "loss": 2}}, "pbins": [98, 144, 342, 572, 729, 498, 258, 304], "sbins": [{"stores": 342, "profit": 39, "loss": 297, "plAvg": -1415.4}, {"stores": 866, "profit": 308, "loss": 557, "plAvg": -533.7}, {"stores": 914, "profit": 684, "loss": 224, "plAvg": 723.9}, {"stores": 507, "profit": 439, "loss": 61, "plAvg": 1894.6}, {"stores": 214, "profit": 199, "loss": 13, "plAvg": 2509.4}, {"stores": 127, "profit": 120, "loss": 4, "plAvg": 4324.7}]}, "4부문1지역": {"stores": 758, "plStores": 751, "excluded": 7, "lease": {"owner": {"stores": 466, "profit": 293, "loss": 173}, "hq": {"stores": 285, "profit": 191, "loss": 94}, "etc": {"stores": 0, "profit": 0, "loss": 0}}, "pbins": [20, 35, 77, 135, 209, 123, 77, 75], "sbins": [{"stores": 107, "profit": 15, "loss": 89, "plAvg": -1268.4}, {"stores": 193, "profit": 85, "loss": 108, "plAvg": -345.4}, {"stores": 209, "profit": 160, "loss": 48, "plAvg": 708.2}, {"stores": 139, "profit": 119, "loss": 18, "plAvg": 1787.7}, {"stores": 69, "profit": 65, "loss": 3, "plAvg": 2326.1}, {"stores": 41, "profit": 40, "loss": 1, "plAvg": 4454.2}]}, "4부문2지역": {"stores": 755, "plStores": 750, "excluded": 5, "lease": {"owner": {"stores": 439, "profit": 270, "loss": 169}, "hq": {"stores": 303, "profit": 190, "loss": 113}, "etc": {"stores": 8, "profit": 6, "loss": 2}}, "pbins": [21, 25, 90, 148, 179, 129, 61, 97], "sbins": [{"stores": 58, "profit": 5, "loss": 53, "plAvg": -1220.2}, {"stores": 210, "profit": 73, "loss": 137, "plAvg": -513.5}, {"stores": 250, "profit": 182, "loss": 67, "plAvg": 761.8}, {"stores": 145, "profit": 122, "loss": 21, "plAvg": 1921.0}, {"stores": 51, "profit": 47, "loss": 4, "plAvg": 2434.1}, {"stores": 41, "profit": 37, "loss": 2, "plAvg": 4423.2}]}, "4부문3지역": {"stores": 718, "plStores": 710, "excluded": 8, "lease": {"owner": {"stores": 344, "profit": 201, "loss": 143}, "hq": {"stores": 366, "profit": 195, "loss": 171}, "etc": {"stores": 0, "profit": 0, "loss": 0}}, "pbins": [30, 54, 84, 146, 165, 111, 56, 64], "sbins": [{"stores": 92, "profit": 11, "loss": 79, "plAvg": -1724.1}, {"stores": 238, "profit": 73, "loss": 165, "plAvg": -630.6}, {"stores": 222, "profit": 165, "loss": 55, "plAvg": 680.9}, {"stores": 99, "profit": 86, "loss": 11, "plAvg": 2027.8}, {"stores": 40, "profit": 36, "loss": 3, "plAvg": 2705.6}, {"stores": 27, "profit": 25, "loss": 1, "plAvg": 3905.0}]}, "4부문4지역": {"stores": 739, "plStores": 734, "excluded": 5, "lease": {"owner": {"stores": 411, "profit": 240, "loss": 171}, "hq": {"stores": 322, "profit": 202, "loss": 120}, "etc": {"stores": 1, "profit": 1, "loss": 0}}, "pbins": [27, 30, 91, 143, 176, 135, 64, 68], "sbins": [{"stores": 85, "profit": 8, "loss": 76, "plAvg": -1401.3}, {"stores": 225, "profit": 77, "loss": 147, "plAvg": -612.0}, {"stores": 233, "profit": 177, "loss": 54, "plAvg": 738.2}, {"stores": 124, "profit": 112, "loss": 11, "plAvg": 1878.0}, {"stores": 54, "profit": 51, "loss": 3, "plAvg": 2669.7}, {"stores": 18, "profit": 18, "loss": 0, "plAvg": 4422.3}]}}};
@@ -941,6 +952,85 @@ window.DASHBOARD_DATA = {
       "startMonth": 10
     },
     {
+      "key": "ff_total",
+      "name": "FF 합계",
+      "unit": "천원",
+      "decimals": 1,
+      "agg": "avg",
+      "lastMonth": 9,
+      "higherIsBetter": true,
+      "note": "중분류 매출 · 월 평균 · BU 실적은 1~6부문 평균, 지역 실적 내 FCS 실적 제외",
+      "group": "FF"
+    },
+    {
+      "key": "ff_0",
+      "name": "FF 도시락",
+      "unit": "천원",
+      "decimals": 1,
+      "agg": "avg",
+      "lastMonth": 9,
+      "higherIsBetter": true,
+      "note": "중분류 매출 · 월 평균 · BU 실적은 1~6부문 평균, 지역 실적 내 FCS 실적 제외",
+      "group": "FF"
+    },
+    {
+      "key": "ff_1",
+      "name": "FF 김밥",
+      "unit": "천원",
+      "decimals": 1,
+      "agg": "avg",
+      "lastMonth": 9,
+      "higherIsBetter": true,
+      "note": "중분류 매출 · 월 평균 · BU 실적은 1~6부문 평균, 지역 실적 내 FCS 실적 제외",
+      "group": "FF"
+    },
+    {
+      "key": "ff_2",
+      "name": "FF 주먹밥",
+      "unit": "천원",
+      "decimals": 1,
+      "agg": "avg",
+      "lastMonth": 9,
+      "higherIsBetter": true,
+      "note": "중분류 매출 · 월 평균 · BU 실적은 1~6부문 평균, 지역 실적 내 FCS 실적 제외",
+      "group": "FF"
+    },
+    {
+      "key": "ff_3",
+      "name": "FF 햄버거/샌드위치",
+      "unit": "천원",
+      "decimals": 1,
+      "agg": "avg",
+      "lastMonth": 9,
+      "higherIsBetter": true,
+      "note": "중분류 매출 · 월 평균 · BU 실적은 1~6부문 평균, 지역 실적 내 FCS 실적 제외",
+      "group": "FF"
+    },
+    {
+      "key": "ff_4",
+      "name": "FF간편식",
+      "unit": "천원",
+      "decimals": 1,
+      "agg": "avg",
+      "lastMonth": 9,
+      "higherIsBetter": true,
+      "note": "중분류 매출 · 월 평균 · BU 실적은 1~6부문 평균, 지역 실적 내 FCS 실적 제외",
+      "group": "FF"
+    },
+    {
+      "key": "rem",
+      "name": "REM",
+      "unit": "백만원",
+      "decimals": 1,
+      "agg": "sum",
+      "lastMonth": 9,
+      "higherIsBetter": true,
+      "noCompare": true,
+      "momAbs": true,
+      "note": "KPI 기준 실적",
+      "extraRows": []
+    },
+    {
       "key": "quickcom",
       "name": "퀵커머스 매출",
       "unit": "백만원",
@@ -1135,6 +1225,90 @@ window.DASHBOARD_DATA = {
       null,
       null
     ],
+    "ff_total": [
+      95.6452,
+      95.3424,
+      110.2207,
+      120.9394,
+      115.0569,
+      121.0041,
+      112.5001,
+      114.6837,
+      122.0246,
+      null,
+      null,
+      null
+    ],
+    "ff_0": [
+      25.398,
+      25.894,
+      27.2331,
+      28.0912,
+      27.9029,
+      28.4026,
+      27.028,
+      28.4067,
+      28.9645,
+      null,
+      null,
+      null
+    ],
+    "ff_1": [
+      20.9743,
+      21.4676,
+      25.3056,
+      28.9103,
+      27.0601,
+      28.4814,
+      26.5355,
+      26.7003,
+      28.4678,
+      null,
+      null,
+      null
+    ],
+    "ff_2": [
+      20.1634,
+      19.7861,
+      24.1231,
+      27.6324,
+      25.8504,
+      27.723,
+      25.7286,
+      25.7348,
+      28.4527,
+      null,
+      null,
+      null
+    ],
+    "ff_3": [
+      22.0993,
+      21.3331,
+      24.8376,
+      26.8216,
+      25.3037,
+      26.2601,
+      24.3158,
+      25.3624,
+      26.6773,
+      null,
+      null,
+      null
+    ],
+    "ff_4": [
+      7.0101,
+      6.8616,
+      8.7212,
+      9.4838,
+      8.9398,
+      10.137,
+      8.8923,
+      8.4795,
+      9.4624,
+      null,
+      null,
+      null
+    ],
     "quickcom": [
       15165.705,
       16003.6988,
@@ -1190,6 +1364,92 @@ window.DASHBOARD_DATA = {
       null,
       null,
       null
+    ]
+  },
+  "benchPy": {
+    "ff_total": [
+      86.5136,
+      89.7273,
+      97.3743,
+      107.5388,
+      103.9238,
+      107.7299,
+      109.0246,
+      112.9087,
+      122.1398,
+      111.2631,
+      110.8507,
+      104.1021
+    ],
+    "ff_0": [
+      21.3871,
+      21.2852,
+      22.6587,
+      25.4822,
+      25.5233,
+      26.3305,
+      27.2154,
+      28.4423,
+      29.6373,
+      26.7511,
+      26.5858,
+      26.5356
+    ],
+    "ff_1": [
+      20.2743,
+      20.9052,
+      22.924,
+      25.2036,
+      24.0986,
+      25.0115,
+      24.6398,
+      26.1839,
+      29.6461,
+      26.4922,
+      26.8873,
+      24.0119
+    ],
+    "ff_2": [
+      17.9774,
+      18.6594,
+      21.0553,
+      24.3162,
+      23.4777,
+      24.0705,
+      23.5948,
+      23.4867,
+      26.002,
+      24.1748,
+      25.0356,
+      22.7426
+    ],
+    "ff_3": [
+      20.4009,
+      21.8797,
+      23.395,
+      24.4393,
+      23.5223,
+      24.144,
+      25.348,
+      26.0638,
+      27.6823,
+      25.9305,
+      24.0879,
+      22.6969
+    ],
+    "ff_4": [
+      6.4739,
+      6.9977,
+      7.3413,
+      8.0975,
+      7.302,
+      8.1734,
+      8.2266,
+      8.732,
+      9.1722,
+      7.9144,
+      8.2542,
+      8.115
     ]
   },
   "orgs": [
@@ -1863,6 +2123,217 @@ window.DASHBOARD_DATA = {
           null,
           null,
           180,
+          null,
+          null
+        ]
+      },
+      "ff_total": {
+        "pyPlan": null,
+        "pyAct": [
+          79.6833,
+          81.2701,
+          90.9604,
+          100.7209,
+          97.3425,
+          99.3673,
+          97.1968,
+          101.0301,
+          112.6671,
+          104.8287,
+          103.5921,
+          95.4172
+        ],
+        "cyPlan": null,
+        "cyAct": [
+          85.2574,
+          85.5487,
+          101.052,
+          111.973,
+          106.2402,
+          111.1812,
+          100.1605,
+          102.6026,
+          114.4572,
+          null,
+          null,
+          null
+        ]
+      },
+      "ff_0": {
+        "pyPlan": null,
+        "pyAct": [
+          18.8192,
+          18.5471,
+          20.3295,
+          22.861,
+          22.9438,
+          23.3079,
+          23.5953,
+          24.8264,
+          26.6814,
+          24.3095,
+          23.7897,
+          23.3009
+        ],
+        "cyPlan": null,
+        "cyAct": [
+          21.6824,
+          22.2953,
+          23.8254,
+          24.8403,
+          24.7092,
+          25.1134,
+          23.4053,
+          24.9758,
+          26.7111,
+          null,
+          null,
+          null
+        ]
+      },
+      "ff_1": {
+        "pyPlan": null,
+        "pyAct": [
+          18.4619,
+          18.5292,
+          21.174,
+          23.4333,
+          22.4742,
+          23.0069,
+          21.8382,
+          23.35,
+          27.386,
+          25.1402,
+          25.114,
+          21.7638
+        ],
+        "cyPlan": null,
+        "cyAct": [
+          18.3171,
+          18.8287,
+          22.9984,
+          26.3297,
+          24.6095,
+          25.5307,
+          23.0222,
+          23.3196,
+          26.1686,
+          null,
+          null,
+          null
+        ]
+      },
+      "ff_2": {
+        "pyPlan": null,
+        "pyAct": [
+          17.4512,
+          17.7756,
+          20.8188,
+          24.0126,
+          23.1372,
+          23.3067,
+          22.1699,
+          22.101,
+          25.0675,
+          23.6539,
+          24.4557,
+          21.8507
+        ],
+        "cyPlan": null,
+        "cyAct": [
+          19.0648,
+          18.7647,
+          23.2257,
+          26.6922,
+          24.9679,
+          26.3677,
+          23.8365,
+          23.9445,
+          27.5456,
+          null,
+          null,
+          null
+        ]
+      },
+      "ff_3": {
+        "pyPlan": null,
+        "pyAct": [
+          19.5752,
+          20.7505,
+          22.5508,
+          23.383,
+          22.3512,
+          22.7413,
+          23.2513,
+          24.0449,
+          26.1176,
+          24.9839,
+          23.1032,
+          21.4877
+        ],
+        "cyPlan": null,
+        "cyAct": [
+          20.6959,
+          20.1174,
+          23.476,
+          25.2848,
+          23.7957,
+          24.4743,
+          22.0739,
+          23.2356,
+          25.3483,
+          null,
+          null,
+          null
+        ]
+      },
+      "ff_4": {
+        "pyPlan": null,
+        "pyAct": [
+          5.3758,
+          5.6677,
+          6.0873,
+          7.0309,
+          6.436,
+          7.0045,
+          6.342,
+          6.7077,
+          7.4146,
+          6.7412,
+          7.1295,
+          7.0141
+        ],
+        "cyPlan": null,
+        "cyAct": [
+          5.4973,
+          5.5427,
+          7.5265,
+          8.8259,
+          8.1578,
+          9.6951,
+          7.8227,
+          7.1271,
+          8.6835,
+          null,
+          null,
+          null
+        ]
+      },
+      "rem": {
+        "pyPlan": null,
+        "pyAct": null,
+        "cyPlan": null,
+        "cyAct": [
+          167.7729,
+          72.8287,
+          31.1546,
+          85.5024,
+          43.5334,
+          49.7639,
+          3.3829,
+          -15.205,
+          17.6337,
+          null,
           null,
           null
         ]
@@ -2795,6 +3266,217 @@ window.DASHBOARD_DATA = {
           null
         ]
       },
+      "ff_total": {
+        "pyPlan": null,
+        "pyAct": [
+          76.0837,
+          78.4397,
+          92.4545,
+          102.2734,
+          97.7361,
+          99.4466,
+          94.4888,
+          97.5694,
+          112.6667,
+          102.2911,
+          102.6436,
+          92.1526
+        ],
+        "cyPlan": null,
+        "cyAct": [
+          79.7019,
+          79.6547,
+          100.635,
+          113.5637,
+          105.8674,
+          109.5736,
+          96.4214,
+          97.7953,
+          113.9566,
+          null,
+          null,
+          null
+        ]
+      },
+      "ff_0": {
+        "pyPlan": null,
+        "pyAct": [
+          19.0095,
+          18.7756,
+          20.8142,
+          23.3244,
+          23.669,
+          24.1063,
+          23.8941,
+          24.8031,
+          26.9194,
+          24.0826,
+          24.0716,
+          23.0139
+        ],
+        "cyPlan": null,
+        "cyAct": [
+          21.0494,
+          21.3733,
+          23.8174,
+          25.1296,
+          24.4436,
+          24.8209,
+          22.835,
+          24.0232,
+          26.0217,
+          null,
+          null,
+          null
+        ]
+      },
+      "ff_1": {
+        "pyPlan": null,
+        "pyAct": [
+          18.1907,
+          18.4887,
+          22.4226,
+          24.7006,
+          23.5976,
+          23.9488,
+          22.1035,
+          23.4921,
+          28.7822,
+          25.6981,
+          26.0277,
+          21.9839
+        ],
+        "cyPlan": null,
+        "cyAct": [
+          17.8846,
+          18.5008,
+          24.4258,
+          28.4272,
+          26.1367,
+          26.8068,
+          23.6539,
+          23.7492,
+          27.8369,
+          null,
+          null,
+          null
+        ]
+      },
+      "ff_2": {
+        "pyPlan": null,
+        "pyAct": [
+          13.8975,
+          14.2872,
+          18.3137,
+          21.4113,
+          20.2266,
+          19.7891,
+          18.3795,
+          18.0409,
+          21.4802,
+          19.949,
+          20.7734,
+          17.9341
+        ],
+        "cyPlan": null,
+        "cyAct": [
+          14.5614,
+          14.2853,
+          19.9334,
+          23.3592,
+          21.3502,
+          22.226,
+          19.2018,
+          18.922,
+          23.4391,
+          null,
+          null,
+          null
+        ]
+      },
+      "ff_3": {
+        "pyPlan": null,
+        "pyAct": [
+          19.3665,
+          20.9487,
+          23.797,
+          24.7171,
+          23.1896,
+          23.532,
+          23.7202,
+          24.4101,
+          26.9784,
+          25.3675,
+          23.7583,
+          21.5539
+        ],
+        "cyPlan": null,
+        "cyAct": [
+          20.3107,
+          19.6783,
+          24.1435,
+          26.5617,
+          24.7433,
+          25.5064,
+          22.6685,
+          23.7422,
+          26.8694,
+          null,
+          null,
+          null
+        ]
+      },
+      "ff_4": {
+        "pyPlan": null,
+        "pyAct": [
+          5.6195,
+          5.9394,
+          7.1069,
+          8.1201,
+          7.0533,
+          8.0703,
+          6.3914,
+          6.8232,
+          8.5065,
+          7.1938,
+          8.0127,
+          7.6669
+        ],
+        "cyPlan": null,
+        "cyAct": [
+          5.8958,
+          5.817,
+          8.3149,
+          10.086,
+          9.1937,
+          10.2136,
+          8.0623,
+          7.3587,
+          9.7894,
+          null,
+          null,
+          null
+        ]
+      },
+      "rem": {
+        "pyPlan": null,
+        "pyAct": null,
+        "cyPlan": null,
+        "cyAct": [
+          63.3278,
+          33.6225,
+          9.49,
+          16.5823,
+          4.57,
+          2.9092,
+          1.4903,
+          -34.6677,
+          5.932,
+          null,
+          null,
+          null
+        ]
+      },
       "quickcom": {
         "pyPlan": null,
         "pyAct": null,
@@ -3719,6 +4401,217 @@ window.DASHBOARD_DATA = {
           null,
           null,
           45,
+          null,
+          null
+        ]
+      },
+      "ff_total": {
+        "pyPlan": null,
+        "pyAct": [
+          78.2809,
+          80.19,
+          90.9815,
+          101.0563,
+          97.3171,
+          100.1872,
+          96.7282,
+          101.2254,
+          114.4727,
+          103.6653,
+          102.798,
+          95.7762
+        ],
+        "cyPlan": null,
+        "cyAct": [
+          84.4848,
+          84.2161,
+          102.3924,
+          112.4587,
+          106.2622,
+          111.0917,
+          100.3987,
+          102.1488,
+          113.9455,
+          null,
+          null,
+          null
+        ]
+      },
+      "ff_0": {
+        "pyPlan": null,
+        "pyAct": [
+          18.2542,
+          18.1483,
+          20.1097,
+          22.6879,
+          22.6994,
+          23.4388,
+          23.4352,
+          25.0216,
+          27.0882,
+          24.3329,
+          23.4492,
+          23.3738
+        ],
+        "cyPlan": null,
+        "cyAct": [
+          21.405,
+          22.0662,
+          23.8589,
+          24.5383,
+          24.458,
+          24.7694,
+          23.1493,
+          24.4033,
+          26.3699,
+          null,
+          null,
+          null
+        ]
+      },
+      "ff_1": {
+        "pyPlan": null,
+        "pyAct": [
+          18.0276,
+          18.1686,
+          21.0627,
+          23.3811,
+          22.3638,
+          23.0351,
+          21.4591,
+          22.7641,
+          27.3223,
+          24.5106,
+          24.6633,
+          21.8547
+        ],
+        "cyPlan": null,
+        "cyAct": [
+          18.1242,
+          18.6555,
+          23.5002,
+          26.7914,
+          24.7093,
+          25.6258,
+          23.1819,
+          23.3274,
+          26.3336,
+          null,
+          null,
+          null
+        ]
+      },
+      "ff_2": {
+        "pyPlan": null,
+        "pyAct": [
+          17.7338,
+          18.2114,
+          21.4805,
+          24.7809,
+          23.8689,
+          24.214,
+          22.5339,
+          22.4282,
+          25.9551,
+          24.0412,
+          24.9794,
+          22.5757
+        ],
+        "cyPlan": null,
+        "cyAct": [
+          19.4559,
+          18.9656,
+          24.2922,
+          27.7706,
+          25.7573,
+          27.1164,
+          24.0966,
+          24.2892,
+          28.022,
+          null,
+          null,
+          null
+        ]
+      },
+      "ff_3": {
+        "pyPlan": null,
+        "pyAct": [
+          18.8041,
+          19.9023,
+          22.0449,
+          23.1871,
+          22.1622,
+          22.7179,
+          22.88,
+          23.7027,
+          26.1668,
+          24.201,
+          22.6688,
+          21.2398
+        ],
+        "cyPlan": null,
+        "cyAct": [
+          19.9974,
+          19.1632,
+          23.3398,
+          25.2098,
+          23.6187,
+          24.2692,
+          21.9595,
+          22.8454,
+          24.9419,
+          null,
+          null,
+          null
+        ]
+      },
+      "ff_4": {
+        "pyPlan": null,
+        "pyAct": [
+          5.4612,
+          5.7594,
+          6.2836,
+          7.0194,
+          6.2229,
+          6.7815,
+          6.42,
+          7.3088,
+          7.9403,
+          6.5796,
+          7.0373,
+          6.7321
+        ],
+        "cyPlan": null,
+        "cyAct": [
+          5.5022,
+          5.3656,
+          7.4013,
+          8.1486,
+          7.719,
+          9.3109,
+          8.0114,
+          7.2835,
+          8.2781,
+          null,
+          null,
+          null
+        ]
+      },
+      "rem": {
+        "pyPlan": null,
+        "pyAct": null,
+        "cyPlan": null,
+        "cyAct": [
+          36.3317,
+          4.5977,
+          6.6278,
+          13.1487,
+          21.1314,
+          19.0047,
+          -9.4975,
+          15.4,
+          8.0833,
+          null,
           null,
           null
         ]
@@ -4651,6 +5544,217 @@ window.DASHBOARD_DATA = {
           null
         ]
       },
+      "ff_total": {
+        "pyPlan": null,
+        "pyAct": [
+          77.6048,
+          78.4964,
+          86.5558,
+          95.5907,
+          92.2708,
+          94.5034,
+          93.4179,
+          97.6105,
+          107.0681,
+          100.5068,
+          98.5069,
+          90.4042
+        ],
+        "cyPlan": null,
+        "cyAct": [
+          81.7073,
+          82.3328,
+          93.9996,
+          103.3878,
+          100.0088,
+          105.3359,
+          95.1109,
+          97.9362,
+          107.0992,
+          null,
+          null,
+          null
+        ]
+      },
+      "ff_0": {
+        "pyPlan": null,
+        "pyAct": [
+          18.4865,
+          18.1317,
+          19.7247,
+          22.1802,
+          22.2882,
+          22.6035,
+          22.9669,
+          24.1275,
+          25.6254,
+          23.3835,
+          22.849,
+          22.3393
+        ],
+        "cyPlan": null,
+        "cyAct": [
+          20.8283,
+          21.3498,
+          22.2942,
+          23.4236,
+          23.794,
+          24.373,
+          22.6247,
+          24.3973,
+          25.8356,
+          null,
+          null,
+          null
+        ]
+      },
+      "ff_1": {
+        "pyPlan": null,
+        "pyAct": [
+          18.1682,
+          18.0923,
+          20.3159,
+          22.6573,
+          21.7014,
+          22.1837,
+          21.1692,
+          22.8227,
+          26.2935,
+          24.4558,
+          24.2366,
+          20.9029
+        ],
+        "cyPlan": null,
+        "cyAct": [
+          17.7139,
+          18.3205,
+          21.3788,
+          24.185,
+          23.0194,
+          24.1896,
+          21.7582,
+          22.2504,
+          24.4334,
+          null,
+          null,
+          null
+        ]
+      },
+      "ff_2": {
+        "pyPlan": null,
+        "pyAct": [
+          17.7044,
+          17.9202,
+          20.6316,
+          23.6565,
+          22.8084,
+          23.1847,
+          22.1725,
+          22.2916,
+          24.8623,
+          23.6604,
+          24.3675,
+          21.834
+        ],
+        "cyPlan": null,
+        "cyAct": [
+          19.2489,
+          19.1854,
+          22.6145,
+          25.7304,
+          24.3107,
+          25.7523,
+          23.6215,
+          23.8855,
+          26.8528,
+          null,
+          null,
+          null
+        ]
+      },
+      "ff_3": {
+        "pyPlan": null,
+        "pyAct": [
+          18.8481,
+          19.7833,
+          21.3563,
+          21.8965,
+          20.9211,
+          21.4434,
+          22.1677,
+          23.064,
+          24.935,
+          24.1519,
+          21.9617,
+          20.3089
+        ],
+        "cyPlan": null,
+        "cyAct": [
+          19.6979,
+          19.1575,
+          22.0487,
+          23.2465,
+          22.1757,
+          22.8943,
+          20.6214,
+          21.8132,
+          23.4111,
+          null,
+          null,
+          null
+        ]
+      },
+      "ff_4": {
+        "pyPlan": null,
+        "pyAct": [
+          4.3975,
+          4.569,
+          4.5273,
+          5.2002,
+          4.5518,
+          5.088,
+          4.9416,
+          5.3046,
+          5.352,
+          4.8552,
+          5.0922,
+          5.0189
+        ],
+        "cyPlan": null,
+        "cyAct": [
+          4.2183,
+          4.3197,
+          5.6633,
+          6.8023,
+          6.709,
+          8.1267,
+          6.4851,
+          5.5898,
+          6.5663,
+          null,
+          null,
+          null
+        ]
+      },
+      "rem": {
+        "pyPlan": null,
+        "pyAct": null,
+        "cyPlan": null,
+        "cyAct": [
+          62.3252,
+          15.4217,
+          9.6368,
+          14.47,
+          11.992,
+          25.64,
+          6.8751,
+          0.3788,
+          2.5184,
+          null,
+          null,
+          null
+        ]
+      },
       "quickcom": {
         "pyPlan": null,
         "pyAct": null,
@@ -5579,6 +6683,217 @@ window.DASHBOARD_DATA = {
           null
         ]
       },
+      "ff_total": {
+        "pyPlan": null,
+        "pyAct": [
+          79.4766,
+          80.4805,
+          87.6787,
+          97.0811,
+          94.7025,
+          95.3453,
+          94.7884,
+          97.6234,
+          107.6593,
+          104.5416,
+          101.8288,
+          94.774
+        ],
+        "cyPlan": null,
+        "cyAct": [
+          85.0708,
+          86.2489,
+          97.8832,
+          109.0362,
+          103.2124,
+          107.5542,
+          97.2257,
+          100.3719,
+          111.7699,
+          null,
+          null,
+          null
+        ]
+      },
+      "ff_0": {
+        "pyPlan": null,
+        "pyAct": [
+          17.8276,
+          17.4995,
+          19.2034,
+          21.5661,
+          21.3811,
+          21.227,
+          21.7724,
+          22.8963,
+          24.879,
+          23.3864,
+          22.7642,
+          22.1485
+        ],
+        "cyPlan": null,
+        "cyAct": [
+          20.6663,
+          21.5248,
+          22.8287,
+          23.7532,
+          23.5585,
+          23.6652,
+          22.2837,
+          23.9686,
+          25.9468,
+          null,
+          null,
+          null
+        ]
+      },
+      "ff_1": {
+        "pyPlan": null,
+        "pyAct": [
+          18.0389,
+          17.9487,
+          19.7572,
+          21.6902,
+          20.8846,
+          21.4156,
+          20.8724,
+          22.357,
+          25.4407,
+          24.2192,
+          23.6964,
+          20.7115
+        ],
+        "cyPlan": null,
+        "cyAct": [
+          17.8997,
+          18.1918,
+          21.2942,
+          24.4685,
+          23.0134,
+          23.6219,
+          21.4999,
+          21.8802,
+          24.3506,
+          null,
+          null,
+          null
+        ]
+      },
+      "ff_2": {
+        "pyPlan": null,
+        "pyAct": [
+          18.8288,
+          18.9653,
+          21.446,
+          24.534,
+          23.7847,
+          23.9437,
+          23.2886,
+          23.2949,
+          25.9185,
+          25.0424,
+          25.6528,
+          23.0702
+        ],
+        "cyPlan": null,
+        "cyAct": [
+          20.7742,
+          20.4456,
+          24.0349,
+          27.7045,
+          26.0612,
+          27.4314,
+          25.2965,
+          25.5597,
+          28.9501,
+          null,
+          null,
+          null
+        ]
+      },
+      "ff_3": {
+        "pyPlan": null,
+        "pyAct": [
+          19.7835,
+          20.8168,
+          21.6896,
+          22.418,
+          21.6953,
+          21.7298,
+          22.4552,
+          23.0273,
+          24.7471,
+          24.5688,
+          22.4617,
+          21.2776
+        ],
+        "cyPlan": null,
+        "cyAct": [
+          20.8376,
+          20.5805,
+          22.5633,
+          24.2999,
+          22.9247,
+          23.2674,
+          21.0611,
+          22.3711,
+          24.2177,
+          null,
+          null,
+          null
+        ]
+      },
+      "ff_4": {
+        "pyPlan": null,
+        "pyAct": [
+          4.9978,
+          5.2501,
+          5.5826,
+          6.8729,
+          6.9569,
+          7.0291,
+          6.3998,
+          6.0479,
+          6.6739,
+          7.3247,
+          7.2537,
+          7.5662
+        ],
+        "cyPlan": null,
+        "cyAct": [
+          4.893,
+          5.5063,
+          7.1621,
+          8.8102,
+          7.6547,
+          9.5683,
+          7.0844,
+          6.5922,
+          8.3047,
+          null,
+          null,
+          null
+        ]
+      },
+      "rem": {
+        "pyPlan": null,
+        "pyAct": null,
+        "cyPlan": null,
+        "cyAct": [
+          5.7882,
+          19.1868,
+          5.4,
+          41.3014,
+          5.84,
+          2.21,
+          4.515,
+          3.6839,
+          1.1,
+          null,
+          null,
+          null
+        ]
+      },
       "quickcom": {
         "pyPlan": null,
         "pyAct": null,
@@ -6008,8 +7323,8 @@ window.DASHBOARD_DATA = {
   // ---------- 종합 지표: 항목 구성 ----------
   const TOTAL_SECTIONS = [
     { title: "영업지표", keys: ["sales", "profit", "recon_owner", "recon_hq", "renewal", "preorder", "quickcom", "quick_cancel",
-                                "onnuri_store", "onnuri_sales", "mealbox", "orderinc", "slowstock", "chicken", "chicken_rate", "cafe25", "gopizza"] },
-    { title: "개발지표", keys: ["open", "close", "snb", "fcs", "fcs_new", "fcs_exist"] },
+                                "onnuri_store", "onnuri_sales", "mealbox", "orderinc", "slowstock", "ff_total", "chicken", "chicken_rate", "cafe25", "gopizza"] },
+    { title: "개발지표", keys: ["open", "close", "snb", "fcs", "fcs_new", "fcs_exist", "rem"] },
   ];
   const secKeys = sec => sec.keys.filter(k => ITEM[k]);
   // 보조지표(재계약 기준比) 가중평균
@@ -6050,12 +7365,16 @@ window.DASHBOARD_DATA = {
     }
     if (!isAvg && c != null) {
       if (org === D.orgs[0] && b) txt = "BU의 " + fmt(c / b * 100, 1) + "%";
-      else if (c4) txt = "4부문의 " + fmt(c / c4 * 100, 1) + "%";
+      else if (org === D.orgs[0] && (it.extraRows || []).length) {
+        const x = it.extraRows[0], xv = agg(it, x.series, s0, m); lbl = "구성"; txt = `${x.label} ${fmt(xv, it.decimals || 0)}${it.unit}`;
+      }
+      else if (org !== D.orgs[0] && c4) txt = "4부문의 " + fmt(c / c4 * 100, 1) + "%";
     }
     const s = ser(org), cur = s ? s[m - 1] : null, prev = s && m > s0 ? s[m - 2] : null;
     let mt = "-", mc = "";
     if (cur != null && prev != null) {
       if (isRate) { const y = Math.abs(cur - prev) < 0.05 ? 0 : cur - prev; mt = (y > 0 ? "▲ " : y < 0 ? "▼ " : "") + fmt(Math.abs(y), 1) + "%p"; mc = g(y); }
+      else if (prev <= 0 || cur < 0) { const y = cur - prev; mt = (y > 0 ? "▲ " : y < 0 ? "▼ " : "") + fmt(Math.abs(y), it.decimals || 0) + it.unit; mc = g(y); }
       else if (prev) { const y = (cur - prev) / Math.abs(prev) * 100; mt = (y > 0 ? "▲ " : y < 0 ? "▼ " : "") + fmt(Math.abs(y), 1) + "%"; mc = g(y); }
     }
     return { c, b, lbl, txt, cls, mt, mc, m, cur };
@@ -6104,7 +7423,7 @@ window.DASHBOARD_DATA = {
           <div class="metrics">
             <div class="metric"><div class="metric-label">${i.companion ? i.name.split(" ").slice(1).join(" ") + " " : ""}${bc.lbl || "BU 대비"}</div>
               <div class="metric-val num ${bc.cls || ""}">${bc.txt || "-"}</div>
-              <div class="metric-sub num">BU ${fmt(bc.b, r.d)}${i.unit}</div></div>
+              <div class="metric-sub num">${(D.bench || {})[i.key] ? `BU ${fmt(bc.b, r.d)}${i.unit}` : ""}</div></div>
             ${(ci => ci ? `<div class="metric"><div class="metric-label">${ci.label}</div>
               <div class="metric-val num">${ci.txt}</div>
               <div class="metric-sub num">${ci.share}</div></div>` : `<div class="metric"><div class="metric-label">전월 대비</div>
@@ -6112,7 +7431,7 @@ window.DASHBOARD_DATA = {
               <div class="metric-sub num">${bc.m || "-"}월 ${fmt(bc.cur, r.d)}${i.unit}</div></div>`)(compInfo(i.key, state.org))}
           </div>
           ${i.agg === "avg" ? `<div class="bars">${bbar(state.org === D.orgs[0] ? "4부문" : state.org.replace("4부문", ""), bc.c, "var(--bar-act)")}${bbar("BU", bc.b, "var(--bar-py)")}</div>` : ""}
-          <div class="card-foot"><span>${CY}년 신규 지표 · 전년·계획 없음 (BU 비교)</span></div>
+          <div class="card-foot"><span>${CY}년 신규 지표 · 전년·계획 없음${(D.bench || {})[i.key] ? " (BU 비교)" : ""}</span></div>
           <div class="more">월별 보기 ›</div>
         </div>`;
       }
@@ -6130,12 +7449,15 @@ window.DASHBOARD_DATA = {
         <div class="card-value num">${fmt(r.cyAct, r.d)}<small>${i.unit}</small></div>
         ${i.note ? `<div class="card-note">${i.note}</div>` : ""}
         <div class="metrics">
-          <div class="metric ${r.planDiff == null ? "muted" : ""}">
+          ${(r.planDiff == null && (D.bench || {})[i.key]) ? (bu => `<div class="metric">
+            <div class="metric-label">BU 대비</div>
+            <div class="metric-val num ${bu && r.cyAct >= bu ? "up" : "down"}">${bu ? fmt(r.cyAct / bu * 100, 1) + "%" : "-"}</div>
+            <div class="metric-sub num">BU ${fmt(bu, r.d)}${i.unit}</div></div>`)(agg(i, D.bench[i.key], r.s || 1, r.m)) : `<div class="metric ${r.planDiff == null ? "muted" : ""}">
             <div class="metric-label">계획 대비</div>
             <div class="metric-val num">${r.planTxt}</div>
             <div class="metric-sub">${r.isCount ? `계획 <span class="num">${fmt(r.cyPlan, r.d)}${i.unit}</span>`
               : `<span class="status ${st.cls}"><span class="dot"></span>${st.label}</span> <span class="num">${r.planDiff == null ? "" : signed(r.planDiff, r.d)}</span>`}</div>
-          </div>
+          </div>`}
           <div class="metric">
             <div class="metric-label">전년 대비</div>
             <div class="metric-val num ${dirCls(r.effYoy)}">${r.yoyTxt}</div>
@@ -6290,7 +7612,7 @@ window.DASHBOARD_DATA = {
         const x = gx + si * (bw + gap);
         if (v >= 0) s += `<path d="${barPath(x, y(v), bw, zero)}" fill="${c}"/>`;
         else s += `<rect x="${x}" y="${zero}" width="${bw}" height="${y(v) - zero}" fill="${c}"/>`;
-        if (opts.allLabels && gw >= 40) {
+        if (opts.allLabels && gw >= 40 && (k === "cyAct" || Math.max(...vals.map(Math.abs)) < 10000)) {
           const ly = v >= 0 ? y(v) - 4 : y(v) + 11;
           s += `<text class="pt-lbl ${k}" x="${x + bw / 2}" y="${ly}" text-anchor="middle" style="font-size:${bw < 14 ? 9 : 10}px">${fmt(v, r.d)}</text>`;
         }
@@ -6425,19 +7747,22 @@ window.DASHBOARD_DATA = {
   const PAGE_NAMES = { home: "초기 화면", org: "조직 및 사무소 현황", pl: "점포 손익 현황", sales: "영업지표", dev: "개발지표", total: "종합 지표 확인" };
   const PAGE_EL = { home: "p-home", org: "p-org", pl: "p-pl", sales: "p-group", dev: "p-group", total: "p-total" };
   // 영업지표 전용 항목 (데이터 미수령 → 자리만 마련, 데이터가 들어오면 build_data.py 의 items 에 추가)
-  [["o4o", "O4O"], ["slowstock", "부진재고"], ["orderinc", "발주장려금"], ["recontract", "재계약"], ["mealbox", "밀박스"], ["onnuri", "온누리"], ["counterff", "카운터FF"], ["cafe25", "카페25"], ["gopizza", "고피자"], ["quickcom", "퀵커머스"], ["fcsgrp", "FCS"]].forEach(([key, name]) => {
+  [["o4o", "O4O"], ["slowstock", "부진재고"], ["orderinc", "발주장려금"], ["recontract", "재계약"], ["mealbox", "밀박스"], ["onnuri", "온누리"], ["counterff", "카운터FF"], ["cafe25", "카페25"], ["gopizza", "고피자"], ["quickcom", "퀵커머스"], ["fcsgrp", "FCS"], ["ff", "FF"], ["rem", "REM"]].forEach(([key, name]) => {
     if (!ITEM[key]) ITEM[key] = { key, name, unit: "", decimals: 0, agg: "sum", note: "데이터 준비중", lastMonth: 0 };
   });
   (D.subItems || []).forEach(it => { ITEM[it.key] = it; });   // FCS 신규/기존 등 화면 전용 세부항목
   // 탭 안의 세부 항목 (2개 이상이면 하위 탭 표시)
   if (ITEM.gopizza && ITEM.gopizza_store) ITEM.gopizza.companion = "gopizza_store";   // 고피자: 일매출 + 운영점 함께 표시
-  const SUBS = { recontract: ["recon_owner", "recon_hq"], o4o: ["preorder", "quickcom", "quick_cancel"],
+  const FF_KEYS = (D.subItems || []).filter(i => i.group === "FF").map(i => i.key);
+  const FF_CATS = FF_KEYS.filter(k => k !== "ff_total");   // 중분류 (아래 그래프용)
+  const SUBS = { ff: ["ff_total"], recontract: ["recon_owner", "recon_hq"], o4o: ["preorder", "quickcom", "quick_cancel"],
                  onnuri: ["onnuri_store", "onnuri_sales"], fcsgrp: ["fcs", "fcs_new", "fcs_exist"], counterff: ["chicken", "chicken_rate", "cafe25", "gopizza"] };
-  const SUB_LABEL = { gopizza: "고피자", fcs: "합계", fcs_new: "신규", fcs_exist: "기존", chicken: "치킨25 일매출", recon_owner: "경영주 임차", recon_hq: "본부 임차" };
-  state.sub = { fcsgrp: "fcs", recontract: "recon_owner", o4o: "preorder", onnuri: "onnuri_store", counterff: "chicken" };
+  const SUB_LABEL = { ff_total: "합계", gopizza: "고피자", fcs: "합계", fcs_new: "신규", fcs_exist: "기존", chicken: "치킨25 일매출", recon_owner: "경영주 임차", recon_hq: "본부 임차" };
+  FF_KEYS.forEach(k => { if (k !== "ff_total") SUB_LABEL[k] = ITEM[k].name.replace(/^FF /, ""); });
+  state.sub = { ff: "ff_total", fcsgrp: "fcs", recontract: "recon_owner", o4o: "preorder", onnuri: "onnuri_store", counterff: "chicken" };
   const LEGEND_DEFAULT = document.getElementById("gLegend").innerHTML;
-  const GROUPS = { sales: ["sales", "profit", "recontract", "renewal", "o4o", "onnuri", "mealbox", "orderinc", "slowstock", "counterff"],
-                   dev: ["open", "close", "snb", "fcsgrp"] };
+  const GROUPS = { sales: ["sales", "profit", "recontract", "renewal", "o4o", "onnuri", "mealbox", "orderinc", "slowstock", "ff", "counterff"],
+                   dev: ["open", "close", "snb", "fcsgrp", "rem"] };
   state.page = "home"; state.gItem = { sales: "sales", dev: "open" }; state.gOrg = D.orgs[0]; state.tView = "cards";
   try { const h = location.hash.replace("#", ""); if (PAGE_NAMES[h]) state.page = h; } catch (e) {}
   document.querySelectorAll("#nav button").forEach(b => b.onclick = () => {
@@ -6511,10 +7836,11 @@ window.DASHBOARD_DATA = {
     }
     const key = subs ? state.sub[tabKey] : tabKey, it = ITEM[key];
     document.getElementById("gLegend").innerHTML = LEGEND_DEFAULT;
+    document.getElementById("gExtra").hidden = true;
     if (it.noCompare) return renderGroupSimple(it, key);
     const rows = D.orgs.map(o => calc(key, o));
     const tbl = document.getElementById("gTable"), chartEl = document.getElementById("gChart");
-    document.getElementById("gTableTitle").textContent = `${it.name} 조직별 누계 (${[rows[0].period, it.unit].filter(x => x && x !== "-").join(", ") || "데이터 준비중"})`;
+    document.getElementById("gTableTitle").textContent = `${it.name} 조직별 ${it.agg === "avg" ? "현황" : "누계"} (${[rows[0].period, it.unit].filter(x => x && x !== "-").join(", ") || "데이터 준비중"})`;
     document.getElementById("gChartTitle").textContent = `${it.name} 월별 추이 — ${state.gOrg}`;
     document.getElementById("gMore").hidden = !!rows[0].noData;
     if (rows[0].noData) {
@@ -6522,6 +7848,10 @@ window.DASHBOARD_DATA = {
       chartEl.innerHTML = `<div class="empty-panel">데이터 준비중</div>`; return;
     }
     const hasPlan = rows.some(r => r.cyPlan != null), X = it.extra;
+    // BU 비교 (전년 BU 가 있는 지표: FF)
+    const BUc = (D.bench || {})[key] && (D.benchPy || {})[key] ? (() => {
+      const { s: a, m } = rng(it); return { cy: agg(it, D.bench[key], a, m), py: agg(it, D.benchPy[key], a, m) };
+    })() : null;
     if (!hasPlan) document.getElementById("gLegend").innerHTML = LEGEND_DEFAULT.replace(/<span><i style="background:var\(--bar-plan\)"><\/i>.*?<\/span> 계획<\/span>/, "");
     // 보조지표(예: 재계약 기준比) — 건수 가중평균
     const xagg = (o, f) => {
@@ -6553,14 +7883,18 @@ window.DASHBOARD_DATA = {
             <td class="num">${xdiff(px, cx)}</td></tr>`;
         }).join("") + "</tbody>";
     } else
-    tbl.innerHTML = `<thead><tr><th>조직</th><th>${PY} ${AL}</th>${hasPlan ? `<th>${CY} 계획</th>` : ""}<th>${CY} ${AL}</th>${hasPlan ? "<th>계획 대비</th>" : ""}<th>전년 대비</th>${X ? `<th>${PY} ${X.label}</th><th>${CY} ${X.label}</th>` : ""}</tr></thead><tbody>` +
+    tbl.innerHTML = `<thead><tr><th>조직</th><th>${PY} ${AL}</th>${hasPlan ? `<th>${CY} 계획</th>` : ""}<th>${CY} ${AL}</th>${hasPlan ? "<th>계획 대비</th>" : ""}<th>전년 대비</th>${X ? `<th>${PY} ${X.label}</th><th>${CY} ${X.label}</th>` : ""}${BUc ? "<th>BU 대비</th>" : ""}</tr></thead><tbody>` +
       rows.map((r, i) => `<tr data-org="${D.orgs[i]}" class="${D.orgs[i] === state.gOrg ? "sel" : ""}">
         <td class="name">${D.orgs[i]}</td><td class="num">${fmt(r.pyAct, r.d)}</td>${hasPlan ? `<td class="num">${fmt(r.cyPlan, r.d)}</td>` : ""}
         <td class="num"><b>${fmt(r.cyAct, r.d)}</b></td>
         ${hasPlan ? `<td class="num">${r.st.label && r.effRate != null ? `<span class="status ${r.st.cls}"><span class="dot"></span></span> ` : ""}${r.planTxt}</td>` : ""}
         <td class="num ${dirCls(r.effYoy)}">${r.yoyTxt}</td>
-        ${X ? `<td class="num">${fmt(xagg(D.orgs[i], "pyExtra"), X.decimals)}${X.unit}</td><td class="num"><b>${fmt(xagg(D.orgs[i], "cyExtra"), X.decimals)}${X.unit}</b></td>` : ""}</tr>`).join("") + "</tbody>";
-    tbl.querySelectorAll("tbody tr").forEach(tr => tr.onclick = () => { state.gOrg = tr.dataset.org; renderGroup(); });
+        ${X ? `<td class="num">${fmt(xagg(D.orgs[i], "pyExtra"), X.decimals)}${X.unit}</td><td class="num"><b>${fmt(xagg(D.orgs[i], "cyExtra"), X.decimals)}${X.unit}</b></td>` : ""}
+        ${BUc ? `<td class="num ${r.cyAct != null && BUc.cy ? (r.cyAct >= BUc.cy ? "up" : "down") : ""}">${r.cyAct != null && BUc.cy ? fmt(r.cyAct / BUc.cy * 100, 1) + "%" : "-"}</td>` : ""}</tr>`).join("") +
+      (BUc ? `<tr data-org="BU" style="color:var(--text-3)"><td class="name">BU (평균)</td><td class="num">${fmt(BUc.py, rows[0].d)}</td><td class="num">${fmt(BUc.cy, rows[0].d)}</td>
+        <td class="num">${BUc.py && BUc.cy != null ? (BUc.cy >= BUc.py ? "▲ " : "▼ ") + fmt(Math.abs((BUc.cy - BUc.py) / BUc.py * 100), 1) + "%" : "-"}</td><td class="num">-</td></tr>` : "") + "</tbody>";
+    if (/BU 실적/.test(it.note || "")) tbl.insertAdjacentHTML("beforeend", `<caption class="tnote" style="color:var(--text-2)">※ ${it.note.split(" · ").filter(x => /BU/.test(x)).join(" · ")}</caption>`);
+    tbl.querySelectorAll("tbody tr").forEach(tr => tr.onclick = () => { if (tr.dataset.org !== "BU") { state.gOrg = tr.dataset.org; renderGroup(); } });
     const cum = calc(key, state.gOrg);
     const mrows = Array.from({ length: 12 }, (_, i) => calcMonth(key, state.gOrg, i + 1));
     const labels = mrows.map((_, i) => (i + 1) + "월");
@@ -6577,6 +7911,7 @@ window.DASHBOARD_DATA = {
       lines(chartEl, xrows, labels, { H: 360, shade: cum.m ? [1, cum.m] : null, allLabels: true, tip });
     } else
     (it.agg === "ratio" ? lines : groupedBars)(chartEl, mrows, labels, { H: it.agg === "ratio" ? 400 : 320, shade: cum.m ? [1, cum.m] : null, allLabels: true });
+    if (key === "ff_total" && FF_CATS.length) renderFFCats();
     document.getElementById("gMore").onclick = () => openModal(key, state.gOrg);
   }
 
@@ -6597,18 +7932,19 @@ window.DASHBOARD_DATA = {
       chartEl.innerHTML = `<div class="empty-panel">데이터 준비중</div>`;
       document.getElementById("gLegend").innerHTML = ""; return;
     }
-    const series = o => o === "BU" ? bench : ((D.values[o] || {})[key] || {}).cyAct;
+    const XR = Object.fromEntries((it.extraRows || []).map(x => [x.label, x.series]));   // 예: REM 부문 직속
+    const series = o => o === "BU" ? bench : o in XR ? XR[o] : ((D.values[o] || {})[key] || {}).cyAct;
     const val = (o, a, b) => agg(it, series(o), a, b);
     const one = (o, mon) => { const s = series(o); return s ? s[mon - 1] ?? null : null; };
     const cum4 = val(D.orgs[0], s0, m), cumBU = val("BU", s0, m);
     const momTxt = (cur, prev) => {
       if (cur == null || prev == null) return ["-", null];
       if (isRate) { const x = Math.abs(cur - prev) < 0.05 ? 0 : cur - prev; return [(x > 0 ? "▲ " : x < 0 ? "▼ " : "") + fmt(Math.abs(x), 1) + "%p", x]; }
-      if (!prev) return ["-", null];
+      if (it.momAbs || prev <= 0 || cur < 0) { const x = cur - prev; return [(x > 0 ? "▲ " : x < 0 ? "▼ " : "") + fmt(Math.abs(x), d) + u, x]; }
       const x = (cur - prev) / Math.abs(prev) * 100; return [(x > 0 ? "▲ " : x < 0 ? "▼ " : "") + fmt(Math.abs(x), 1) + "%", x];
     };
     const cmpHead = isAvg ? "BU 대비" : "비중";
-    const orgs = [...D.orgs, ...(bench ? ["BU"] : [])];
+    const orgs = [...D.orgs, ...Object.keys(XR), ...(bench ? ["BU"] : [])];
     const isLast = it.agg === "last";   // 잔액형: '해당 월' 대신 '연초(1월) 대비 증감'
     const single = s0 === m;   // 한 달치만 있으면 '해당 월' 열 생략
     // 함께 보여줄 지표 (고피자: 일매출 + 운영점)
@@ -6642,12 +7978,13 @@ window.DASHBOARD_DATA = {
           if (o === D.orgs[0] && cumBU) cmp = "BU의 " + fmt(c / cumBU * 100, 1) + "%";
           else if (o !== "BU" && o !== D.orgs[0] && cum4) cmp = "4부문의 " + fmt(c / cum4 * 100, 1) + "%";
         }
-        const sel = o === state.gOrg ? "sel" : "", bu = o === "BU";
+        const sel = o === state.gOrg ? "sel" : "", bu = o === "BU" || o in XR;
         return `<tr data-org="${o}" class="${sel}" ${bu ? 'style="color:var(--text-3)"' : ""}>
-          <td class="name">${bu ? "BU (전체)" : o}</td>${compCells(o)}<td class="num${CI ? " sep" : ""}"><b>${fmt(c, d)}</b></td>${single ? "" : `<td class="num">${isLast ? (cur != null && one(o, s0) != null ? signed(cur - one(o, s0), d) + u : "-") : fmt(cur, d)}</td>`}
+          <td class="name">${o === "BU" ? "BU (전체)" : o}</td>${compCells(o)}<td class="num${CI ? " sep" : ""}"><b>${fmt(c, d)}</b></td>${single ? "" : `<td class="num">${isLast ? (cur != null && one(o, s0) != null ? signed(cur - one(o, s0), d) + u : "-") : fmt(cur, d)}</td>`}
           <td class="num ${mx == null ? "" : good(mx)}">${mt}</td><td class="num ${cc}">${cmp}</td></tr>`;
       }).join("") + "</tbody>";
-    tbl.querySelectorAll("tbody tr").forEach(tr => tr.onclick = () => { if (tr.dataset.org !== "BU") { state.gOrg = tr.dataset.org; renderGroup(); } });
+    tbl.querySelectorAll("tbody tr").forEach(tr => tr.onclick = () => { if (tr.dataset.org !== "BU" && !(tr.dataset.org in XR)) { state.gOrg = tr.dataset.org; renderGroup(); } });
+    if (it.extraRows && it.extraRows.length) tbl.insertAdjacentHTML("beforeend", `<caption class="tnote" style="color:var(--text-2)">※ ${it.note.split(" · ").slice(-1)[0]}</caption>`);
     // 월별 차트: 선택 조직 실적 (+ 율 지표는 BU 비교선)
     const showBU = isAvg && bench;
     const rows = Array.from({ length: 12 }, (_, i) => ({ it, d, cyAct: one(state.gOrg, i + 1), pyAct: showBU ? one("BU", i + 1) : null, cyPlan: null }));
@@ -6765,6 +8102,23 @@ window.DASHBOARD_DATA = {
       `</tbody><tfoot><tr><td>합계</td><td class="num">${fmt(tot)}</td><td class="num">100%</td><td class="num">${fmt(T.p)}</td><td class="num">${fmt(T.l)}</td><td class="num">${plPct(T.p, T.p + T.l)}</td><td></td></tr></tfoot>`;
   }
 
+  // FF 중분류별 그래프 (선택 조직, 누계 기준월까지 월평균)
+  function renderFFCats() {
+    const el = document.getElementById("gExtra"); el.hidden = false;
+    const org = state.gOrg;
+    const rows = FF_CATS.map(k => {
+      const r = calc(k, org), it = ITEM[k], { s: a, m } = rng(it);
+      r.bu = agg(it, (D.bench || {})[k], a, m);
+      return r;
+    });
+    el.innerHTML = `<div class="sec-head" style="margin-bottom:4px"><b>FF 중분류별 실적 — ${org} (${rows[0].period}, ${ITEM.ff_total.unit})</b>
+      <div class="legend"><span><i style="background:var(--bar-py)"></i>${PY}년 실적</span><span><i style="background:var(--bar-act)"></i>${CY}년 실적</span></div></div><div id="gExtraChart"></div>`;
+    const labels = FF_CATS.map(k => ITEM[k].name.replace(/^FF /, ""));
+    groupedBars(document.getElementById("gExtraChart"), rows, labels, { H: 300, allLabels: true,
+      sub: r => `전년비 ${r.yoy == null ? "-" : (r.yoy >= 0 ? "▲" : "▼") + fmt(Math.abs(r.yoy), 1) + "%"}`,
+      tip: r => [[`${PY} 실적`, fmt(r.pyAct, r.d)], [`${CY} 실적`, fmt(r.cyAct, r.d)], ["전년 대비", r.yoyTxt], ["BU", fmt(r.bu, r.d)], ["BU 대비", r.bu ? fmt(r.cyAct / r.bu * 100, 1) + "%" : "-"]] });
+  }
+
   // ---------- 2. 조직 및 사무소 현황 ----------
   const ORG = window.ORG_DATA, MAP = window.ORG_MAP;
   const RCOL = { "1지역": "var(--r1)", "2지역": "var(--r2)", "3지역": "var(--r3)", "4지역": "var(--r4)", "FCS": "var(--rFCS)" };
@@ -6805,6 +8159,13 @@ window.DASHBOARD_DATA = {
   const HQ_NAMES = ["대전", "광주"];   // 왼쪽에 크게 표시할 대표 사무소
   // 대표 사무소 담당 지역 보정 (엑셀과 다르게 표시할 때)
   const HQ_OVERRIDE = { "광주": { regions: ["3지역", "4지역"], scope: "3, 4지역팀" } };
+  const areaTxt = a => (Number.isInteger(a) ? fmt(a) : fmt(a, 1)) + "평";
+  function termLen(t) {   // 계약기간 → (n년)
+    const d = (t.match(/\d{4}\.\d{2}\.\d{2}/g) || []).map(x => new Date(x.replace(/\./g, "-")));
+    if (d.length < 2) return "";
+    const y = Math.round((d[1] - d[0]) / 31557600000 * 2) / 2;
+    return ` <small style="display:inline;color:rgba(255,255,255,.7)">(${y}년)</small>`;
+  }
   function renderOffice() {
     const O = window.OFFICE_DATA; if (!O) return;
     const offs = O.offices.map(o => HQ_OVERRIDE[o.name] ? { ...o, ...HQ_OVERRIDE[o.name] } : o), hq = offs.filter(o => HQ_NAMES.includes(o.name)), rest = offs.filter(o => !HQ_NAMES.includes(o.name));
@@ -6812,16 +8173,21 @@ window.DASHBOARD_DATA = {
     document.getElementById("offKpis").innerHTML = [
       ["4부문 지역사무소", offs.length + "개"], ["대표 사무소", hq.map(o => o.name).join(" · ")],
       ["사무실", (offs.length - inStore) + "개"], ["점포 내 사무소", inStore + "개"],
+      ["총 면적", fmt(offs.reduce((t, o) => t + (o.area || 0), 0), 1).replace(/\.0$/, "") + "평"],
     ].map(([l, v]) => `<div class="kpi"><div class="l">${l}</div><div class="v">${v}</div></div>`).join("");
     const regChip = k => `<span><i style="background:${RCOL[k] || "var(--text-3)"}"></i>${k}</span>`;
     document.getElementById("offMain").innerHTML = hq.map(o => {
-      return `<div class="hq ${o.name === "광주" ? "gj" : ""}">
+      const L = o.lease;
+      const lease = L ? `<div class="lease"><div class="lease-h">임대차 정보</div>
+          ${L.term ? `<div class="term"><small>계약기간</small>${L.term}${termLen(L.term)}</div>` : ""}
+          <dl>${L.rows.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join("")}</dl></div>` : "";
+      return `<div class="hq ${o.name === "광주" ? "gj" : ""} ${L ? "has-lease" : ""}"><div>
         <span class="tag">대표 사무소 · ${o.type}</span>
-        <h3>${o.name} 사무소</h3>
+        <h3>${o.name} 사무소${o.area ? `<span class="area">${areaTxt(o.area)}</span>` : ""}</h3>
         <div class="scope">${o.scope}</div>
         <div class="addr">${o.address}${o.store ? `<br><b>${o.store}</b>` : ""}</div>
         <div class="regs">${o.regions.map(regChip).join("")}</div>
-      </div>`;
+      </div>${lease}</div>`;
     }).join("");
     const regs = ["1지역", "2지역", "3지역", "4지역"];
     document.getElementById("offSide").innerHTML = regs.map(rk => {
@@ -6830,7 +8196,7 @@ window.DASHBOARD_DATA = {
         <div class="h"><b>${rk}</b><span>거점 ${list.length}개${via.length ? ` · 대표 ${via.map(o => o.name).join("·")}` : ""}</span></div>
         ${list.map(o => `<div class="office">
           <div class="n"><b>${o.name}</b><span class="sc">${o.scope.replace(rk, "").trim() || o.scope}</span><span class="st ${o.store ? "" : "room"}">${o.store || "사무실"}</span></div>
-          <div class="ad">${o.address}</div></div>`).join("") || `<div class="office"><div class="ad">별도 거점 없음</div></div>`}
+          <div class="ad">${o.address}${o.area ? ` · <span class="ar">${areaTxt(o.area)}</span>` : ""}</div></div>`).join("") || `<div class="office"><div class="ad">별도 거점 없음</div></div>`}
       </div>`;
     }).join("");
   }
